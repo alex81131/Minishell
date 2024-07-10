@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/10 16:40:36 by kyeh             ###   ########.fr        #
+#    Updated: 2024/07/10 17:00:42 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ exec:
 	@$(MAKE) all
 	@./minishell
 
+# Clean file directory
 clfd:
 	@rm -f bli blo blu ble cat ls env a b c aa bb pouet toto make 2>/dev/null
 
@@ -174,4 +175,78 @@ push:
 update:
 	@git request-pull HEAD https://github.com/alex81131/Minishell.git master
 
-.PHONY: all libft+/libft.a clean fclean re norm
+lib:
+	@$(MAKE) -C libft+
+cleanlib:
+	@$(MAKE) clean
+	@$(MAKE) -C libft+/ clean
+fcleanlib:
+	@$(MAKE) fclean
+	@$(MAKE) -C libft+/ fclean
+relib:
+	@$(MAKE) fclean
+	@$(MAKE) -C libft+/ re
+	@$(MAKE) all
+
+continue:
+	@echo ""
+	@while [ -z "$$CONTINUE" ]; do \
+		read -r -p "Press [y/N] to continue : " CONTINUE; \
+	done ; \
+	[ $$CONTINUE == "y" ] || [ $$CONTINUE == "Y" ] || (echo "Exiting ..." ; exit 1 2> /dev/null)
+
+git-%:
+	@$(MAKE) clfd
+	# @$(MAKE) norm
+	@$(MAKE) continue
+	@echo ""
+	@$(MAKE) test
+	@$(MAKE) continue
+	@echo ""
+	@git add .
+	@git status
+	@$(MAKE) continue
+	@echo ""
+	@printf "\33[2K\r$(FLASH_GREEN)Commit name :\t[$(@:git-%=%)]\n\033[0m"
+	@$(MAKE) continue
+	@git commit -m "$(@:git-%=%)" 1>/dev/null
+	@printf "\33[2K\r$(YELLOW)\nPush on repositories ?\033[0m"
+	@echo ""
+	@$(MAKE) continue
+	@echo ""
+	@$(MAKE) push
+	@echo ""
+	@printf "\33[2K\r$(GREEN)Everything done\n\n\033[0m"
+
+pull:
+	@git checkout master
+	@git pull origin master
+	@gco $USER 2> /dev/null
+	@git merge master
+
+call: all
+	@nm -g $(addprefix ${OBJ_PATH}, ${OBJ_FILES})
+
+test: all
+	@sh tester/test.sh 0.01
+	@printf "\33[2K\r$(GREEN)Test done\n\n\033[0m"
+
+full_check: all
+	@$(MAKE) full_norm
+	@$(MAKE) continue
+	@echo ""
+	@$(MAKE) call
+	@$(MAKE) continue
+	@echo ""
+	@$(MAKE) relib
+	@printf "\33[2K\r$(FLASH_GREEN)\nCommit ?\n\033[0m"
+	@$(MAKE) continue
+	@echo ""
+	@git add .
+	@git commit -m "Fully checked" 1>/dev/null
+	@printf "\33[2K\r$(YELLOW)Push on repositories ?\n\033[0m"
+	@$(MAKE) continue
+	@echo ""
+	@$(MAKE) push
+
+.PHONY: all e exec clfd libft+/include/libft.h clean fclean re norm full_norm normed push update lib cleanlib fcleanlib relib continue git-% pull call test full_check
