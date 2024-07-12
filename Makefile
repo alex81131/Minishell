@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/10 17:00:42 by kyeh             ###   ########.fr        #
+#    Updated: 2024/07/12 16:10:06 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC_REDIR	=	$(addprefix redirection/, \
 SRC_DISPLAY	=	$(addprefix display/, \
 		dispay.c)
 SRC_UTILS	=	$(addprefix utils/, \
-		ft_exit.c)
+		ft_exit.c		ft_strclean.c		free_string.c)
 SRC_FILES	=	main.c $(SRC_PARSING) $(SRC_EXEC) $(SRC_VAR) $(SRC_REDIR) $(SRC_DISPLAY) $(SRC_UTILS)
 SRC_PATH	=	src/
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_FILES))
