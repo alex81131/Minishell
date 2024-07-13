@@ -20,6 +20,24 @@
 # include <string.h>
 # include <errno.h>
 
+//	COLORS
+# define BLUE "\033[0;38;5;123m"
+# define LIGHT_PINK "\033[0;38;5;200m"
+# define PINK "\033[0;38;5;198m"
+# define DARK_BLUE "\033[1;38;5;110m"
+# define GREEN "\033[1;32;111m"
+# define LIGHT_GREEN "\033[0;38;5;121m"
+# define LIGHT_RED "\033[0;31;5;110m"
+# define FLASH_GREEN "\033[33;32m"
+# define WHITE_BOLD "\033[37m"
+# define GREY "\033[3;90m"
+# define ORANGE "\033[3;91m"
+# define YELLOW "\033[0;33m"
+# define YELLOW_BOLD "\033[1;33m"
+# define RESET   "\033[0m"
+# define WHITESPACES " \t\n\v\f\r"
+
+//	STRUCTURE
 typedef struct	s_sh
 {
 	char		**key;
@@ -36,6 +54,54 @@ typedef struct	s_sh
 	char		*target_file;
 	int			stdin_bkp;
 }				t_sh;
+
+typedef struct		s_hash
+{
+	char			*key;
+	void			*value;
+	char			*type;
+	struct s_hash	*top;
+	struct s_hash	*before;
+	struct s_hash	*next;
+	struct s_hash	*(*new)(char *, void *, char *);
+	void			(*del)(struct s_hash **, struct s_hash *, struct s_hash *);
+	void			(*print)(struct s_hash *, char *);
+	void			(*add_back)(struct s_hash **, struct s_hash *);
+	void			(*add_front)(struct s_hash **, struct s_hash *);
+	void			(*del_all)(struct s_hash **);
+	void			*(*search)(struct s_hash *, char *);
+	size_t			(*len)(struct s_hash *);
+	void			(*change)(struct s_hash *, char *, void *, char *);
+	void			(*sort_key)(struct s_hash **, struct s_hash *);
+	void			(*rsort_key)(struct s_hash **, struct s_hash *);
+	void			(*sort_val)(struct s_hash **, struct s_hash *);
+	void			(*rsort_val)(struct s_hash **, struct s_hash *);
+	struct s_hash	*(*find)(struct s_hash *, char *);
+}					t_hash;
+
+typedef struct		s_strhash
+{
+	char	*key;
+	char	*value;
+}					t_strhash;
+
+//	HASH
+void		ft_hashadd_front(t_hash **hash, t_hash *new);
+void		ft_hashadd_back(t_hash **hash, t_hash *new);
+void		ft_hashdel(t_hash **hash, t_hash *before, t_hash *next);
+void		ft_hash_display(t_hash *hash, char *name);
+void		ft_hash_free(t_hash **hash);
+void		*ft_hash_search_value(t_hash *hash, char *key);
+void		ft_hash_change_value(t_hash *hash, char *key, \
+								void *value, char *type);
+void		ft_hash_sort_key(t_hash **alst, t_hash *hash);
+void		ft_hash_revsort_key(t_hash **alst, t_hash *hash);
+void		ft_hash_sort_value(t_hash **alst, t_hash *hash);
+void		ft_hash_revsort_value(t_hash **alst, t_hash *hash);
+size_t		ft_hashlen(t_hash *hash);
+t_hash		*ft_hash_init(void);
+t_hash		*ft_hashnew(char *key, void *value, char *type);
+t_hash		*ft_hash_find(t_hash *hash, char *key);
 
 //	EXEC CMD
 void		exec_cmd(t_sh *sh, char **cmd);
@@ -97,6 +163,7 @@ void		final_redir(int i, int in_fd);
 void		change_sh_path(t_hash *env, t_hash *hash);
 void		free_string(char **arr);
 void		ft_exit(int exit_code, int i);
+t_hash		*ft_hash_initialize(void);
 char		*ft_strclean(char *str, const char *charset, int free);
 t_sh		*sh(void);
 
