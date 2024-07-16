@@ -21,7 +21,7 @@ static void	search_pwd(t_sh *sh)
 	if (she->env && !sh->env->find(sh->env, "PWD"))
 	{
 		sh->add->new("PWD", getcwd(str, 1024), "string");
-		she->nev->add_back(&sh->env, sh->add);
+		sh->env->add_back(&sh->env, sh->add);
 	}
 }
 
