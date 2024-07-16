@@ -152,7 +152,7 @@ void		printf_welcome(void);
 
 //	REDIRECTIONS
 void		ft_pipe(int i, int in_fd);
-void		redirections(int i, int in_fd);
+void		redirection(int i, int in_fd);
 void		redir_counter(void);
 void		right_redir(int *i);
 int			lonely_command(int i, int in_fd);
