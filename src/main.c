@@ -58,7 +58,7 @@ void	main_loop(char *buff, size_t i)
 				redirection(0, 0);
 			else
 				ft_exec(0);
-			free_commands();
+			free_command();
 			free_string(&sh()->redir);
 			i++;
 		}

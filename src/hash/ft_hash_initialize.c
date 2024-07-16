@@ -18,19 +18,25 @@ t_hash	*ft_hash_initialize(void)
 
 	hash.before = NULL;
 	hash.next = NULL;
-	hash.del = ft_hashdel;
-	hash.print = ft_hash_display;
-	hash.add_back = ft_hash_addback;
+	hash.new = ft_hashnew;
 	hash.add_front = ft_hash_addfront;
+	hash.add_back = ft_hash_addback;
+	hash.del = ft_hashdel;
 	hash.del_all = ft_hash_free;
 	hash.search = ft_hash_search_value;
-	hash.len = ft_hashlen;
+	hash.find = ft_hash_find;
 	hash.change = ft_hash_change_value;
-	hash.new = ft_hashnew;
+	hash.len = ft_hashlen;
+	hash.print = ft_hash_display;
 	hash.sort_key = ft_hash_sort_key;
 	hash.rsort_key = ft_hash_revsort_key;
 	hash.sort_val = ft_hash_sort_value;
 	hash.rsort_val = ft_hash_revsort_value;
-	hash.find = ft_hash_find;
 	return (&hash);
 }
+/*
+Here we assign the functions we'll use to the function pointers.
+
+Maybe not hash.top = NULL;
+	because hash.top points to the node itself upon initialization.
+*/
