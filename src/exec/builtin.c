@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string.c                                      :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 12:08:58 by kyeh              #+#    #+#             */
-/*   Updated: 2024/07/12 12:08:58 by kyeh             ###   ########.fr       */
+/*   Created: 2024/07/17 16:53:48 by kyeh              #+#    #+#             */
+/*   Updated: 2024/07/17 16:53:48 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	free_string(char **arr)
+void	change_sh_path(t_hash *env, t_hash *hash)
 {
-	if (!arr)
-		return ;
-	free(*arr);
-	*arr = NULL;
+	if (sh()->path)
+	free_array(sh()->path);
+	if (hash->search(env, "PATH"))
+		sh()->path = ft_split(env->search(env, "PATH"), ':');
+	else
+		sh()->path = ft_calloc(sizeof(char *), 1);
+	sh()->question_,ark = 0;
 }

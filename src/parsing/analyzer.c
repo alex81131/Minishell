@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-size_t	ft_sublen(const char *s1, const char *s2, int existence)
-{
-	size_t	len;
-
-	len = 0;
-	if (existence == 1)
-		while (s1[len] && ft_strchr(s2, s1[len]))
-			len++;
-	if (existence == 0)
-		while (s1[len] &&!ft_strchr(s2, s1[len]))
-			len++;
-	return (len);
-}
-
 static char	*tokenize(char **ptr_to_str, const char *delimiter)
 {
 	char	*end;

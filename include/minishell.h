@@ -86,12 +86,11 @@ typedef struct	s_sh
 }				t_sh;
 
 //	HASH
-t_hash		*ft_hash_init(void);
+t_hash		*ft_hash_initialize(void);
 t_hash		*ft_hashnew(char *key, void *value, char *type);
 void		ft_hash_addfront(t_hash **hash, t_hash *new);
 void		ft_hash_addback(t_hash **hash, t_hash *new);
 void		ft_hashdel(t_hash **hash);
-void		ft_memdel(void **ptr);
 void		ft_hash_free(t_hash **hash);
 void		*ft_hash_search_value(t_hash *hash, char *key);
 t_hash		*ft_hash_find(t_hash *hash, char *key);
@@ -99,10 +98,10 @@ void		ft_hash_change_value(t_hash *hash, char *key, \
 								void *value, char *type);
 size_t		ft_hashlen(t_hash *hash);
 void		ft_hash_display(t_hash *hash, char *name);
-void		ft_hash_sort_key(t_hash **alst, t_hash *hash);
-void		ft_hash_revsort_key(t_hash **alst, t_hash *hash);
-void		ft_hash_sort_value(t_hash **alst, t_hash *hash);
-void		ft_hash_revsort_value(t_hash **alst, t_hash *hash);
+void		ft_hash_sort_key(t_hash **hash);
+void		ft_hash_sort_value(t_hash **hash);
+void		ft_hash_revsort_key(t_hash **hash);
+void		ft_hash_revsort_value(t_hash **hash);
 
 //	EXEC CMD
 void		exec_cmd(t_sh *sh, char **cmd);
@@ -140,7 +139,7 @@ void		quotes_splitter(char *s, size_t *i, char c);
 char		*complete_cmd(char *s, char c);
 char		*found_redir(char *s, size_t *j, size_t *i, size_t nb);
 size_t		separator_counter(char *s, size_t i, size_t block);
-int			analyser(char *str, char *tok, size_t i);
+int			analyzer(char *str, char *tok, size_t i);
 int			quotes_error(char *s);
 char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
 char		*join_quotes(char *s, size_t i, size_t j);
@@ -163,9 +162,12 @@ void		final_redir(int i, int in_fd);
 //	UTILS
 void		change_sh_path(t_hash *env, t_hash *hash);
 void		free_string(char **arr);
+size_t		ft_arrlen(char **arr);
 void		ft_exit(int exit_code, int i);
-t_hash		*ft_hash_initialize(void);
+void		ft_memdel(void **ptr);
 char		*ft_strclean(char *str, const char *charset, int free);
+size_t		ft_sublen(const char *s1, const char *s2, int existence);
+char		*ft_strtok(char *str, const char *separator);
 t_sh		*sh(void);
 
 #endif

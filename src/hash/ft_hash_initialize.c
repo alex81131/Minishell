@@ -29,14 +29,13 @@ t_hash	*ft_hash_initialize(void)
 	hash.len = ft_hashlen;
 	hash.print = ft_hash_display;
 	hash.sort_key = ft_hash_sort_key;
-	hash.rsort_key = ft_hash_revsort_key;
 	hash.sort_val = ft_hash_sort_value;
+	hash.rsort_key = ft_hash_revsort_key;
 	hash.rsort_val = ft_hash_revsort_value;
 	return (&hash);
 }
 /*
 Here we assign the functions we'll use to the function pointers.
 
-Maybe not hash.top = NULL;
-	because hash.top points to the node itself upon initialization.
+What about hash.type?
 */

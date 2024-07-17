@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string.c                                      :+:      :+:    :+:   */
+/*   ft_hashlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 12:08:58 by kyeh              #+#    #+#             */
-/*   Updated: 2024/07/12 12:08:58 by kyeh             ###   ########.fr       */
+/*   Created: 2024/07/17 14:23:10 by kyeh              #+#    #+#             */
+/*   Updated: 2024/07/17 14:23:10 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	free_string(char **arr)
+size_t	ft_hashlen(t_hash *hash)
 {
-	if (!arr)
-		return ;
-	free(*arr);
-	*arr = NULL;
+	size_t	i;
+
+	i = 0;
+	while (hash)
+	{
+		i++;
+		hash = hash->next;
+	}
+	return (i);
 }

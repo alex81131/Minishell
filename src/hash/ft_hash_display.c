@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_string.c                                      :+:      :+:    :+:   */
+/*   ft_hash_display.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 12:08:58 by kyeh              #+#    #+#             */
-/*   Updated: 2024/07/12 12:08:58 by kyeh             ###   ########.fr       */
+/*   Created: 2024/07/17 14:25:18 by kyeh              #+#    #+#             */
+/*   Updated: 2024/07/17 14:25:18 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	free_string(char **arr)
+void	ft_hash_display(t_hash *hash, char *name)
 {
-	if (!arr)
-		return ;
-	free(*arr);
-	*arr = NULL;
+	while (hash)
+	{
+		ft_printf("%s[%s] = %s\n", name, hash->key, hash->value);
+		hash = hash->next;
+	}
 }
