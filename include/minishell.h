@@ -35,7 +35,7 @@
 # define YELLOW "\033[0;33m"
 # define YELLOW_BOLD "\033[1;33m"
 # define RESET   "\033[0m"
-# define WHITESPACES " \t\n\v\f\r"
+# define WHITESPACE " \t\n\v\f\r"
 
 //	STRUCTURE
 typedef struct		s_hash
@@ -135,12 +135,11 @@ char		*simple_quote_allocator(char *s, size_t *j);
 char		*non_special_allocator(char **s, size_t *j);
 char		*quote_checker(char *s, size_t quote, size_t dquote);
 size_t		separator_counter(char *s, size_t i, size_t block);
-void		quotes_splitter(char *s, size_t *i, char c);
+void		quote_split(char *str, size_t *i, char c);
 char		*complete_cmd(char *s, char c);
 char		*found_redir(char *s, size_t *j, size_t *i, size_t nb);
-size_t		separator_counter(char *s, size_t i, size_t block);
 int			analyzer(char *str, char *tok, size_t i);
-int			quotes_error(char *s);
+int			quote_error(char *str);
 char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
 char		*join_quotes(char *s, size_t i, size_t j);
 char		**fill_cmd(char *s, char **cmd, size_t i, size_t j);
@@ -164,8 +163,13 @@ void		change_sh_path(t_hash *env, t_hash *hash);
 void		free_string(char **arr);
 size_t		ft_arrlen(char **arr);
 void		ft_exit(int exit_code, int i);
+size_t		ft_charpos(const char *str, int c);
+size_t		ft_count_whitespace(const char *str);
+char		*ft_insert(char *src, char *insert, size_t n, size_t len);
 void		ft_memdel(void **ptr);
 char		*ft_strclean(char *str, const char *charset, int free);
+char		*ft_strjoin_free(char *s1, char *s2, int free);
+char		*ft_strdup(const char *str, size_t n);
 size_t		ft_sublen(const char *s1, const char *s2, int existence);
 char		*ft_strtok(char *str, const char *separator);
 t_sh		*sh(void);

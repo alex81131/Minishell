@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/17 17:09:25 by kyeh             ###   ########.fr        #
+#    Updated: 2024/07/20 18:07:54 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,10 @@ SRC_REDIR	=	$(addprefix redirection/, \
 SRC_DISPLAY	=	$(addprefix display/, \
 				dispay.c)
 SRC_UTILS	=	$(addprefix utils/, \
-				ft_arrlen.c				ft_exit.c				ft_memdel.c \
-				ft_strclean.c			ft_strtok.c				free_string.c)
+				ft_arrlen.c				ft_charpos.c			ft_count_whitespace.c \
+				ft_exit.c				ft_insert.c				ft_memdel.c \
+				ft_strclean.c			ft_strjoin_free.c		ft_strdup.c \
+				ft_strtok.c				free_string.c)
 SRC_HASH	=	$(addprefix hash/, \
 				ft_hash_initialize.c	ft_hashnew.c		ft_hash_addfront.c \
 				ft_hash_addfront.c		ft_hashdel.c		ft_hash_free.c \
