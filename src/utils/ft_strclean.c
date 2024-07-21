@@ -27,6 +27,8 @@ char	*ft_strclean(char *str, const char *charset, int free)
 		i++;
 	}
 	res = (char *)malloc((len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
 	i = 0;
 	len = 0;
 	while (str[i])

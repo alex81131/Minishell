@@ -16,7 +16,7 @@ char	*ft_insert(char *src, char *insert, size_t n, size_t len)
 {
 	char	*res;
 
-	res = ft_strndup(src, n);
+	res = ft_substr(src, 0, n);
 	res = ft_strjoin_free(res, insert, 1);
 	res = ft_strjoin_free(res, src + n + len, 1);
 	free(src);

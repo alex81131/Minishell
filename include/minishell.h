@@ -126,17 +126,14 @@ void		child_sigint(int sig);
 
 //	PARSING
 char		parsing(char *str);
-char		***alloc_commands(char *str, size_t *nb);
 size_t		bloc_counter(char *s, size_t i, size_t block);
-char		**parse(char *s);
-char		**fill_cmd(char *s, char **cmd, size_t i, size_t j);
+char		**parse(char *str);
 char		*double_quote_allocator(char **s, size_t *j);
 char		*simple_quote_allocator(char *s, size_t *j);
 char		*non_special_allocator(char **s, size_t *j);
 char		*quote_checker(char *s, size_t quote, size_t dquote);
 size_t		separator_counter(char *s, size_t i, size_t block);
 void		quote_split(char *str, size_t *i, char c);
-char		*complete_cmd(char *s, char c);
 char		*found_redir(char *s, size_t *j, size_t *i, size_t nb);
 int			analyzer(char *str, char *tok, size_t i);
 int			quote_error(char *str);
@@ -169,7 +166,6 @@ char		*ft_insert(char *src, char *insert, size_t n, size_t len);
 void		ft_memdel(void **ptr);
 char		*ft_strclean(char *str, const char *charset, int free);
 char		*ft_strjoin_free(char *s1, char *s2, int free);
-char		*ft_strdup(const char *str, size_t n);
 size_t		ft_sublen(const char *s1, const char *s2, int existence);
 char		*ft_strtok(char *str, const char *separator);
 t_sh		*sh(void);

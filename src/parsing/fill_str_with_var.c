@@ -64,4 +64,6 @@ char	*fill_str_with_var(char *s, size_t i, size_t j, char *var)
 /*
 Changed from if (s[i] == '$') to if (s[++i] == '$') to correctly walk pass $.
 
+[Variable Expansion]:
+Replace any shell variables (like $VAR) with their corresponding values.
 */

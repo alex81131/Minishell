@@ -44,4 +44,9 @@ char	*join_quote(char *str, size_t i, size_t j)
 	free(str);
 	return (res);
 }
-//	Drastically changed both 2 functions
+/*
+Drastically changed both 2 functions
+
+[Quote Handling]:
+Remove quotes while preserving the integrity of the enclosed strings.
+*/

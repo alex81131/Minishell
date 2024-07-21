@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@42.fr>                          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:03:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/05/14 12:03:34 by kyeh             ###   ########.fr       */
+/*   Created: 2024/07/21 21:22:52 by kyeh              #+#    #+#             */
+/*   Updated: 2024/07/21 21:22:52 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strdup(const char *str, size_t n)
+#include "minishell.h"
+
+char	**fill_cmd(char *s, char **cmd, size_t i, size_t k)
 {
-	char	*s;
-
-	s = (char *)malloc((n + 1) * sizeof(char));
-	if (!s)
-		return (NULL);
-	ft_memcpy(s, str, n);
-	s[n] = '\0';
-	return (s);
+	size_t	j;
+	char	
 }

@@ -19,6 +19,10 @@ void	change_sh_path(t_hash *env, t_hash *hash)
 	if (hash->search(env, "PATH"))
 		sh()->path = ft_split(env->search(env, "PATH"), ':');
 	else
+	{
 		sh()->path = ft_calloc(sizeof(char *), 1);
-	sh()->question_,ark = 0;
+		if (!sh()->path)
+			return ;
+	}
+	sh()->question_mark = 0;
 }

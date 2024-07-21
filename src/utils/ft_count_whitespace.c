@@ -17,7 +17,7 @@ size_t	ft_count_whitespace(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] && ft_strchr(WHITE_SPACE, str[i]))
+	while (str[i] && ft_strchr(WHITESPACE, str[i]))
 		i++;
 	return (i);
 }
