@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+t_sh	*sh(void)
+{
+	static t_sh	sh = {0};
+
+	return (&sh);
+}
+
 static void	free_command(void)
 {
 	size_t	i;
@@ -22,7 +29,7 @@ static void	free_command(void)
 	free(sh()->cmd);
 }
 
-void	replace_question_mark(char **cmd)
+static void	replace_question_mark(char **cmd)
 {
 	size_t	i;
 
@@ -38,37 +45,45 @@ void	replace_question_mark(char **cmd)
 	}
 }
 
-void	main_loop(char *buff, size_t i)
+static void	main_loop(char *buff)
 {
-	char	**arr;
-	char	**token;
+	char	*token;
 
-	token = 0;
+	token = NULL;
 	if (analyzer(buff, token, 0))
 	{
-		arr = ft_split(buff, ';');
-		while (arr[i])
-		{
-			if (!parsing(arr[i]))
-			{
-				free_array(arr);
-				return ;
-			}
-			if (sh()->redir[0] != 0)
-				redirection(0, 0);
-			else
-				ft_exec(0);
-			free_command();
-			free_string(&sh()->redir);
-			i++;
-		}
-		free_array(arr);
+		if (!parsing(buff))
+			return ;
+		if (sh()->redir[0])
+			redirection(0, 0);
+		else
+			ft_exec(0);
+		free_command();
+		free_string(&sh()->redir);
 	}
 }
 
-t_sh	*sh(void)
+int	main(int ac, char **av, char **env)
 {
-	static t_sh	sh = {0};
+	char	*buff;
 
-	return (&sh);
+	(void)ac;
+	(void)av;
+	print_welcome();
+	get_env_var(sh(), env, 1);
+	print_prompt(sh()->env);
+	signal(SIGQUIT, handle_sigint);
+	signal(SIGINT, handle_sigint);
+	buff = get_next_line(STDIN_FILENO);
+	while (buff)
+	{
+		main_loop(buff);
+		print_prompt(sh()->env);
+		free(buff);
+		buff = get_next_line(STDIN_FILENO);
+	}
+	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");
+	if (sh()->path)
+		free_array(sh()->path);
+	return (EXIT_SUCCESS);
 }

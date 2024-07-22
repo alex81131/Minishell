@@ -12,36 +12,38 @@
 
 #include "minishell.h"
 
-static void	grep_redir(char *str, size_t *i, size_t n)
+static void	grep_operator(char *str, size_t i, size_t n)
 {
 	static size_t	j;
 
-	if (*i == 0)
+	if (i == 0)
 		j = 0;
-	if (!ft_strncmp(">>", str + *i, 2))
+	if (!ft_strncmp(">>", str + i, 2))
 		sh()->redir[j] = 'd';
 	else
-		sh()->redir[j] = str[*i];
+		sh()->redir[j] = str[i];
 	j++;
 	sh()->redir[n] = '\0';
 	if (j == n)
 		j = 0;
 }
 
-char	*found_redir(char *str, size_t *i, size_t *j, size_t n)
+char	*operator(char *s, size_t *i, size_t *j, size_t n)
 {
 	char	*res;
 	size_t	end;
 
-	grep_redir(str, i, n);
+	grep_operator(s, *i, n);
 	end = *i;
-	while (s[end] && \
-			(ft_strchr(";|<>", s[end]) || ft_strchr(WHITESPACE, s[end])))
-		end--;
-	res = ft_substr(str, *j, end - *j + 1);
-	if (!ft_strncmp(">>", str + *i, 2))
+	if (!ft_strncmp(">>", s + *i, 2))
 		(*i)++;
 	(*i)++;
+	if (ft_strchr("<>", s[end]))
+		return (NULL);
+	while (s[end] && \
+			(ft_strchr(";|", s[end]) || ft_strchr(WHITESPACE, s[end])))
+		end--;
+	res = ft_substr(s, *j, end - *j + 1);
 	return (res);
 }
 /*

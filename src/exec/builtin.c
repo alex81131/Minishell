@@ -15,7 +15,7 @@
 void	change_sh_path(t_hash *env, t_hash *hash)
 {
 	if (sh()->path)
-	free_array(sh()->path);
+		free_array(sh()->path);
 	if (hash->search(env, "PATH"))
 		sh()->path = ft_split(env->search(env, "PATH"), ':');
 	else

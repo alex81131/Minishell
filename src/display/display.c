@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	printf_welcome(void)
+void	print_welcome(void)
 {
 	ft_printf(YELLOW"\n################################################");
 	ft_printf("################################\n\n");

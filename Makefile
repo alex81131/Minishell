@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/21 20:43:29 by kyeh             ###   ########.fr        #
+#    Updated: 2024/07/22 17:54:25 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,9 @@ CFLAGS	= -Wall -Wextra -Werror -O3 -fsanitize=address -g3
 
 # Source files
 SRC_PARSING	=	$(addprefix parsing/, \
-				analyzer.c				fill_cmd.c			fill_str_with_stars.c \
-				join_quotes.c			set_redirection.c	parsing.c \
-				parsing_allocator.c 	quote_error.c		separator_counter.c \
-				set_redirection.c)
+				analyzer.c			fill_str_with_stars.c	operator.c \
+				operator_counter.c	parsing.c				parse_cmd.c \
+				quote_error.c)
 SRC_EXEC	=	$(addprefix exec/, \
 				builtin.c				builtin_cd.c		builtin_export.c \
 				exec_cmd.c				signal.c)

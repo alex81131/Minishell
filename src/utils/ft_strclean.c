@@ -18,25 +18,19 @@ char	*ft_strclean(char *str, const char *charset, int free)
 	size_t	len;
 	char	*res;
 
-	i = 0;
+	i = -1;
 	len = 0;
-	while (str[i])
-	{
+	while (str[++i])
 		if (!ft_strchr(charset, str[i]))
 			len++;
-		i++;
-	}
 	res = (char *)malloc((len + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
-	i = 0;
+	i = -1;
 	len = 0;
-	while (str[i])
-	{
+	while (str[++i])
 		if (!ft_strchr(charset, str[i]))
 			res[len++] = str[i];
-		i++;
-	}
 	if (free == 1)
 		free_string(&str);
 	res[len] = '\0';

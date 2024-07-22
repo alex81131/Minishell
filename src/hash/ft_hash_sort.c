@@ -17,7 +17,6 @@ void	ft_hash_sort_key(t_hash **hash)
 	t_hash	temp;
 	t_hash	*node;
 
-
 	if (!hash || !*hash)
 		return ;
 	node = *hash;
@@ -41,7 +40,6 @@ void	ft_hash_sort_value(t_hash **hash)
 {
 	t_hash	temp;
 	t_hash	*node;
-
 
 	if (!hash || !*hash)
 		return ;
@@ -67,7 +65,6 @@ void	ft_hash_revsort_key(t_hash **hash)
 	t_hash	temp;
 	t_hash	*node;
 
-
 	if (!hash || !*hash)
 		return ;
 	node = *hash;
@@ -91,7 +88,6 @@ void	ft_hash_revsort_value(t_hash **hash)
 {
 	t_hash	temp;
 	t_hash	*node;
-
 
 	if (!hash || !*hash)
 		return ;

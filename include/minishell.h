@@ -124,26 +124,27 @@ int			is_builtin(char *cmd);
 void		handle_sigint(int sig);
 void		child_sigint(int sig);
 
-//	PARSING
+//	PARSING, include in_quote and if_escaped in libft+
+int			analyzer(char *str, char *tok, size_t i);
 char		parsing(char *str);
-size_t		bloc_counter(char *s, size_t i, size_t block);
+char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
+int			quote_error(char *str);
+
+char		*operator(char *s, size_t *i, size_t *j, size_t n);
+int			in_quote(char *s, size_t i);
+int			if_escaped(char *s, size_t i);
+size_t		separator_counter(char *s, size_t i, size_t block);
+size_t		operator_counter(char *s, size_t i, size_t block);
+
 char		**parse(char *str);
 char		*double_quote_allocator(char **s, size_t *j);
 char		*simple_quote_allocator(char *s, size_t *j);
 char		*non_special_allocator(char **s, size_t *j);
 char		*quote_checker(char *s, size_t quote, size_t dquote);
-size_t		separator_counter(char *s, size_t i, size_t block);
-void		quote_split(char *str, size_t *i, char c);
-char		*found_redir(char *s, size_t *j, size_t *i, size_t nb);
-int			analyzer(char *str, char *tok, size_t i);
-int			quote_error(char *str);
-char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
-char		*join_quotes(char *s, size_t i, size_t j);
-char		**fill_cmd(char *s, char **cmd, size_t i, size_t j);
 
 //	DISPLAY
 void		print_prompt(t_hash *hash);
-void		printf_welcome(void);
+void		print_welcome(void);
 
 //	REDIRECTIONS
 void		ft_pipe(int i, int in_fd);

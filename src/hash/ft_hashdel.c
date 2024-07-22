@@ -29,9 +29,9 @@ void	ft_hashdel(t_hash **hash)
 {
 	if (!*hash)
 		return ;
-	ft_memdel((void**)&(*hash)->key);
-	ft_memdel((void**)&(*hash)->value);
-	ft_memdel((void**)&(*hash)->type);
+	ft_memdel((void **)&(*hash)->key);
+	ft_memdel((void **)&(*hash)->value);
+	ft_memdel((void **)&(*hash)->type);
 	free(*hash);
 	if ((*hash)->before && (*hash)->next)
 	{

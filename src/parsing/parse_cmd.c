@@ -12,41 +12,34 @@
 
 #include "minishell.h"
 
-char	*complete_cmd(char *str, char c)
+static size_t	tail_trim(char *s, size_t i)
 {
-	char	*res;
-	char	buff[1024];
-	int		n;
+	size_t	end;
 
-	res = ft_strdup("\n");
-	ft_printf(YELLOW_BOLD"> "RESET);
-	while (1)
-	{
-		n = read(0, buff, 1023);
-		buff[n] = '\0';
-		res = ft_strjoin_free(res, buff, 1);
-		if (ft_strchr(res, c))
-			break ;
-		if (buff[0])
-			ft_printf(YELLOW_BOLD"> "RESET);
-	}
-	str = ft_strjoin_free(s, res, 3);
-	return (str);
+	end = i - 1;
+	while (s[end] && ft_strchr(WHITESPACE, s[end]))
+		end--;
+	end++;
+	return (end);
 }
 
-static size_t	block_counter(char *str, size_t i, size_t block)
+static char	**fill_cmd(char **cmd, char *s, size_t i, size_t k)
 {
-	char	quote;
+	size_t	j;
 
-	while (str[i])
+	while (s[i])
 	{
-		i += ft_count_whitespace(str + i);
-		if (str[i])
-			block++;
-		while (str[i] && !ft_strchr(WHITESPACE, str[i]))
+		i += ft_count_whitespace(s + i);
+		j = i;
+		while (s[i] && !in_quote(s, i))
 			i++;
+		if (s[i] && !in_quote(s, i))
+			cmd[k++] = ft_substr(s, j, tail_trim(s, i) - j);
+		j = ++i;
+		while (s[i] && in_quote(s, i))
+			i++;
+		cmd[k++] = ft_substr(s, j, i - 1 - j);
 	}
-	return (block);
 }
 
 char	**parse(char *str)
@@ -54,10 +47,10 @@ char	**parse(char *str)
 	size_t	n;
 	char	**cmd;
 
-	n = block_counter(str, 0, 0);
+	n = operator_counter(str, 0, 0);
 	cmd = (char **)ft_calloc(n + 1, sizeof(char *));
 	if (!cmd)
 		return (NULL);
-	cmd = fill_cmd(str, cmd, 0, 0);
+	cmd = fill_cmd(cmd, str, 0, 0);
 	return (cmd);
 }
