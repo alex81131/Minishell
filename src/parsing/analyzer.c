@@ -37,7 +37,7 @@ static int	token_error(char *str, char *token, int i, int j)
 	else
 		ft_printf_fd(2, "minishell: parse error near `%c%c'\n", \
 						token[i], token[j]);
-	free_string(str);
+	free_string(&str);
 	return (0);
 }
 

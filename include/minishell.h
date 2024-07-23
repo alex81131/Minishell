@@ -126,7 +126,7 @@ void		child_sigint(int sig);
 
 //	PARSING, include in_quote and if_escaped in libft+
 int			analyzer(char *str, char *tok, size_t i);
-char		parsing(char *str);
+char		parsing(char *line)
 char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
 int			quote_error(char *str);
 
@@ -147,28 +147,32 @@ void		print_prompt(t_hash *hash);
 void		print_welcome(void);
 
 //	REDIRECTIONS
-void		ft_pipe(int i, int in_fd);
-void		redirection(int i, int in_fd);
-void		redir_counter(void);
-void		right_redir(int *i);
-int			lonely_command(int i, int in_fd);
+void		redirection(size_t i, int in_fd);
 void		redirect(int oldfd, int newfd);
-void		left_redir(int *i);
 void		final_redir(int i, int in_fd);
+int			lonely_command(int i, int in_fd);
+void		left_redir(size_t *i);
+void		right_redir(size_t *i);
+void		ft_pipe(int i, int in_fd);
+
+void		redir_counter(void);
 
 //	UTILS
+t_sh		*sh(void);
 void		change_sh_path(t_hash *env, t_hash *hash);
 void		free_string(char **arr);
 size_t		ft_arrlen(char **arr);
+char		**ft_arrjoin(char **a1, char **a2);
 void		ft_exit(int exit_code, int i);
 size_t		ft_charpos(const char *str, int c);
 size_t		ft_count_whitespace(const char *str);
-char		*ft_insert(char *src, char *insert, size_t n, size_t len);
+char		*ft_insert(char *src, char *insert, size_t start, size_t skip);
 void		ft_memdel(void **ptr);
+char		**ft_split_minishell(char *buff);
 char		*ft_strclean(char *str, const char *charset, int free);
 char		*ft_strjoin_free(char *s1, char *s2, int free);
 size_t		ft_sublen(const char *s1, const char *s2, int existence);
 char		*ft_strtok(char *str, const char *separator);
-t_sh		*sh(void);
-
+void		skip_quote_char(char *s, size_t *i, size_t *pos, char *charset);
+void		skip_quote(char *str, size_t *i, char c);
 #endif

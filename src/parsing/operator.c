@@ -20,12 +20,14 @@ static void	grep_operator(char *str, size_t i, size_t n)
 		j = 0;
 	if (!ft_strncmp(">>", str + i, 2))
 		sh()->redir[j] = 'd';
-	else
+	else if (str[i] == ';' || str[i] == '|' || str[i] == '<' || str[i] == '>')
 		sh()->redir[j] = str[i];
+	else
+		return ;
 	j++;
-	sh()->redir[n] = '\0';
-	if (j == n)
+	if (j >= n)
 		j = 0;
+	sh()->redir[n] = '\0';
 }
 
 char	*operator(char *s, size_t *i, size_t *j, size_t n)
@@ -38,12 +40,11 @@ char	*operator(char *s, size_t *i, size_t *j, size_t n)
 	if (!ft_strncmp(">>", s + *i, 2))
 		(*i)++;
 	(*i)++;
-	if (ft_strchr("<>", s[end]))
-		return (NULL);
-	while (s[end] && \
-			(ft_strchr(";|", s[end]) || ft_strchr(WHITESPACE, s[end])))
+	while (s[end] && (ft_strchr(" \t\n\v\f\r|<>", s[end])))
 		end--;
 	res = ft_substr(s, *j, end - *j + 1);
+	if (!res)
+		free_string(&res);
 	return (res);
 }
 /*

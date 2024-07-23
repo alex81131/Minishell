@@ -1,6 +1,0 @@
-redirection.c
-lonely_commands.c
-left_redirection.c
-	<
-right_redirection.c
-	>

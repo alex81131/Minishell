@@ -48,18 +48,27 @@ static void	replace_question_mark(char **cmd)
 static void	main_loop(char *buff)
 {
 	char	*token;
+	char	**arr;
+	size_t	i;
 
 	token = NULL;
+	i = 0;
 	if (analyzer(buff, token, 0))
 	{
-		if (!parsing(buff))
-			return ;
-		if (sh()->redir[0])
-			redirection(0, 0);
-		else
-			ft_exec(0);
-		free_command();
-		free_string(&sh()->redir);
+		arr = ft_split_minishell(buff);
+		while (arr[i])
+		{
+			if (!parsing(buff))
+				return ;
+			if (sh()->redir[0])
+				redirection(0, 0);
+			else
+				ft_exec(0);
+			free_command();
+			free_string(&sh()->redir);
+			i++;
+		}
+		free_array(arr);
 	}
 }
 
@@ -87,3 +96,7 @@ int	main(int ac, char **av, char **env)
 		free_array(sh()->path);
 	return (EXIT_SUCCESS);
 }
+/*
+main_loop separate the input by unescaped ;
+and let parsing parse the |<>
+*/

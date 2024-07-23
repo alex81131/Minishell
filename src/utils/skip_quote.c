@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrlen.c                                        :+:      :+:    :+:   */
+/*   skip_quote.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 17:06:03 by kyeh              #+#    #+#             */
-/*   Updated: 2024/07/17 17:06:03 by kyeh             ###   ########.fr       */
+/*   Created: 2024/07/23 16:35:00 by kyeh              #+#    #+#             */
+/*   Updated: 2024/07/23 16:35:00 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_arrlen(char **arr)
+void	skip_quote(char *str, size_t *i, char c)
 {
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
+	(*i)++;
+	*i += ft_charpos(str + *i, c) + 1;
 }
