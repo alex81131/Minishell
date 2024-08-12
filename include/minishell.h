@@ -110,15 +110,19 @@ void		ft_exec(size_t i);
 void		replace_question_mark(char **cmd);
 
 //	BUILTIN
+void		change_sh_path(t_hash *env, t_hash *hash);
+int			is_builtin(char *cmd);
+void		builtin_env(t_sh *sh, t_hash *env);
+void		builtin_unset(t_sh *sh, char **key, size_t j);
+void		builtin_echo(char **cmd);
+
 void		builtin_export(t_sh *sh, char **key);
 void		exec_builtin(t_sh *sh, size_t j);
-void		builtin_env(t_sh *sh, t_hash *env);
+
 void		builtin_cd(t_sh *sh, char **cmd);
 void		get_env_var(t_sh *sh, char **env, size_t i);
 void		replace_env_var(t_sh *sh, char **cmd, size_t i);
-void		builtin_echo(char **cmd);
-void		builtin_unset(t_sh *sh, char **key, size_t j);
-int			is_builtin(char *cmd);
+
 
 //	SIGNAL
 void		handle_sigint(int sig);
@@ -159,7 +163,6 @@ void		redir_counter(void);
 
 //	UTILS
 t_sh		*sh(void);
-void		change_sh_path(t_hash *env, t_hash *hash);
 void		free_string(char **arr);
 size_t		ft_arrlen(char **arr);
 char		**ft_arrjoin(char **a1, char **a2);
@@ -175,4 +178,5 @@ size_t		ft_sublen(const char *s1, const char *s2, int existence);
 char		*ft_strtok(char *str, const char *separator);
 void		skip_quote_char(char *s, size_t *i, size_t *pos, char *charset);
 void		skip_quote(char *str, size_t *i, char c);
+
 #endif

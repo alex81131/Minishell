@@ -14,7 +14,7 @@
 
 int	print_quote_error(void)
 {
-	ft_printf_fd(2, "minishell: parse error: quotes not completed\n");
+	ft_printf_fd(2, "Minishell: parse error: quotes not completed\n");
 	return (EXIT_FAILURE);
 }
 
