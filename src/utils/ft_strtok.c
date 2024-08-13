@@ -44,13 +44,13 @@ char	*ft_strtok(char *str, const char *separator)
 		save = str;
 		return (NULL);
 	}
-	next += ft_sublen(str, separator, 0);
-	if (*end == '\0')
+	next = str + ft_sublen(str, separator, 0);
+	if (*next == '\0')
 	{
-		save = end;
+		save = next;
 		return (NULL);
 	}
-	*end = '\0';
-	save = end + 1;
+	*next = '\0';
+	save = next + 1;
 	return (str);
 }

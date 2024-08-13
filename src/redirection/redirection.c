@@ -15,8 +15,14 @@
 void	redirect(int oldfd, int newfd)
 {
 	if (oldfd != newfd)
+	{
 		if (dup2(oldfd, newfd) == -1)
+		{
+			perror("dup2");
 			close(oldfd);
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 
 static void	exec_child(size_t i, int in_fd)
@@ -51,10 +57,25 @@ static void	exec_parent(size_t i, int in_fd)
 	redirection(i, sh()->fd[0]);
 }
 
-void	redirection(size_t i, int in_fd)
+static void	pipe_and_fork(size_t i, int in_fd)
 {
 	pid_t	pid;
 
+	sh()->stdin_bkp = dup(STDIN_FILENO);
+	if (sh()->stdin_bkp == -1 || pipe(sh()->fd) == -1)
+		ft_exit(EXIT_FAILURE, i);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+		exec_child(i, in_fd);
+}
+
+void	redirection(size_t i, int in_fd)
+{
 	if (!sh()->cmd[i + 1])
 	{
 		if (i > 0)
@@ -64,17 +85,15 @@ void	redirection(size_t i, int in_fd)
 	}
 	else
 	{
-		sh()->stdin_bkp = dup(STDIN_FILENO);
-		if (pipe(sh()->fd))
-			ft_exit(EXIT_FAILURE, i);
-		pid = fork();
-		if (pid == -1)
-			ft_printf_fd(2, "%s\n", strerror(errno));
-		if (pid == 0)
-			exec_child(i, in_fd);
-		wait();
-		dup2(sh()->stdin_bkp, STDIN_FILENO);
-		close(sh()->fd[0]);
-		close(sh()->fd[1]);
+		pipe_and_fork(i, in_fd);
+		wait(NULL);
+		exec_parent(i, in_fd);
 	}
+	if (dup2(sh()->stdin_bkp, STDIN_FILENO) == -1)
+	{
+		perror("dups2");
+		exit(EXIT_FAILURE);
+	}
+	close(sh()->fd[0]);
+	close(sh()->stdin_bkp);
 }

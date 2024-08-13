@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-include "minishell.h"
+#include "minishell.h"
 
 char	*ft_insert(char *src, char *insert, size_t start, size_t skip)
 {

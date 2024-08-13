@@ -28,7 +28,7 @@ static void	builtin_export_empty(t_sh *sh, t_hash **env)
 		cpy->add_back(&cpy, add_cpy);
 		*env = (*env)->next;
 	}
-	cpy->sort_key(&cpy, cpy);
+	cpy->sort_key(&cpy);
 	top_cpy = cpy;
 	while (cpy)
 	{
@@ -41,7 +41,7 @@ static void	builtin_export_empty(t_sh *sh, t_hash **env)
 	*env = top;
 }
 
-static void	is_valid_key(char *key)
+static char	is_valid_key(char *key)
 {
 	size_t	i;
 
@@ -60,7 +60,7 @@ static void	add_key(t_sh *sh, char **key, size_t j, char **token)
 {
 	while (key[++j])
 	{
-		token[0] = ft_strtok(env[0], "=");
+		token[0] = ft_strtok(key[0], "=");
 		token[1] = ft_strtok(NULL, "=");
 		if (!is_valid_key(token[0]))
 		{
@@ -72,7 +72,7 @@ static void	add_key(t_sh *sh, char **key, size_t j, char **token)
 			token[1] = "";
 		if (token[0][0] && sh->hash->search(sh->env, token[0]))
 		{
-			sh->env->change(sh->env, token[0], token[1], "string")
+			sh->env->change(sh->env, token[0], token[1], "string");
 			continue ;
 		}
 		if (ft_strchr(key[j], '='))

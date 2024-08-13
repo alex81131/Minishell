@@ -14,7 +14,7 @@
 
 int	lonely_command(size_t i, int in_fd)
 {
-	pidt_t	pid;
+	pid_t	pid;
 
 	if (!is_builtin(sh()->cmd[i][0]))
 	{

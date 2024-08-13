@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:27:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/07/12 11:49:06 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/08/13 18:51:26 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ int		ft_putchar(int c);
 int		ft_putstr(char *str);
 int		ft_printf(const char *format, ...);
 //		<int_decimal>
-char	*ft_inttochar(char *str, unsigned int m, int len);
+char	*ft_inttochar(char *str, unsigned int m, unsigned int len);
 int		ft_putnbr(int n);
 //		<unsigned_int>
 int		ft_uputnbr(unsigned int n);
+char	*ft_uitoa(unsigned int n);
 //		<number_hex>
 int		hex_digit(unsigned int n);
 int		ft_puthex(unsigned int n, const char format);

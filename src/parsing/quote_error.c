@@ -40,7 +40,7 @@ int	quote_error(char *str)
 	if (ft_strchr(str, '\'') && \
 		(ft_strchr(str, '\'') < ft_strchr(str, '\"') || !ft_strchr(str, '\"')))
 		quote = '\'';
-	i += ft_charpos(s, quote) + 1;
+	i = ft_charpos(str, quote) + 1;
 	if (!str[i])
 		return (print_quote_error());
 	while (str[i])

@@ -12,19 +12,31 @@
 
 #include "minishell.h"
 
-static char	assign_value(char **value, char *var, size_t i, size_t pos)
+static void	assign_value(char **s, size_t *i, size_t pos)
 {
-	var = ft_substr(s, pos + 1, i - pos - 1);
-	if (var && var[0] == '?')
-		*value = ft_itoa(sh()->question_mark);
-	else
-		*value = sh()->env->search(sh()->env, var);
-}
-
-char	*fill_str_with_var(char *s, size_t i, size_t pos, char *var)
-{
+	char	*var;
 	char	*value;
 
+	var = ft_substr(*s, pos + 1, *i - pos - 1);
+	if (!var)
+		return ;
+	if (var && var[0] == '?')
+		value = ft_itoa(sh()->question_mark);
+	else
+		value = sh()->env->search(sh()->env, var);
+	if (value)
+	{
+		*s = ft_insert(*s, value, pos, ft_strlen(var) + 1);
+		*i += ft_strlen(value) - 1;
+		free(value);
+	}
+	else
+		*s = ft_insert(*s, " ", pos, ft_strlen(var) + 1);
+	free(var);
+}
+
+char	*fill_str_with_var(char *s, size_t i, size_t pos)
+{
 	while (s[i])
 	{
 		skip_quote_char(s, &i, &pos, WHITESPACE);
@@ -34,15 +46,7 @@ char	*fill_str_with_var(char *s, size_t i, size_t pos, char *var)
 			while (s[i] && !if_escaped(s, i) \
 					&& !ft_strchr(" \t\n\v\f\r;|<>$", s[i]))
 				i++;
-			assign_value(&value, var, i, pos);
-			if (value)
-			{
-				s = ft_insert(s, value, pos, ft_strlen(var) + 1);
-				i += ft_strlen(value) - 1;
-			}
-			else
-				s = ft_insert(s, " ", pos, ft_strlen(var) + 1);
-			free_string(&var);
+			assign_value(&s, &i, pos);
 		}
 		else
 			i++;

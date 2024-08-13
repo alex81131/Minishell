@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+void	change_sh_path(t_hash *env, t_hash *hash)
+{
+	if (sh()->path)
+		free_array(sh()->path);
+	if (hash->search(env, "PATH"))
+		sh()->path = ft_split(env->search(env, "PATH"), ':');
+	else
+	{
+		sh()->path = ft_calloc(1, sizeof(char *));
+		if (!sh()->path)
+			return ;
+	}
+	sh()->question_mark = 0;
+}
+
 int	is_builtin(char *cmd)
 {
 	if (!ft_strcmp(cmd, "cd") \
@@ -36,35 +51,20 @@ void	builtin_env(t_sh *sh, t_hash *env)
 		ft_printf_fd(1, "%s\n", env->value);
 		env = env->next;
 	}
-	sh()->question_mark = 0;
-}
-
-void	change_sh_path(t_hash *env, t_hash *hash)
-{
-	if (sh()->path)
-		free_array(sh()->path);
-	if (hash->search(env, "PATH"))
-		sh()->path = ft_split(env->search(env, "PATH"), ':');
-	else
-	{
-		sh()->path = ft_calloc(sizeof(char *), 1);
-		if (!sh()->path)
-			return ;
-	}
-	sh()->question_mark = 0;
+	sh->question_mark = 0;
 }
 
 void	builtin_unset(t_sh *sh, char **key, size_t j)
 {
 	while (key[++j])
 	{
-		if (sh()->env(->search(sh()->env, key[j])))
+		if (sh->env->search(sh->env, key[j]))
 		{
-			sh()->env = sh()->env->find(sh()->env, key[j]);
-			sh()->env->del(&sh()->env, sh()->env->before, sh()->env->next);
+			sh->env = sh->env->find(sh->env, key[j]);
+			sh->env->del(&sh->env);
 		}
 	}
-	change_sh_path(sh()->env, sh()->hash);
+	change_sh_path(sh->env, sh->hash);
 }
 
 void	builtin_echo(char **cmd)

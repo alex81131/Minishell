@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <dirent.h>
 # include <string.h>
@@ -25,7 +26,7 @@
 # define LIGHT_PINK "\033[0;38;5;200m"
 # define PINK "\033[0;38;5;198m"
 # define DARK_BLUE "\033[1;38;5;110m"
-# define GREEN "\033[1;32;111m"
+# define GREEN "\033[1;32m"
 # define LIGHT_GREEN "\033[0;38;5;121m"
 # define LIGHT_RED "\033[0;31;5;110m"
 # define FLASH_GREEN "\033[33;32m"
@@ -56,10 +57,10 @@ typedef struct		s_hash
 	void			(*change)(struct s_hash *, char *, void *, char *);
 	size_t			(*len)(struct s_hash *);
 	void			(*print)(struct s_hash *, char *);
-	void			(*sort_key)(struct s_hash **, struct s_hash *);
-	void			(*rsort_key)(struct s_hash **, struct s_hash *);
-	void			(*sort_val)(struct s_hash **, struct s_hash *);
-	void			(*rsort_val)(struct s_hash **, struct s_hash *);
+	void			(*sort_key)(struct s_hash **);
+	void			(*rsort_key)(struct s_hash **);
+	void			(*sort_val)(struct s_hash **);
+	void			(*rsort_val)(struct s_hash **);
 }					t_hash;
 
 typedef struct		s_strhash
@@ -103,26 +104,17 @@ void		ft_hash_sort_value(t_hash **hash);
 void		ft_hash_revsort_key(t_hash **hash);
 void		ft_hash_revsort_value(t_hash **hash);
 
-//	EXEC CMD
-void		exec_cmd(t_sh *sh, char **cmd);
-int			ft_fork_process(t_sh *sh, char **cmd);
-void		ft_exec(size_t i);
-void		replace_question_mark(char **cmd);
-
-//	BUILTIN
+//	EXEC, BUILTIN
 void		change_sh_path(t_hash *env, t_hash *hash);
 int			is_builtin(char *cmd);
 void		builtin_env(t_sh *sh, t_hash *env);
 void		builtin_unset(t_sh *sh, char **key, size_t j);
 void		builtin_echo(char **cmd);
-
-void		builtin_export(t_sh *sh, char **key);
-void		exec_builtin(t_sh *sh, size_t j);
-
 void		builtin_cd(t_sh *sh, char **cmd);
-void		get_env_var(t_sh *sh, char **env, size_t i);
-void		replace_env_var(t_sh *sh, char **cmd, size_t i);
+void		builtin_export(t_sh *sh, char **key);
 
+void		ft_exec(size_t i);
+void		get_env_var(t_sh *sh, char **env, size_t i);
 
 //	SIGNAL
 void		handle_sigint(int sig);
@@ -130,8 +122,8 @@ void		child_sigint(int sig);
 
 //	PARSING, include in_quote and if_escaped in libft+
 int			analyzer(char *str, char *tok, size_t i);
-char		parsing(char *line)
-char		*fill_str_with_var(char *s, size_t i, size_t j, char *var);
+char		parsing(char *line);
+char		*fill_str_with_var(char *s, size_t i, size_t pos);
 int			quote_error(char *str);
 
 char		*operator(char *s, size_t *i, size_t *j, size_t n);
@@ -153,13 +145,10 @@ void		print_welcome(void);
 //	REDIRECTIONS
 void		redirection(size_t i, int in_fd);
 void		redirect(int oldfd, int newfd);
-void		final_redir(int i, int in_fd);
-int			lonely_command(int i, int in_fd);
+void		final_redir(size_t i, int in_fd);
+int			lonely_command(size_t i, int in_fd);
 void		left_redir(size_t *i);
 void		right_redir(size_t *i);
-void		ft_pipe(int i, int in_fd);
-
-void		redir_counter(void);
 
 //	UTILS
 t_sh		*sh(void);
@@ -173,7 +162,7 @@ char		*ft_insert(char *src, char *insert, size_t start, size_t skip);
 void		ft_memdel(void **ptr);
 char		**ft_split_minishell(char *buff);
 char		*ft_strclean(char *str, const char *charset, int free);
-char		*ft_strjoin_free(char *s1, char *s2, int free);
+char		*ft_strjoin_free(char *s1, char *s2, int option);
 size_t		ft_sublen(const char *s1, const char *s2, int existence);
 char		*ft_strtok(char *str, const char *separator);
 void		skip_quote_char(char *s, size_t *i, size_t *pos, char *charset);

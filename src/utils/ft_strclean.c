@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 char	*ft_strclean(char *str, const char *charset, int free)
 {

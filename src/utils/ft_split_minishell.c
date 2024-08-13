@@ -67,7 +67,7 @@ char	**ft_split_minishell(char *buff)
 {
 	char	**res;
 
-	res = (char **)ft_calloc(block_number(buff) + 1, (char *));
+	res = (char **)ft_calloc(block_number(buff) + 1, sizeof(char *));
 	if (!res)
 		return (NULL);
 	res = split_action(res, buff);

@@ -28,14 +28,14 @@ static void	change_folder(t_sh *sh, char *path)
 	if (chdir(path) == -1)
 	{
 		ft_printf_fd(2, "%s\n", strerror(errno));
-		sh->env->change(sh->env, "OLDPWD", old_pwd, "string")
-		sh->questionmark = 1;
+		sh->env->change(sh->env, "OLDPWD", old_pwd, "string");
+		sh->question_mark = 1;
 	}
 	else
 	{
 		if (sh->env->find(sh->env, "PWD"))
 			sh->env->change(sh->env, "PWD", getcwd(str, 1024), "string");
-		sh->questionmark = 0;
+		sh->question_mark = 0;
 	}
 	free_string(&old_pwd);
 }
@@ -47,11 +47,13 @@ void	builtin_cd(t_sh *sh, char **cmd)
 
 	path = NULL;
 	i = 1;
-	if (cmd[i] && (!ft_strcmp(cmd[i] "-L") || !ft_strcmp(cmd[i] "-P")))
+	if (cmd[i] && (!ft_strcmp(cmd[i], "-L") || !ft_strcmp(cmd[i], "-P")))
 		i = 2;
 	if (cmd[i] == NULL)
+	{
 		if (sh->env->search(sh->env, "HOME"))
 			path = ft_strdup(sh->env->search(sh->env, "HOME"));
+	}
 	else
 		path = ft_strdup(cmd[i]);
 	change_folder(sh, path);

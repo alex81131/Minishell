@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:27:51 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/10 17:44:03 by kyeh             ###   ########.fr        #
+#    Updated: 2024/08/13 18:47:10 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ FDF = \
 
 SRC_FILES = \
 		$(LIBFT) $(FT_PRINTF) $(GNL) $(FDF)
-SRC_PATH = src
+SRC_PATH = src/
 SRC = $(addprefix $(SRC_PATH), $(SRC_FILES))
 OBJ_FILES	= ${SRC_FILES:.c=.o}
-OBJ_PATH = obj
+OBJ_PATH = obj/
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 
 

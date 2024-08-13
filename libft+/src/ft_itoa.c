@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:44:25 by kyeh              #+#    #+#             */
-/*   Updated: 2024/05/31 13:49:31 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/08/13 18:49:21 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ long int	ft_digit(int n)
 	return (digit);
 }
 
-char	*ft_inttochar(char *str, unsigned int m, long int len)
+char	*ft_inttochar(char *str, unsigned int m, unsigned int len)
 {
 	if (m == 0)
 		str[0] = '0';

@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/07/23 20:30:40 by kyeh             ###   ########.fr        #
+#    Updated: 2024/08/13 18:59:59 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,11 @@ NAME	= minishell
 
 # Compiler and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -O3 -fsanitize=address -g3
-#-O3: prioritize code optimization for speed at the expense of code size
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
 
 # Source files
 SRC_PARSING	=	$(addprefix parsing/, \
-				analyzer.c			fill_str_with_stars.c	operator.c \
+				analyzer.c			fill_str_with_var.c		operator.c \
 				operator_counter.c	parsing.c				parse_cmd.c \
 				quote_error.c)
 SRC_EXEC	=	$(addprefix exec/, \
@@ -47,18 +46,18 @@ SRC_REDIR	=	$(addprefix redirection/, \
 				redirection.c			left_redirection.c	right_redirection.c \
 				lonely_command.c)
 SRC_DISPLAY	=	$(addprefix display/, \
-				dispay.c)
+				display.c)
 SRC_UTILS	=	$(addprefix utils/, \
 				ft_arrlen.c				ft_arrjoin.c			ft_charpos.c \
 				ft_count_whitespace.c	ft_exit.c				ft_insert.c \
 				ft_memdel.c				ft_split_minishell.c	ft_strclean.c \
-				ft_strjoin_free.		ft_strtok.c				free_string.c \
+				ft_strjoin_free.c		ft_strtok.c				free_string.c \
 				skip_quote.c)
 SRC_HASH	=	$(addprefix hash/, \
 				ft_hash_initialize.c	ft_hashnew.c		ft_hash_addfront.c \
-				ft_hash_addfront.c		ft_hashdel.c		ft_hash_free.c \
-				ft_hash_search_value.c	ft_hash_find.c		ft_hashlen.c \
-				ft_hash_display.c		ft_hash_sort.c)
+				ft_hash_addback.c		ft_hashdel.c		ft_hash_free.c \
+				ft_hash_search_value.c	ft_hash_find.c		ft_hash_change_value.c \
+				ft_hashlen.c			ft_hash_display.c	ft_hash_sort.c)
 SRC_FILES	=	main.c $(SRC_PARSING) $(SRC_EXEC) $(SRC_VAR) $(SRC_REDIR) $(SRC_DISPLAY) $(SRC_UTILS) $(SRC_HASH)
 SRC_PATH	=	src/
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_FILES))
@@ -92,9 +91,7 @@ clfd:
 	@rm -f bli blo blu ble cat ls env a b c aa bb pouet toto make 2>/dev/null
 
 $(LIBFT): libft+/include/libft.h
-	@$(MAKE) -C libft/
-libft+/include/libft.h:
-	@git submodule update --ini --recursive
+	@$(MAKE) -C libft+/
 
 $(OBJ_PATH):
 	@mkdir -p obj/ 2> /dev/null
@@ -106,6 +103,7 @@ $(OBJ_PATH):
 	@mkdir -p obj/utils 2> /dev/null
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HEADER)/minishell.h Makefile
+	@mkdir -p $(dir $@)
 	@printf "\033[2K\r$(LIGHT_RED)Compiling...	\033[37m$<\033[36m \033[0m"
 	@gcc $(CFLAGS) -I $(HEADER) -I libft+/include -c $< -o $@
 
@@ -259,3 +257,9 @@ full_check: all
 	@$(MAKE) push
 
 .PHONY: all e exec clfd libft+/include/libft.h clean fclean re norm full_norm normed push update lib cleanlib fcleanlib relib continue git-% pull call test full_check
+#	@mkdir -p $(dir $@) is used in Makefile rules to ensure that the directory where the object file will be placed exists before attempting to create the object file.
+#		-p flag creates any missing parent directories in the specified path:
+#			mkdir -p path/to/directory
+#			it'll create path and path/to if either of them does not exist.
+#		$(dir $@) retrieves the directory path from the target file path:
+#			if $@ is obj/main.o, $(dir $@) will be obj/

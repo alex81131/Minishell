@@ -46,7 +46,7 @@ void	left_redir(size_t *i)
 	close(fd);
 	dup2(STDIN_FILENO, sh()->stdin_bkp);
 	close(sh()->stdin_bkp);
-	if (sh()->redir[*i] && sh()->redir[*i] == '>' || sh()->redir[*i] == 'd')
+	if (sh()->redir[*i] && (sh()->redir[*i] == '>' || sh()->redir[*i] == 'd'))
 		right_redir(&j);
 	if (sh()->redir[*i])
 		redirect(sh()->fd[1], STDOUT_FILENO);

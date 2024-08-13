@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char *s1, char *s2, int free)
+char	*ft_strjoin_free(char *s1, char *s2, int option)
 {
 	char	*res;
 
 	res = ft_strjoin(s1, s2);
 	if (!res)
 		return (NULL);
-	if (free == 1)
+	if (option == 1)
 		free(s1);
-	if (free == 2)
+	if (option == 2)
 		free(s2);
-	if (free == 3)
+	if (option == 3)
 	{
 		free(s1);
 		free(s2);

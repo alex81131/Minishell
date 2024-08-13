@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	***alloc_operator(char str, size_t *n)
+static char	***alloc_operator(char *str, size_t *n)
 {
 	char	***cmd;
 
@@ -59,10 +59,11 @@ static char	**ft_split_cmd(char *s, size_t n, size_t i, size_t k)
 	}
 	while (s[--i] && ft_strchr(WHITESPACE, s[i]))
 		;
-	entry[k++] = ft_substr(s, start, i - start + 1);
+	entry[k++] = ft_substr(s, pos, i - pos + 1);
 	if (!entry[k - 1])
 	{
 		free_array(entry);
+		entry = NULL;
 		return (NULL);
 	}
 	entry[k] = NULL;
@@ -74,7 +75,7 @@ static int	parsing_setup(char *line, char **str, size_t *n)
 	*str = ft_strdup(line);
 	if (!*str)
 		return (0);
-	*str = fill_str_with_var(*str, 0, 0, NULL);
+	*str = fill_str_with_var(*str, 0, 0);
 	if (!*str || quote_error(*str))
 	{
 		free(*str);
@@ -102,15 +103,17 @@ char	parsing(char *line)
 	if (!entry)
 	{
 		free(str);
-		free_array(sh()->cmd);
+		free(sh()->cmd);
 		return (0);
 	}
 	i = 0;
 	while (entry[i])
-		sh()->cmd[i] = parse(entry[i++]);
+	{
+		sh()->cmd[i] = parse(entry[i]);
+		i++;
+	}
 	sh()->cmd[i] = NULL;
 	free(str);
-	free_array(entry);
 	return (1);
 }
 

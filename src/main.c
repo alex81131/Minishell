@@ -29,22 +29,6 @@ static void	free_command(void)
 	free(sh()->cmd);
 }
 
-static void	replace_question_mark(char **cmd)
-{
-	size_t	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (!ft_strcmp(cmd[i], "$?"))
-		{
-			free_string(&cmd[i]);
-			cmd[i] = ft_itoa(sh()->question_mark);
-		}
-		i++;
-	}
-}
-
 static void	main_loop(char *buff)
 {
 	char	*token;
@@ -58,7 +42,7 @@ static void	main_loop(char *buff)
 		arr = ft_split_minishell(buff);
 		while (arr[i])
 		{
-			if (!parsing(buff))
+			if (!parsing(arr[i]))
 				return ;
 			if (sh()->redir[0])
 				redirection(0, 0);

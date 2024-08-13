@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-static size_t	block_counter(char *s, size_t i, size_t, block)
+static size_t	block_counter(char *s, size_t i, size_t block)
 {
 	while (s[i])
 	{
 		i += ft_count_whitespace(s + i);
-		if (s[*i] && s[*i] == '\'')
+		if (s[i] && s[i] == '\'')
 		{
-			skip_quote(s, i, '\'');
+			skip_quote(s, &i, '\'');
 			block++;
 		}
-		else if (s[*i] && s[*i] == '\"')
+		else if (s[i] && s[i] == '\"')
 		{
-			skip_quote(s, i, '\"');
+			skip_quote(s, &i, '\"');
 			block++;
 		}
 		else
@@ -50,12 +50,13 @@ static char	**fill_cmd(char **cmd, char *s, size_t i, size_t k)
 		if (s[i] && in_quote(s, i))
 		{
 			j = i + 1;
-			skip_quote(s, i, s[i]);
+			skip_quote(s, &i, s[i]);
 			cmd[k++] = ft_substr(s, j, i - j - 1);
 		}
 		else
 			cmd[k++] = ft_substr(s, j, i - j);
 	}
+	return (cmd);
 }
 
 char	**parse(char *str)
@@ -68,5 +69,6 @@ char	**parse(char *str)
 	if (!cmd)
 		return (NULL);
 	cmd = fill_cmd(cmd, str, 0, 0);
+	free(str);
 	return (cmd);
 }
