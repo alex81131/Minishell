@@ -37,4 +37,4 @@ char	*ft_strclean(char *str, const char *charset, int free)
 	return (res);
 }
 
-//	Subtract the characters in the charset from str and return the new str.
+//	Remove the characters in the charset from str and return the new str.

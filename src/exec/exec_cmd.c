@@ -33,7 +33,7 @@ void	exec_builtin(t_sh *sh, size_t j)
 		builtin_export(sh, sh->cmd[j]);
 	else if (!ft_strncmp(sh->cmd[j][0], "exit", 5))
 	{
-		ft_printf_fd(1, "%s\n", exit);
+		ft_printf_fd(1, "%s\n", "exit\n");
 		if (sh->path)
 			free_array(sh->path);
 		exit(EXIT_SUCCESS);
@@ -70,9 +70,21 @@ static void	exec_cmd(t_sh *sh, char **cmd)
 
 	i = 0;
 	env_cpy = cpy_env(sh->env);
+
+	   // Debugging: Print initial command and env_cpy
+    printf("Initial command: %s\n", cmd[0]);
+
 	if (execve(cmd[0], cmd, env_cpy) == -1)
 	{
+
+        // Debugging: Check if we reach this point
+        printf("execve failed for command: %s\n", cmd[0]);
+
 		current_cmd = ft_strjoin_free("/", cmd[0], 2);
+
+        // Print the current command being tried
+        printf("Command: %s\n", current_cmd);
+
 		while (sh->path && sh->path[i])
 		{
 			cmd[0] = ft_strjoin_free(sh->path[i], current_cmd, 0);
@@ -81,7 +93,7 @@ static void	exec_cmd(t_sh *sh, char **cmd)
 			free_string(&cmd[0]);
 		}
 		if (errno == ENOENT)
-			ft_printf_fd(2, "Minishell: %s: Command not fouind.\n", \
+			ft_printf_fd(2, "Minishell: %s: Command not found.\n", \
 							current_cmd + 1);
 		else
 			ft_printf_fd(2, "%s\n", strerror(errno));

@@ -37,7 +37,10 @@ static void	assign_value(char **s, size_t *i, size_t pos)
 
 char	*fill_str_with_var(char *s, size_t i, size_t pos)
 {
-	while (s[i])
+	size_t	len;
+
+	len = ft_strlen(s);
+	while (i < len)
 	{
 		skip_quote_char(s, &i, &pos, WHITESPACE);
 		if (s[i] && s[i] == '$')

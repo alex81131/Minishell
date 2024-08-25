@@ -14,6 +14,10 @@
 
 void	skip_quote(char *str, size_t *i, char c)
 {
+	size_t	pos;
+
 	(*i)++;
-	*i += ft_charpos(str + *i, c) + 1;
+	pos = ft_charpos(str + *i, c);
+	if (pos != (size_t)-1)
+		*i += pos + 1;
 }

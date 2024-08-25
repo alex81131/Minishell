@@ -45,6 +45,14 @@ static char	is_valid_key(char *key)
 {
 	size_t	i;
 
+	if (!key) {
+        printf("is_valid_key: received NULL key\n");
+        return 0;  // Early return for NULL input
+    }
+
+    printf("is_valid_key: checking key = %s\n", key);
+
+	
 	i = 0;
 	while (key[i])
 	{

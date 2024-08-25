@@ -50,10 +50,11 @@ static char	**ft_split_cmd(char *s, size_t n, size_t i, size_t k)
 	entry = (char **)malloc(sizeof(char *) * (n + 1));
 	if (!entry)
 		return (NULL);
+	pos = i;
 	while (s[i] && s[i] != '\n')
 	{
-		while (s[i] && !(!if_escaped(s, i) && ft_strchr("|<>", s[i])))
-			skip_quote_char(s, &i, &pos, " \t\n\v\f\r\'\"|<>");
+		if (s[i] && !(!if_escaped(s, i) && ft_strchr("|<>", s[i])))
+			i++;
 		if (s[i] && !if_escaped(s, i) && ft_strchr("|<>", s[i]))
 			entry[k++] = operator(s, &i, &pos, n);
 	}
@@ -113,6 +114,7 @@ char	parsing(char *line)
 		i++;
 	}
 	sh()->cmd[i] = NULL;
+	free(entry);
 	free(str);
 	return (1);
 }

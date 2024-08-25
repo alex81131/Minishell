@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-static char	*tokenize(char **ptr_to_str, const char *delimiter)
+static char	*tokenize(char *ptr_to_str, const char *delimiter)
 {
 	char	*end;
 
-	if (*ptr_to_str == NULL)
+	if (ptr_to_str == NULL)
 		return (NULL);
-	end = *ptr_to_str + ft_sublen(*ptr_to_str, delimiter, 0);
+	end = ptr_to_str + ft_sublen(ptr_to_str, delimiter, 0);
 	if (*end)
 	{
 		*end++ = '\0';
-		*ptr_to_str = end;
+		ptr_to_str = end;
 	}
 	else
-		*ptr_to_str = NULL;
-	return (*ptr_to_str);
+		ptr_to_str = NULL;
+	return (ptr_to_str);
 }
 
 static int	token_error(char *str, char *token, int i, int j)
@@ -55,9 +55,8 @@ int	analyzer(char *str, char *token, size_t i)
 {
 	char	*temp;
 
-	temp = ft_strdup(str);
-	temp = ft_strclean(temp, " \t", 1);
-	token = tokenize(&temp, ";");
+	temp = ft_strclean(str, "\t\n\v\f\r", 0);
+	token = tokenize(temp, ";");
 	while (token)
 	{
 		if (token[0])
@@ -74,8 +73,9 @@ int	analyzer(char *str, char *token, size_t i)
 			if (ft_strchr("<>&|", token[i]))
 				return (token_error(temp, token, i, 0));
 		}
+		token = tokenize(temp, ";");
 	}
-	free_string(&temp);
+	free(temp);
 	return (1);
 }
 /*

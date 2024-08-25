@@ -17,19 +17,15 @@ static size_t	block_counter(char *s, size_t i, size_t block)
 	while (s[i])
 	{
 		i += ft_count_whitespace(s + i);
-		if (s[i] && s[i] == '\'')
+		if (s[i] && !if_escaped(s, i) && (s[i] == '\'' || s[i] == '\"'))
 		{
-			skip_quote(s, &i, '\'');
-			block++;
-		}
-		else if (s[i] && s[i] == '\"')
-		{
-			skip_quote(s, &i, '\"');
+			skip_quote(s, &i, s[i]);
 			block++;
 		}
 		else
 		{
-			while (s[i] && !ft_strchr(WHITESPACE, s[i]))
+			while (s[i] && !ft_strchr(WHITESPACE, s[i]) && \
+					!(!if_escaped(s, i) && (s[i] == '\'' || s[i] == '\"')))
 				i++;
 			block++;
 		}
