@@ -67,29 +67,48 @@ void	builtin_unset(t_sh *sh, char **key, size_t j)
 	change_sh_path(sh->env, sh->hash);
 }
 
-void	builtin_echo(char **cmd)
+static int	is_n_flag(char *flag)
 {
-	size_t	i;
+	int	i;
 
-	i = 1;
-	if (!cmd[1])
+	if (ft_strncmp(flag, "-n", 2))
 	{
-		write(1, "\n", 1);
-		return ;
+		return (0);
 	}
-	if (!ft_strncmp(cmd[1], "-n", 3))
-		i++;
-	while (cmd[i])
+	i = 2;
+	while (flag[i])
 	{
-		ft_printf_fd(1, "%s", cmd[i]);
+		if (flag[i] != 'n')
+		{
+			return (0);
+		}
 		i++;
-		if (cmd[i])
-			write(1, " ", 1);
 	}
-	if (ft_strncmp(cmd[1], "-n", 3))
-		write(1, "\n", 1);
-	sh()->question_mark = 0;
+	return (1);
 }
 /*
 -n option: Suppresses the trailing newline.
 */
+
+void	builtin_echo(char **cmd)
+{
+	int	i;
+	int	nl;
+
+	i = 1;
+	nl = 1;
+	while (cmd[i] && is_n_flag(cmd[i]))
+	{
+		nl = 0;
+		i++;
+	}
+	while (cmd[i])
+	{
+		ft_printf_fd(1, "%s", cmd[i]);
+		if (cmd[++i])
+			ft_printf_fd(1, "%s", " ");
+	}
+	if (nl)
+		ft_printf_fd(1, "%s", "\n");
+	sh()->question_mark = 0;
+}
