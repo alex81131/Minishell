@@ -16,6 +16,7 @@ void	redirect(int oldfd, int newfd)
 {
 	if (oldfd != newfd)
 	{
+        printf("Redirecting from %d to %d\n", oldfd, newfd);
 		if (dup2(oldfd, newfd) == -1)
 		{
 			perror("dup2");
