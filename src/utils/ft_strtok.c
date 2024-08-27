@@ -21,7 +21,7 @@ size_t	ft_sublen(const char *s1, const char *s2, int existence)
 		while (s1[len] && ft_strchr(s2, s1[len]))
 			len++;
 	if (existence == 0)
-		while (s1[len] &&!ft_strchr(s2, s1[len]))
+		while (s1[len] && !ft_strchr(s2, s1[len]))
 			len++;
 	return (len);
 }
@@ -48,7 +48,7 @@ char	*ft_strtok(char *str, const char *separator)
 	if (*next == '\0')
 	{
 		save = next;
-		return (NULL);
+		return (str);
 	}
 	*next = '\0';
 	save = next + 1;

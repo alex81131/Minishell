@@ -88,6 +88,7 @@ static void	exec_cmd(t_sh *sh, char **cmd)
 		while (sh->path && sh->path[i])
 		{
 			cmd[0] = ft_strjoin_free(sh->path[i], current_cmd, 0);
+			printf("RESULT:%s\n", cmd[0]);
 			execve(cmd[0], cmd, env_cpy);
 			i++;
 			free_string(&cmd[0]);
