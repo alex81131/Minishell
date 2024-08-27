@@ -29,22 +29,26 @@ void	ft_hashdel(t_hash **hash)
 {
 	if (!*hash)
 		return ;
-	ft_memdel((void **)&(*hash)->key);
-	ft_memdel((void **)&(*hash)->value);
-	ft_memdel((void **)&(*hash)->type);
-	free(*hash);
+	ft_memdel((void *)&(*hash)->key);
+	ft_memdel((void *)&(*hash)->value);
 	if ((*hash)->before && (*hash)->next)
 	{
 		(*hash)->before->next = (*hash)->next;
 		(*hash)->next->before = (*hash)->before;
+		*hash = (*hash)->top;
 	}
 	else if ((*hash)->before)
+	{
 		(*hash)->before->next = NULL;
+		*hash = (*hash)->top;
+	}
 	else if ((*hash)->next)
 	{
 		(*hash)->next->before = NULL;
 		be_top(&(*hash)->next);
 	}
+	else
+		*hash = NULL;
 }
 /*
 Check if 	*hash = (*hash)->top;

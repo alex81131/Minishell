@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/08/13 18:59:59 by kyeh             ###   ########.fr        #
+#    Updated: 2024/08/27 18:05:03 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,40 +148,6 @@ full_norm:
 	@norminette $(SRC_PATH)
 	@printf "${NOCOLOR}"
 
-normed:
-	@norminette $(SRC_PATH) $(HEADER)
-	@$(MAKE) continue
-	@echo ""
-	@git add .
-	@git commit -m "normed" 1>/dev/null
-	@printf "\33[2K\r$(YELLOW)Push on repositories ?\n\033[0m"
-	@$(MAKE) continue
-	@echo ""
-	@$(MAKE) push
-
-push:
-	@printf "\33[2K\r$(LIGHT_RED)Pushing 	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing .	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing ..	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing ...	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing 	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing .	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing ..	\033[37m"
-	@sleep 0.1
-	@printf "\33[2K\r$(LIGHT_RED)Pushing ...	\033[37m"
-	@sleep 0.1
-	@git push origin `git symbolic-ref --short HEAD`
-	@printf "\33[2K\r$(FLASH_GREEN)Pushed successfully on vogsphere !\n\033[0m"
-
-update:
-	@git request-pull HEAD https://github.com/alex81131/Minishell.git master
-
 lib:
 	@$(MAKE) -C libft+
 cleanlib:
@@ -194,45 +160,6 @@ relib:
 	@$(MAKE) fclean
 	@$(MAKE) -C libft+/ re
 	@$(MAKE) all
-
-continue:
-	@echo ""
-	@while [ -z "$$CONTINUE" ]; do \
-		read -r -p "Press [y/N] to continue : " CONTINUE; \
-	done ; \
-	[ $$CONTINUE == "y" ] || [ $$CONTINUE == "Y" ] || (echo "Exiting ..." ; exit 1 2> /dev/null)
-
-git-%:
-	@$(MAKE) clfd
-	# @$(MAKE) norm
-	@$(MAKE) continue
-	@echo ""
-	@$(MAKE) test
-	@$(MAKE) continue
-	@echo ""
-	@git add .
-	@git status
-	@$(MAKE) continue
-	@echo ""
-	@printf "\33[2K\r$(FLASH_GREEN)Commit name :\t[$(@:git-%=%)]\n\033[0m"
-	@$(MAKE) continue
-	@git commit -m "$(@:git-%=%)" 1>/dev/null
-	@printf "\33[2K\r$(YELLOW)\nPush on repositories ?\033[0m"
-	@echo ""
-	@$(MAKE) continue
-	@echo ""
-	@$(MAKE) push
-	@echo ""
-	@printf "\33[2K\r$(GREEN)Everything done\n\n\033[0m"
-
-pull:
-	@git checkout master
-	@git pull origin master
-	@gco $USER 2> /dev/null
-	@git merge master
-
-call: all
-	@nm -g $(addprefix ${OBJ_PATH}, ${OBJ_FILES})
 
 test: all
 	@sh tester/test.sh 0.01
@@ -256,7 +183,7 @@ full_check: all
 	@echo ""
 	@$(MAKE) push
 
-.PHONY: all e exec clfd libft+/include/libft.h clean fclean re norm full_norm normed push update lib cleanlib fcleanlib relib continue git-% pull call test full_check
+.PHONY: all e exec clfd libft+/include/libft.h clean fclean re norm full_norm lib cleanlib fcleanlib relib test full_check
 #	@mkdir -p $(dir $@) is used in Makefile rules to ensure that the directory where the object file will be placed exists before attempting to create the object file.
 #		-p flag creates any missing parent directories in the specified path:
 #			mkdir -p path/to/directory

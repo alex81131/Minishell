@@ -28,7 +28,7 @@ t_hash	*ft_hashnew(char *key, void *value, char *type)
 		return (NULL);
 	hash->key = ft_strdup(key);
 	hash->value = value_alloc(value, type);
-	hash->type = type;
+	// hash->type = type;
 	hash->top = hash;
 	hash->before = NULL;
 	hash->next = NULL;

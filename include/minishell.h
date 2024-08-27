@@ -43,7 +43,7 @@ typedef struct		s_hash
 {
 	char			*key;
 	void			*value;
-	char			*type;
+	// char			*type;
 	struct s_hash	*top;
 	struct s_hash	*before;
 	struct s_hash	*next;

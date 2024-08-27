@@ -48,7 +48,6 @@ void	right_redir(size_t *i)
 
 	fd = 0;
 	j = (*i)++;
-    printf("Processing right redirection at index %zu\n", j);
 	while (sh()->redir[*i] == '>' && sh()->redir[*i] == 'd')
 		wrap_openning_fd(fd, j, i);
 	if (sh()->cmd[*i][1])
@@ -59,11 +58,9 @@ void	right_redir(size_t *i)
 		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		ft_exit(EXIT_FAILURE, *i);
-    printf("Attempting dup2 with fd %d and STDOUT_FILENO %d\n", fd, STDOUT_FILENO);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		ft_exit(EXIT_FAILURE, *i);
 	sh()->fd[1] = fd;
-    printf("Redirected fd %d to STDOUT_FILENO\n", fd);
 	redirect(sh()->fd[1], STDOUT_FILENO);
 	(*i)++;
 	if (sh()->redir[*i] == '<' || sh()->redir[*i] == 'd')

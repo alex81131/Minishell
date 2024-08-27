@@ -41,7 +41,7 @@ void	left_redir(size_t *i)
 	fd = open(sh()->cmd[*i][right_fd(i)], O_RDONLY);
 	if (fd == -1)
 		ft_exit(EXIT_FAILURE, *i);
-	if (dup2(fd, STDIN_FILENO) < 0)
+	if (dup2(fd, STDIN_FILENO) == -1)
 		ft_exit(EXIT_FAILURE, *i);
 	close(fd);
 	dup2(STDIN_FILENO, sh()->stdin_bkp);
@@ -50,4 +50,5 @@ void	left_redir(size_t *i)
 		right_redir(&j);
 	if (sh()->redir[*i])
 		redirect(sh()->fd[1], STDOUT_FILENO);
+	ft_exec(j);
 }
