@@ -129,7 +129,6 @@ int			quote_error(char *str);
 char		*operator(char *s, size_t *i, size_t *j, size_t n);
 int			in_quote(char *s, size_t i);
 int			if_escaped(char *s, size_t i);
-size_t		separator_counter(char *s, size_t i, size_t block);
 size_t		operator_counter(char *s, size_t i, size_t block);
 
 char		**parse(char *str);

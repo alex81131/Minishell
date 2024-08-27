@@ -16,7 +16,7 @@ static char	***alloc_operator(char *str, size_t *n)
 {
 	char	***cmd;
 
-	*n = separator_counter(str, 0, 0) + 1;
+	*n = operator_counter(str, 0, 0) + 1;
 	cmd = (char ***)ft_calloc(*n + 1, sizeof(char **));
 	if (!cmd)
 		return (NULL);

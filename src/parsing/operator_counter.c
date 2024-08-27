@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   separator_counter.c                                :+:      :+:    :+:   */
+/*   operator_counter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -47,22 +47,11 @@ int	in_quote(char *s, size_t i)
 	return (in_single_quote || in_double_quote);
 }
 
-size_t	separator_counter(char *s, size_t i, size_t block)
-{
-	while (s[i] && s[i] != '\n')
-	{
-		if (!in_quote(s, i) && !if_escaped(s, i) && ft_strchr(";|", s[i]))
-			block++;
-		i++;
-	}
-	return (block);
-}
-
 size_t	operator_counter(char *s, size_t i, size_t block)
 {
 	while (s[i] && s[i] != '\n')
 	{
-		if (!in_quote(s, i) && !if_escaped(s, i) && ft_strchr(";|<>", s[i]))
+		if (!in_quote(s, i) && !if_escaped(s, i) && ft_strchr("|<>", s[i]))
 		{
 			block++;
 			if (!ft_strncmp(">>", s + i, 2))

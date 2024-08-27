@@ -70,25 +70,12 @@ static void	exec_cmd(t_sh *sh, char **cmd)
 
 	i = 0;
 	env_cpy = cpy_env(sh->env);
-
-	   // Debugging: Print initial command and env_cpy
-    printf("Initial command: %s\n", cmd[0]);
-
 	if (execve(cmd[0], cmd, env_cpy) == -1)
 	{
-
-        // Debugging: Check if we reach this point
-        printf("execve failed for command: %s\n", cmd[0]);
-
 		current_cmd = ft_strjoin_free("/", cmd[0], 2);
-
-        // Print the current command being tried
-        printf("Command: %s\n", current_cmd);
-
 		while (sh->path && sh->path[i])
 		{
 			cmd[0] = ft_strjoin_free(sh->path[i], current_cmd, 0);
-			printf("RESULT:%s\n", cmd[0]);
 			execve(cmd[0], cmd, env_cpy);
 			i++;
 			free_string(&cmd[0]);

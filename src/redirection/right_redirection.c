@@ -20,7 +20,6 @@ static void	wrap_openning_fd(int fd, size_t j, size_t *i)
 		fd = open(sh()->cmd[*i][0], O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		ft_exit(EXIT_FAILURE, *i);
-	close(fd);
 	if (sh()->cmd[*i][1])
 		sh()->cmd[j] = ft_arrjoin(sh()->cmd[j], sh()->cmd[*i] + 1);
 	(*i)++;
@@ -54,7 +53,7 @@ void	right_redir(size_t *i)
 	if (sh()->cmd[*i][1])
 		sh()->cmd[j] = ft_arrjoin(sh()->cmd[j], sh()->cmd[*i] + 1);
 	if (sh()->redir[*i - 1] == 'd')
-		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_APPEND);
+		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_APPEND, 0644);
 	else
 		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)

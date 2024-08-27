@@ -20,7 +20,7 @@ static void	grep_operator(char *str, size_t i, size_t n)
 		j = 0;
 	if (!ft_strncmp(">>", str + i, 2))
 		sh()->redir[j] = 'd';
-	else if (str[i] == ';' || str[i] == '|' || str[i] == '<' || str[i] == '>')
+	else if (str[i] == '|' || str[i] == '<' || str[i] == '>')
 		sh()->redir[j] = str[i];
 	else
 		return ;
@@ -45,6 +45,7 @@ char	*operator(char *s, size_t *i, size_t *j, size_t n)
 	res = ft_substr(s, *j, end - *j + 1);
 	if (!res)
 		free_string(&res);
+	*j = *i;
 	return (res);
 }
 /*
