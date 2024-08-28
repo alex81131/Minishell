@@ -75,8 +75,11 @@ int	main(int ac, char **av, char **env)
 			ft_printf_fd(2, "\n");
 			break ;
 		}
-		main_loop(buff);
-		// print_prompt(sh()->env);
+		if (buff[0])
+		{
+			add_history(buff);
+			main_loop(buff);
+		}
 		free(buff);
 	}
 	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");
