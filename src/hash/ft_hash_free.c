@@ -21,7 +21,7 @@ void	ft_hash_free(t_hash **hash)
 	while (*hash)
 	{
 		next = (*hash)->next;
-		ft_hashdel(hash);
+		ft_hashdel(hash, (*hash)->before, (*hash)->next);
 		*hash = next;
 	}
 }
