@@ -14,11 +14,14 @@
 
 t_hash	*ft_hash_find(t_hash *hash, char *key)
 {
-	while (hash)
+	if (hash)
 	{
-		if (!ft_strcmp(hash->key, key))
-			return (hash);
-		hash = hash->next;
+		while (hash)
+		{
+			if (!ft_strcmp(hash->key, key))
+				return (hash);
+			hash = hash->next;
+		}
 	}
 	return (NULL);
 }
