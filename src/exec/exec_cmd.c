@@ -33,7 +33,7 @@ void	exec_builtin(t_sh *sh, size_t j)
 		builtin_export(sh, sh->cmd[j]);
 	else if (!ft_strncmp(sh->cmd[j][0], "exit", 5))
 	{
-		ft_printf_fd(1, "%s\n", "Exiting...");
+		ft_printf_fd(1, "%s\n", "exit\n");
 		if (sh->path)
 			free_array(sh->path);
 		exit(EXIT_SUCCESS);
