@@ -20,6 +20,9 @@ static void	change_folder(t_sh *sh, char *path)
 	old_pwd = NULL;
 	if (sh->env->search(sh->env, "OLDPWD"))
 	{
+		ft_printf_fd(2, "HEY1\n");
+		ft_printf_fd(2, "%s\n", (sh->env->find(sh->env, "OLD_PWD"))->key);
+		ft_printf_fd(2, "%s\n", (char *)sh->env->search(sh->env, "OLD_PWD"));
 		old_pwd = ft_strdup(sh->env->search(sh->env, "OLD_PWD"));
 		sh->env->change(sh->env, "OLDPWD", getcwd(str, 1024), "string");
 	}

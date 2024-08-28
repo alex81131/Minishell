@@ -60,11 +60,9 @@ int	main(int ac, char **av, char **env)
 {
 	char	*buff;
 
-	(void)ac;
-	(void)av;
+	(void)av[ac];
 	print_welcome();
 	get_env_var(sh(), env, 1);
-	// print_prompt(sh()->env);
 	signal(SIGQUIT, handle_sigint);
 	signal(SIGINT, handle_sigint);
 	while (1)
