@@ -64,16 +64,20 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	print_welcome();
 	get_env_var(sh(), env, 1);
-	print_prompt(sh()->env);
+	// print_prompt(sh()->env);
 	signal(SIGQUIT, handle_sigint);
 	signal(SIGINT, handle_sigint);
-	buff = get_next_line(STDIN_FILENO);
-	while (buff)
+	while (1)
 	{
+		buff = readline(DARK_BLUE "Minishell : " RESET);
+		if (!buff)
+		{
+			ft_printf_fd(2, "\n");
+			break ;
+		}
 		main_loop(buff);
-		print_prompt(sh()->env);
+		// print_prompt(sh()->env);
 		free(buff);
-		buff = get_next_line(STDIN_FILENO);
 	}
 	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");
 	if (sh()->path)

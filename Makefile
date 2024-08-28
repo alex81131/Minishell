@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/08/27 18:05:03 by kyeh             ###   ########.fr        #
+#    Updated: 2024/08/28 13:15:36 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ NAME	= minishell
 
 # Compiler and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3 -lreadline
 
 # Source files
 SRC_PARSING	=	$(addprefix parsing/, \

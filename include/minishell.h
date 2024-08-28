@@ -20,6 +20,8 @@
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 //	COLORS
 # define BLUE "\033[0;38;5;123m"
