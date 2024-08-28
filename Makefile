@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
+#    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/08/28 13:15:36 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/08/28 16:27:36 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3 -lreadline
 
 # Source files
 SRC_PARSING	=	$(addprefix parsing/, \
-				analyzer.c			fill_str_with_var.c		operator.c \
-				operator_counter.c	parsing.c				parse_cmd.c \
-				quote_error.c)
+				analyzer.c			fill_cmd.c				fill_str_with_var.c \
+				operator.c			operator_counter.c		parsing.c \
+				parse_cmd.c			quote_error.c)
 SRC_EXEC	=	$(addprefix exec/, \
 				builtin.c				builtin_cd.c		builtin_export.c \
 				exec_cmd.c				signal.c)

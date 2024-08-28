@@ -134,6 +134,7 @@ int			if_escaped(char *s, size_t i);
 size_t		operator_counter(char *s, size_t i, size_t block);
 
 char		**parse(char *str);
+char		**fill_cmd(char **cmd, char *s, size_t i, size_t k);
 char		*double_quote_allocator(char **s, size_t *j);
 char		*simple_quote_allocator(char *s, size_t *j);
 char		*non_special_allocator(char **s, size_t *j);
@@ -158,6 +159,7 @@ size_t		ft_arrlen(char **arr);
 char		**ft_arrjoin(char **a1, char **a2);
 void		ft_exit(int exit_code, int i);
 size_t		ft_charpos(const char *str, int c);
+size_t		ft_charrpos(const char *str, int c);
 size_t		ft_count_whitespace(const char *str);
 char		*ft_insert(char *src, char *insert, size_t start, size_t skip);
 void		ft_memdel(void **ptr);

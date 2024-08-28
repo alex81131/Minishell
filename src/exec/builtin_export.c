@@ -32,7 +32,7 @@ static void	builtin_export_empty(t_sh *sh, t_hash **env)
 	top_cpy = cpy;
 	while (cpy)
 	{
-		if (!ft_strcmp(cpy->key, "-"))
+		if (ft_strcmp(cpy->key, "_"))
 			ft_printf_fd(1, "Declare -x %s=\"%s\"\n", cpy->key, cpy->value);
 		cpy = cpy->next;
 	}
@@ -60,7 +60,7 @@ static void	add_key(t_sh *sh, char **key, size_t j, char **token)
 {
 	while (key[++j])
 	{
-		token[0] = ft_strtok(key[0], "=");
+		token[0] = ft_strtok(key[j], "=");
 		token[1] = ft_strtok(NULL, "=");
 		if (!is_valid_key(token[0]))
 		{
