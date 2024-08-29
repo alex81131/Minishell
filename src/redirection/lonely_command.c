@@ -42,6 +42,8 @@ void	final_redir(size_t i, int in_fd)
 {
 	pid_t	pid;
 
+    printf("i = %ld\n", i);
+    printf("sh()->redir[%ld] = '%c'\n", i, sh()->redir[i]);
 	if (sh()->redir[i - 1] == '|')
 	{
 		pid = fork();
@@ -50,7 +52,7 @@ void	final_redir(size_t i, int in_fd)
 			redirect(in_fd, STDIN_FILENO);
 			if (sh()->redir[i] == '>' || sh()->redir[i] == 'd')
 				right_redir(&i);
-			else if (sh()->redir[i] == '<')
+			else if (sh()->redir[i] == '<' || sh()->redir[i] == 'h')
 				left_redir(&i);
 			else
 			{
