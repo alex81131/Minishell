@@ -30,7 +30,7 @@ void	handle_sigint(int sig)
 				ft_printf("Quit: 3\n", pid);
 		}
 		write(1, "\n", 1);
-		print_prompt(sh()->env);
+		// print_prompt(sh()->env);
 	}
 }
 
