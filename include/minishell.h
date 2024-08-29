@@ -52,7 +52,7 @@ typedef struct		s_hash
 	struct s_hash	*(*new)(char *, void *, char *);
 	void			(*add_front)(struct s_hash **, struct s_hash *);
 	void			(*add_back)(struct s_hash **, struct s_hash *);
-	void			(*del)(struct s_hash **);
+	void			(*del)(struct s_hash **, struct s_hash *, struct s_hash *);
 	void			(*del_all)(struct s_hash **);
 	void			*(*search)(struct s_hash *, char *);
 	struct s_hash	*(*find)(struct s_hash *, char *);
@@ -93,7 +93,7 @@ t_hash		*ft_hash_initialize(void);
 t_hash		*ft_hashnew(char *key, void *value, char *type);
 void		ft_hash_addfront(t_hash **hash, t_hash *new);
 void		ft_hash_addback(t_hash **hash, t_hash *new);
-void		ft_hashdel(t_hash **hash);
+void		ft_hashdel(t_hash **hash, t_hash *before, t_hash *next);
 void		ft_hash_free(t_hash **hash);
 void		*ft_hash_search_value(t_hash *hash, char *key);
 t_hash		*ft_hash_find(t_hash *hash, char *key);

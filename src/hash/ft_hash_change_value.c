@@ -14,16 +14,22 @@
 
 void	ft_hash_change_value(t_hash *hash, char *key, void *value, char *type)
 {
-	t_hash	*node;
+	t_hash	*add;
+	t_hash	*top;
 
-	node = ft_hash_find(hash, key);
-	if (node)
+	top = hash->top;
+	while (hash)
 	{
-		ft_memdel(&node->value);
-		node->value = ft_strdup(value);
-		return ;
+		if (!ft_strcmp(hash->key, key))
+		{
+			ft_memdel((void *)&hash->value);
+			hash->value = ft_strdup(value);
+			return ;
+		}
+		hash = hash->next;
 	}
-	else
-		hash->add_back(&hash, ft_hashnew(key, value, type));
+	add = ft_hashnew(key, value, type);
+	hash = top;
+	hash->add_back(&hash, add);
 }
 //	Assuming that value is a string

@@ -25,35 +25,35 @@ static void	be_top(t_hash **hash)
 	*hash = top;
 }
 
-void	ft_hashdel(t_hash **hash)
+void			ft_hashdel(t_hash **hash, t_hash *before, t_hash *next)
 {
-	if (!*hash)
-		return ;
 	ft_memdel((void *)&(*hash)->key);
 	ft_memdel((void *)&(*hash)->value);
-	if ((*hash)->before && (*hash)->next)
+	free(*hash);
+	if (before && next)
 	{
-		(*hash)->before->next = (*hash)->next;
-		(*hash)->next->before = (*hash)->before;
+		*hash = before;
+		(*hash)->next = next;
+		*hash = next;
+		(*hash)->before = before;
 		*hash = (*hash)->top;
 	}
-	else if ((*hash)->before)
+	else if (before)
 	{
-		(*hash)->before->next = NULL;
+		*hash = before;
+		(*hash)->next = next;
 		*hash = (*hash)->top;
 	}
-	else if ((*hash)->next)
+	else if (next)
 	{
-		(*hash)->next->before = NULL;
-		be_top(&(*hash)->next);
+		*hash = next;
+		(*hash)->before = before;
+		be_top(hash);
 	}
-	else
+	else if (!next && !before)
 		*hash = NULL;
 }
 /*
-Check if 	*hash = (*hash)->top;
-	is necessary?
-
 It's essential to deallocate the memory and then redirect the dangling
 pointer *hash to the new .
 */
