@@ -32,10 +32,10 @@ static char	*tokenize(char *ptr_to_str, const char *delimiter)
 static int	token_error(char *str, char *token, int i, int j)
 {
 	if (j == 0)
-		ft_printf_fd(2, "Minishell: parse error near `%c'\n", \
+		ft_printf_fd(2, "Minishell: parse error near '%c'\n", \
 						token[i]);
 	else
-		ft_printf_fd(2, "Minishell: parse error near `%c%c'\n", \
+		ft_printf_fd(2, "Minishell: parse error near '%c%c'\n", \
 						token[i], token[j]);
 	free_string(&str);
 	return (0);

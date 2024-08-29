@@ -56,6 +56,8 @@ size_t	operator_counter(char *s, size_t i, size_t block)
 			block++;
 			if (!ft_strncmp(">>", s + i, 2))
 				i++;
+			if (!ft_strncmp("<<", s + i, 2))
+				i++;
 		}
 		i++;
 	}

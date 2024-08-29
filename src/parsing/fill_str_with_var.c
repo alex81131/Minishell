@@ -12,12 +12,26 @@
 
 #include "minishell.h"
 
-static void	assign_value(char **s, size_t *i, size_t pos)
+static char	dont_replace_quote(char *s, size_t *i)
+{
+	if (s[*i] == '\'')
+	{
+		(*i)++;
+		while (s[*i] && s[*i] != '\'')
+			(*i)++;
+	}
+	if (s[*i])
+		return (1);
+	else
+		return (0);
+}
+
+static void	assign_value(char **s, size_t *i, size_t *j)
 {
 	char	*var;
 	char	*value;
 
-	var = ft_substr(*s, pos + 1, *i - pos - 1);
+	var = ft_substr(*s, *i, *j - *i);
 	if (!var)
 		return ;
 	if (var && var[0] == '?')
@@ -26,30 +40,27 @@ static void	assign_value(char **s, size_t *i, size_t pos)
 		value = sh()->env->search(sh()->env, var);
 	if (value)
 	{
-		*s = ft_insert(*s, value, pos, ft_strlen(var) + 1);
+		*s = ft_insert(*s, value, *i - 1, ft_strlen(var) + 1);
 		*i += ft_strlen(value) - 1;
 		free(value);
 	}
 	else
-		*s = ft_insert(*s, " ", pos, ft_strlen(var) + 1);
+		*s = ft_insert(*s, " ", *j, ft_strlen(var) + 1);
 	free(var);
 }
 
-char	*fill_str_with_var(char *s, size_t i, size_t pos)
+char	*fill_str_with_var(char *s, size_t i, size_t j)
 {
-	size_t	len;
-
-	len = ft_strlen(s);
-	while (i < len)
+	while (s[i])
 	{
-		skip_quote_char(s, &i, &pos, WHITESPACE);
+		if (!dont_replace_quote(s, &i))
+			break ;
 		if (s[i] && s[i] == '$')
 		{
-			pos = i++;
-			while (s[i] && !if_escaped(s, i) \
-					&& !ft_strchr(" \t\n\v\f\r;|<>$", s[i]))
-				i++;
-			assign_value(&s, &i, pos);
+			j = ++i;
+			while (s[j] && s[j] != '\"' && s[j] != ' ' && s[j] != '$')
+				j++;
+			assign_value(&s, &i, &j);
 		}
 		else
 			i++;
@@ -57,8 +68,6 @@ char	*fill_str_with_var(char *s, size_t i, size_t pos)
 	return (s);
 }
 /*
-Changed from if (s[i] == '$') to if (s[++i] == '$') to correctly walk pass $.
-
 [Variable Expansion]:
 Replace any shell variables (like $VAR) with their corresponding values.
 */

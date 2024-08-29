@@ -86,9 +86,6 @@ static int	is_n_flag(char *flag)
 	}
 	return (1);
 }
-/*
--n option: Suppresses the trailing newline.
-*/
 
 void	builtin_echo(char **cmd)
 {
@@ -112,3 +109,6 @@ void	builtin_echo(char **cmd)
 		ft_printf_fd(1, "%s", "\n");
 	sh()->question_mark = 0;
 }
+/*
+-n option: Suppresses the trailing newline.
+*/

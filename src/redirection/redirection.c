@@ -51,23 +51,6 @@ static void	exec_parent(size_t i, int in_fd)
 	redirection(i, sh()->fd[0]);
 }
 
-// static void	pipe_and_fork(size_t i, int in_fd)
-// {
-// 	pid_t	pid;
-
-// 	sh()->stdin_bkp = dup(STDIN_FILENO);
-// 	if (sh()->stdin_bkp == -1 || pipe(sh()->fd) == -1)
-// 		ft_exit(EXIT_FAILURE, i);
-// 	pid = fork();
-// 	if (pid == -1)
-// 	{
-// 		perror("fork");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (pid == 0)
-// 		exec_child(i, in_fd);
-// }
-
 void	redirection(size_t i, int in_fd)
 {
 	pid_t	pid;
@@ -81,7 +64,6 @@ void	redirection(size_t i, int in_fd)
 	}
 	else
 	{
-		// pipe_and_fork(i, in_fd);
 		sh()->stdin_bkp = dup(STDIN_FILENO);
 		if (sh()->stdin_bkp == -1 || pipe(sh()->fd) == -1)
 			ft_exit(EXIT_FAILURE, i);
