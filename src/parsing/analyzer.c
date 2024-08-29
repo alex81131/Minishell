@@ -12,24 +12,7 @@
 
 #include "minishell.h"
 
-static char	*tokenize(char *ptr_to_str, const char *delimiter)
-{
-	char	*end;
-
-	if (ptr_to_str == NULL)
-		return (NULL);
-	end = ptr_to_str + ft_sublen(ptr_to_str, delimiter, 0);
-	if (*end)
-	{
-		*end++ = '\0';
-		ptr_to_str = end;
-	}
-	else
-		ptr_to_str = NULL;
-	return (ptr_to_str);
-}
-
-static int	token_error(char *str, char *token, int i, int j)
+static int	token_error(char *token, int i, int j)
 {
 	if (j == 0)
 		ft_printf_fd(2, "Minishell: parse error near '%c'\n", \
@@ -37,45 +20,40 @@ static int	token_error(char *str, char *token, int i, int j)
 	else
 		ft_printf_fd(2, "Minishell: parse error near '%c%c'\n", \
 						token[i], token[j]);
-	free_string(&str);
+	free_string(&token);
 	return (0);
 }
 
-static int	condition(char *token, size_t i, char *temp)
+static int	condition(char *token, size_t i)
 {
 	if ((ft_strchr("<&|", token[i]) && ft_strchr(">&|", token[i + 1])) || \
 		(ft_strchr(">&|", token[i]) && ft_strchr("<&|", token[i + 1])))
-		return (token_error(temp, token, i, i + 1));
+		return (token_error(token, i, i + 1));
 	if (token[i] == '>' && token[i + 1] == '>' && token[i + 2] == '>')
-		return (token_error(temp, token, i, 0));
+		return (token_error(token, i, 0));
 	return (1);
 }
 
-int	analyzer(char *str, char *token, size_t i)
+int	analyzer(char *str, size_t i)
 {
-	char	*temp;
+	char	*token;
 
-	temp = ft_strclean(str, "\t\n\v\f\r", 0);
-	token = tokenize(temp, ";");
-	while (token)
-	{
+	token = ft_strclean(str, "\t\n\v\f\r", 0);
 		if (token[0])
 		{
 			i = 0;
 			if (ft_strchr("<>&|", token[i]))
-				return (token_error(temp, token, i, 0));
+				return (token_error(token, i, 0));
 			while (token[i + 1])
 			{
-				if (!condition(token, i, temp))
+				if (!condition(token, i))
 					return (0);
 				i++;
 			}
 			if (ft_strchr("<>&|", token[i]))
-				return (token_error(temp, token, i, 0));
+				return (token_error(token, i, 0));
 		}
-		token = tokenize(temp, ";");
-	}
-	free(temp);
+	free(token);
 	return (1);
 }
 /*

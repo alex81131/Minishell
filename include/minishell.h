@@ -124,7 +124,7 @@ void		child_sigint(int sig);
 void		sign_init(void);
 
 //	PARSING, include in_quote and if_escaped in libft+
-int			analyzer(char *str, char *tok, size_t i);
+int			analyzer(char *tok, size_t i);
 char		parsing(char *line);
 char		*fill_str_with_var(char *s, size_t i, size_t pos);
 int			quote_error(char *str);

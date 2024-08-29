@@ -31,13 +31,11 @@ static void	free_command(void)
 
 static void	main_loop(char *buff)
 {
-	char	*token;
 	char	**arr;
 	size_t	i;
 
-	token = NULL;
 	i = 0;
-	if (analyzer(buff, token, 0))
+	if (analyzer(buff, 0))
 	{
 		arr = ft_split_minishell(buff);
 		while (arr[i])
