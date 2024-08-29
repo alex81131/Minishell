@@ -121,6 +121,7 @@ void		get_env_var(t_sh *sh, char **env, size_t i);
 //	SIGNAL
 void		handle_sigint(int sig);
 void		child_sigint(int sig);
+void		sign_init(void);
 
 //	PARSING, include in_quote and if_escaped in libft+
 int			analyzer(char *str, char *tok, size_t i);

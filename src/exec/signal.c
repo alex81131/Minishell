@@ -30,7 +30,9 @@ void	handle_sigint(int sig)
 				ft_printf("Quit: 3\n", pid);
 		}
 		write(1, "\n", 1);
-		// print_prompt(sh()->env);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 
@@ -39,4 +41,10 @@ void	child_sigint(int sig)
 	(void)sig;
 	write(0, "\n", 1);
 	write(1, "\n", 1);
+}
+
+void	sign_init(void)
+{
+	signal(SIGQUIT, handle_sigint);
+	signal(SIGINT, handle_sigint);
 }

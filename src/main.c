@@ -63,8 +63,7 @@ int	main(int ac, char **av, char **env)
 	(void)av[ac];
 	print_welcome();
 	get_env_var(sh(), env, 1);
-	signal(SIGQUIT, handle_sigint);
-	signal(SIGINT, handle_sigint);
+	sign_init();
 	while (1)
 	{
 		buff = readline(DARK_BLUE "Minishell : " RESET);
