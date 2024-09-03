@@ -48,7 +48,7 @@ void	right_redir(size_t *i)
 
 	fd = 0;
 	j = (*i)++;
-	while (sh()->redir[*i] == '>' && sh()->redir[*i] == 'd')
+	while (sh()->redir[*i] == '>' || sh()->redir[*i] == 'd')
 		wrap_openning_fd(fd, j, i);
 	if (sh()->cmd[*i][1])
 		sh()->cmd[j] = ft_arrjoin(sh()->cmd[j], sh()->cmd[*i] + 1);
