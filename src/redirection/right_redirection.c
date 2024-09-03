@@ -50,8 +50,6 @@ void	right_redir(size_t *i)
 	j = (*i)++;
 	while (sh()->redir[*i] == '>' || sh()->redir[*i] == 'd')
 		wrap_openning_fd(fd, j, i);
-	if (sh()->cmd[*i][1])
-		sh()->cmd[j] = ft_arrjoin(sh()->cmd[j], sh()->cmd[*i] + 1);
 	if (sh()->redir[*i - 1] == 'd')
 		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_APPEND, 0644);
 	else
@@ -63,7 +61,7 @@ void	right_redir(size_t *i)
 	sh()->fd[1] = fd;
 	redirect(sh()->fd[1], STDOUT_FILENO);
 	(*i)++;
-	if (sh()->redir[*i] == '<' || sh()->redir[*i] == 'd')
+	if (sh()->redir[*i] && (sh()->redir[*i] == '<' || sh()->redir[*i] == 'd'))
 		skip_next_left_redir(i);
 	ft_exec(j);
 }

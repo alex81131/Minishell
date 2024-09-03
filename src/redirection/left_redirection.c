@@ -12,83 +12,58 @@
 
 #include "minishell.h"
 
-int	right_fd(size_t *i)
+static int	init_record(int start)
+{
+	if (start == -1)
+		return (1);
+	return (0);
+}
+
+static int	right_fd(size_t *i)
 {
 	size_t	j;
 
 	j = 0;
-	while (sh()->cmd[*i][j + 1] && sh()->redir[*i] == '>' \
-								&& sh()->redir[*i] == 'd')
+	while (sh()->cmd[*i][j + 1] && (sh()->redir[*i] == '>' \
+								|| sh()->redir[*i] == 'd'))
 		j++;
 	return (j);
-}
-
-static void	here_doc(char *delimiter)
-{
-	int		p_fd[2];
-	pid_t	pid;
-	char	*line;
-
-    ft_printf_fd(2, "[In here_doc]\n");
-	if (pipe(p_fd) == -1)
-		ft_exit(EXIT_FAILURE, 0);
-	pid = fork();
-	if (pid == -1)
-		ft_exit(EXIT_FAILURE, 0);
-	if (pid == 0)
-	{
-		close(p_fd[0]);
-		while (1)
-		{
-			ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-			line = get_next_line(STDIN_FILENO);
-			if (!line || ft_strcmp(line, delimiter) == 0)
-				break;
-			ft_putstr_fd(line, p_fd[1]);
-			free(line);
-		}
-		free(line);
-		close(p_fd[1]);
-		exit(0);
-	}
-	else
-	{
-		close(p_fd[1]);
-		if (dup2(p_fd[0], STDIN_FILENO) == -1)
-			ft_exit(EXIT_FAILURE, 0);
-		close(p_fd[0]);
-		wait(NULL);
-	}
 }
 
 void	left_redir(size_t *i)
 {
 	int		fd;
-	size_t	j;
+	char	last;
+	int		h1;
+	int		h2;
 
-	j = (*i)++;
 	sh()->stdin_bkp = dup(STDIN_FILENO);
-	while (sh()->redir[*i] == '<' || sh()->redir[*i] == 'h')
+	h2 = -1;
+	while (sh()->redir[*i] && (sh()->redir[*i] == '<' || sh()->redir[*i] == 'h'))
 	{
-		if (sh()->redir[*i] == '<')
+		if (sh()->redir[(*i)++] == '<')
 		{
-            ft_printf_fd(2, "[In <]\n");
 			fd = open(sh()->cmd[*i][0], O_RDONLY);
 			if (fd == -1)
 				ft_exit(EXIT_FAILURE, *i);
 			close(fd);
-			(*i)++;
+			last = '<';
 		}
-		else if (sh()->redir[*i] == 'h')
+		else if (sh()->redir[(*i)++] == 'h')
 		{
-            ft_printf_fd(2, "[In here_doc]\n");
-			here_doc(sh()->cmd[*i][0]);
-			(*i)++;
+			last = 'h';
+			h1 = h2;
+			h2 = *i;
 		}
 	}
-	fd = open(sh()->cmd[*i][right_fd(i)], O_RDONLY);
-	if (fd == -1)
-		ft_exit(EXIT_FAILURE, *i);
+	if (last == '<')
+	{
+		fd = open(sh()->cmd[*i][right_fd(i)], O_RDONLY);
+		if (fd == -1)
+			ft_exit(EXIT_FAILURE, *i);
+	}
+	else if (last == 'h')
+		here_doc(h1, h2);///////Need work
 	if (dup2(fd, STDIN_FILENO) == -1)
 		ft_exit(EXIT_FAILURE, *i);
 	close(fd);
@@ -100,3 +75,23 @@ void	left_redir(size_t *i)
 		redirect(sh()->fd[1], STDOUT_FILENO);
 	ft_exec(j);
 }
+/*
+When handling multiple in-/output redirections,such as
+	in cat < in1 < in2,
+	echo "Hello" >out1 >out2,
+	the shell should only use the last redirection
+	to provide the input to the command.
+Multiple <<:
+	only the last 2 count as the beginning and the end of the here_doc.
+	ie. cat <<h1 <<h2 <<h3 << h4
+	1, h1, 2, h2, 3, h3, 4, h4
+	there'd be only 4 recorded.
+When < and << are mixed together, whoever comes last counts.
+	But if there's here_doc, it still pops up,
+	but will only be recorded if it's the last redirection.
+*/
+/*
+*i is used for cmd[*i] in 
+	else if (sh()->redir[(*i)++] == 'h')
+	so automatically *i is +1 to correctly point the right command
+*/
