@@ -151,6 +151,7 @@ void		redirect(int oldfd, int newfd);
 void		final_redir(size_t i, int in_fd);
 int			lonely_command(size_t i, int in_fd);
 void		left_redir(size_t *i);
+void		here_doc(int start, int end);
 void		right_redir(size_t *i);
 
 //	UTILS

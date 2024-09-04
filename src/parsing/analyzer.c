@@ -29,7 +29,8 @@ static int	condition(char *token, size_t i)
 	if ((ft_strchr("<&|", token[i]) && ft_strchr(">&|", token[i + 1])) || \
 		(ft_strchr(">&|", token[i]) && ft_strchr("<&|", token[i + 1])))
 		return (token_error(token, i, i + 1));
-	if (token[i] == '>' && token[i + 1] == '>' && token[i + 2] == '>')
+	if ((token[i] == '>' && token[i + 1] == '>' && token[i + 2] == '>') || \
+		(token[i] == '<' && token[i + 1] == '<' && token[i + 2] == '<'))
 		return (token_error(token, i, 0));
 	return (1);
 }

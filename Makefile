@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/08/28 16:27:36 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/04 14:24:34 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,8 @@ SRC_EXEC	=	$(addprefix exec/, \
 SRC_VAR		=	$(addprefix var/, \
 				env.c)
 SRC_REDIR	=	$(addprefix redirection/, \
-				redirection.c			left_redirection.c	right_redirection.c \
-				lonely_command.c)
+				ft_here_doc.c			redirection.c		left_redirection.c \
+				right_redirection.c		lonely_command.c)
 SRC_DISPLAY	=	$(addprefix display/, \
 				display.c)
 SRC_UTILS	=	$(addprefix utils/, \

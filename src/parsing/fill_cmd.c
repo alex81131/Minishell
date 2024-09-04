@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:25:32 by kyeh              #+#    #+#             */
-/*   Updated: 2024/08/29 20:28:02 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/04 15:39:47 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ char	**fill_cmd(char **cmd, char *s, size_t i, size_t k)
 		}
 		quote = utils(&s, quote, &i, &j);
 		cmd[k++] = ft_substr(s, j, i - j);
-        printf("cmd[%ld] = %s\n", k-1, cmd[k-1]);
 		i += (quote != ' ' && s[i] == quote);
 	}
 	free(s);

@@ -12,13 +12,6 @@
 
 #include "minishell.h"
 
-static int	init_record(int start)
-{
-	if (start == -1)
-		return (1);
-	return (0);
-}
-
 static int	right_fd(size_t *i)
 {
 	size_t	j;
@@ -36,12 +29,14 @@ void	left_redir(size_t *i)
 	char	last;
 	int		h1;
 	int		h2;
+	size_t	save;
 
 	sh()->stdin_bkp = dup(STDIN_FILENO);
 	h2 = -1;
+	save = *i;
 	while (sh()->redir[*i] && (sh()->redir[*i] == '<' || sh()->redir[*i] == 'h'))
 	{
-		if (sh()->redir[(*i)++] == '<')
+		if (sh()->redir[*i] == '<')
 		{
 			fd = open(sh()->cmd[*i][0], O_RDONLY);
 			if (fd == -1)
@@ -49,13 +44,16 @@ void	left_redir(size_t *i)
 			close(fd);
 			last = '<';
 		}
-		else if (sh()->redir[(*i)++] == 'h')
+		else if (sh()->redir[*i] == 'h')
 		{
 			last = 'h';
 			h1 = h2;
-			h2 = *i;
+			h2 = *i + 1;
 		}
+		(*i)++;
 	}
+	if (h2 != -1)
+		here_doc(h1, h2);
 	if (last == '<')
 	{
 		fd = open(sh()->cmd[*i][right_fd(i)], O_RDONLY);
@@ -63,17 +61,18 @@ void	left_redir(size_t *i)
 			ft_exit(EXIT_FAILURE, *i);
 	}
 	else if (last == 'h')
-		here_doc(h1, h2);///////Need work
+		fd = STDIN_FILENO;
 	if (dup2(fd, STDIN_FILENO) == -1)
 		ft_exit(EXIT_FAILURE, *i);
-	close(fd);
+	if (last == '<')
+		close(fd);
 	dup2(STDIN_FILENO, sh()->stdin_bkp);
 	close(sh()->stdin_bkp);
 	if (sh()->redir[*i] && (sh()->redir[*i] == '>' || sh()->redir[*i] == 'd'))
-		right_redir(&j);
+		right_redir(i);
 	if (sh()->redir[*i])
 		redirect(sh()->fd[1], STDOUT_FILENO);
-	ft_exec(j);
+	ft_exec(save);
 }
 /*
 When handling multiple in-/output redirections,such as

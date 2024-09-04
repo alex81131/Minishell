@@ -42,8 +42,6 @@ void	final_redir(size_t i, int in_fd)
 {
 	pid_t	pid;
 
-    printf("i = %ld\n", i);
-    printf("sh()->redir[%ld] = '%c'\n", i, sh()->redir[i]);
 	if (sh()->redir[i - 1] == '|')
 	{
 		pid = fork();

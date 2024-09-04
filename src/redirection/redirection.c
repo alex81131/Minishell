@@ -27,7 +27,6 @@ static void	exec_child(size_t i, int in_fd)
 		right_redir(&i);
 	else if (sh()->redir[i] == '<' || sh()->redir[i] == 'h')
 	{
-        printf("sh()->redir[%ld] = '%c'\n", i, sh()->redir[i]);
 		left_redir(&i);
 	}
 	else
