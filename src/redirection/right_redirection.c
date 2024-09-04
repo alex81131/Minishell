@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	wrap_openning_fd(int fd, size_t j, size_t *i)
+static void	wrap_openning_fd(int fd, size_t save, size_t *i)
 {
 	if (sh()->redir[*i] == 'd')
 		fd = open(sh()->cmd[*i][0], O_CREAT);
@@ -20,8 +20,8 @@ static void	wrap_openning_fd(int fd, size_t j, size_t *i)
 		fd = open(sh()->cmd[*i][0], O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		ft_exit(EXIT_FAILURE, *i);
-	if (sh()->cmd[*i][1])
-		sh()->cmd[j] = ft_arrjoin(sh()->cmd[j], sh()->cmd[*i] + 1);
+	if (sh()->cmd[*i + 1])
+		sh()->cmd[save] = ft_arrjoin(sh()->cmd[save], sh()->cmd[*i + 1]);
 	(*i)++;
 }
 
@@ -43,25 +43,35 @@ static void	skip_next_left_redir(size_t *i)
 
 void	right_redir(size_t *i)
 {
-	int		fd;
-	size_t	j;
+	int	fd;
+	int	save;
 
 	fd = 0;
-	j = (*i)++;
+	save = *i;
 	while (sh()->redir[*i] == '>' || sh()->redir[*i] == 'd')
-		wrap_openning_fd(fd, j, i);
-	if (sh()->redir[*i - 1] == 'd')
-		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_APPEND, 0644);
+		wrap_openning_fd(fd, save, i);
+    int k = 0;
+    while(sh()->cmd[k])
+    {
+        int j = 0;
+        while (sh()->cmd[k][j])
+        {
+            printf("sh()->cmd[%d][%d] = %s\n", k, j, sh()->cmd[k][j]);
+            j++;
+        }
+        k++;
+    }
+	if (sh()->redir[*i] == 'd')
+		fd = open(sh()->cmd[*i + 1][0], O_RDWR | O_CREAT | O_APPEND, 0644);
 	else
-		fd = open(sh()->cmd[*i][0], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		fd = open(sh()->cmd[*i + 1][0], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		ft_exit(EXIT_FAILURE, *i);
+		ft_exit(EXIT_FAILURE, *i + 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		ft_exit(EXIT_FAILURE, *i);
+		ft_exit(EXIT_FAILURE, *i + 1);
 	sh()->fd[1] = fd;
 	redirect(sh()->fd[1], STDOUT_FILENO);
-	(*i)++;
-	if (sh()->redir[*i] && (sh()->redir[*i] == '<' || sh()->redir[*i] == 'd'))
+	if (sh()->redir[*i + 1] && (sh()->redir[*i + 1] == '<' || sh()->redir[*i] == 'd'))
 		skip_next_left_redir(i);
-	ft_exec(j);
+	ft_exec(*i);
 }
