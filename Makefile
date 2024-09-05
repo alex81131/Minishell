@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/05 14:03:16 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/05 14:16:08 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC_BLD	=	$(addprefix builder/, \
 SRC_EXEC	=	$(addprefix exec/, \
 				builtin.c			builtin_cd.c		builtin_export.c \
 				exec_cmd.c			signal.c)
-SRC_SIG	=	$(addprefix builder/, \
+SRC_SIG	=	$(addprefix signal/, \
 				builder.c			builder_helper.c	filenames.c \
 				args.c)
 SRC_UTILS	=	$(addprefix utils/, \
