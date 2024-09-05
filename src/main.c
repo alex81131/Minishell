@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/05 17:24:39 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:01:05 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_sh	*init_sh(char	**env)
 	return (sh);
 }
 
-void	handle_loop(t_sh *sh)
+static void	main_loop(t_sh *sh)
 {
 	char	*input;
 

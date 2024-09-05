@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:27:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/08/13 18:51:26 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/05 16:22:23 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,11 @@ void	err_exit(const char *err, const char *msg);
 void	perror_exit(const char *msg);
 //		handle_args.c
 void	ft_tolower_char(char *c);
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+//	<Minishell>
+char	ft_strndup(const char *str, int n);
+char	*ft_strjoin_free(char const *s1, char const *s2, int option);
+
 
 #endif
