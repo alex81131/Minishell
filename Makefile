@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/05 19:07:51 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/06 15:47:28 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_PAR	=	$(addprefix parser/, \
 				parser.c			expansion.c			quote.c \
 				parser_utils.c		expand_helper.c		heredoc.c)
 SRC_BLD	=	$(addprefix builder/, \
-				builder.c			builder_helper.c 	filenames.c \
+				builder.c			expand_utils.c 		filenames.c \
 				args.c)
 SRC_EXEC	=	$(addprefix exec/, \
 				builtin.c			builtin_cd.c		builtin_export.c \

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/05 19:07:31 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/06 15:02:50 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,19 @@ int	ps_expand_quotes(t_token *token)
 	}
 	return (0);
 }
+// ps_expand_quotes:
+// 	1. [ps_parse_quotes] strips quotes, creating a token
+// 	2. [ps_combine_tokens] replaces environment variables
+// 	3. combine the resulting tokens into one final value
+// ie. echo I'm' happy
+// 	echo (STRING)
+// 	I'm' (STRING)
+// 	happy (STRING)
+// 	(showing only the 2nd token)
+// 	1. I + m
+// 	2. Im
+// 	3. Im
+
 // ps_parse_quotes:
 // 	after ps_get_quote_str, 
 // 	i += ft_strlen + 1, because the quotes have been ripped off

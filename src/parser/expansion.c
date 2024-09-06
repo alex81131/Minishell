@@ -6,11 +6,17 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:26:11 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/05 19:16:07 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/06 16:27:57 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+* echo "$12345" -> be careful of this
+* echo "$<abcdef" -> too
+* echo "$/?lol" -> too
+*/
 
 static int	ps_count_var(char *str)
 {
