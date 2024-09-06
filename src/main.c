@@ -6,24 +6,12 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/05 18:01:05 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/06 19:06:30 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	sig_event(void)
-{
-	return (EXIT_SUCCESS);
-}
-
-void	init_sign(void)
-{
-	rl_event_hook = sig_event;
-	signal(SIGINT, sig_inthandler);
-	signal(SIGQUIT, SIG_IGN);
-	//signal(SIGTSTP, SIG_IGN);
-}
 int	handle_input(t_sh *sh, char *input)
 {
 	return (0);
@@ -84,7 +72,7 @@ int	main(int argc, char **argv, char **env)
 	sh = init_sh(env);
 	if (!sh)
 		return (NULL);
-	init_sign();
+	sig_initiate();
 	main_loop(sh);
 	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");
 	return (EXIT_SUCCESS);

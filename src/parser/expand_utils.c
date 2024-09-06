@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 19:10:50 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 17:49:21 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/06 19:32:31 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ char	*ps_get_env_var(char *var, t_sh *sh)
 	}
 	else if (name && !ft_strcmp(name, "$"))
 		return (free(name) && ft_strdup("program_pid"));
-	env_var = ms_getenv(sh->env, name);
+	env_var = ps_fetch_var(sh->env, name);
+	if (name)
+		free(name);
+	if (!env_var || !env_var->value)
+		return (NULL);
+	return (ft_strdup(env_var->value));
 }
 
 char	*ps_get_after_env(char *var)

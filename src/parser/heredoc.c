@@ -12,6 +12,30 @@
 
 #include "minishell.h"
 
+static char	*ps_generate_random(char *str)
+{
+	unsigned long	bla;
+	int				i;
+	char			*res;
+
+	if (!str)
+		return (NULL);
+	res = ft_calloc(sizeof(char), 20);
+	if (!res)
+		return (NULL);
+	bla = (unsigned long)str;
+	ft_strlcpy(res, "/tmp/hd_", 9);
+	i = 8;
+	while (i < 19)
+	{
+		bla *= RND_BASIS + RND_PRIME;
+		res[i] = 'a' + (bla % 26);
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
 static int	ps_heredoc_return(void)
 {
 	if (g_signal.end_heredoc == 1)
@@ -86,3 +110,9 @@ void	ps_unlink_err(t_token *token)
 // ps_unlink_err unlinks/deletes the file created for here_doc
 // 	(token->next->value = filename)
 // 	with the presence of error in here_doc.
+
+// ps_ini_heredoc:
+// signal(SIGINT, sig_heredoc)
+// 	execute function "sig_heredoc" when signal "SIGINT" is received.
+// 	SIGINT = signal interrupt, ctrl+c in the terminal
+// 	(signal's effectiveness is at the function-level)

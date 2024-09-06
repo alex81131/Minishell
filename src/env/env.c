@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/06 17:43:22 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:32:27 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	env_var_add(t_env **head_env, t_env *new)
 	}
 }
 
-t_env	*get_env_var(t_env *env, char *var)
+t_env	*ps_fetch_var(t_env *env, char *var)
 {
 	t_env	*tmp;
 
