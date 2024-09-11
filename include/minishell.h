@@ -91,17 +91,16 @@ typedef struct s_signal
 
 extern t_signal	g_signal;
 
-//	EXEC, BUILTIN
+//	main + utils
 t_sh	*ms_ini_sh(char **env);
+void	ms_free_token(t_sh *sh, t_token *token);
 void	ms_free_all(t_sh *sh);
 int		ms_check_line(char *line);
-void	ms_clear(t_sh *sh, t_token *token);
 t_env	*ms_env_dup(char **env);
 void	*ms_free_double(char **value);
 t_env	*ms_getenv(char *path, t_env *env);
-char	*ms_generate_random(char *str);
 
-//	helper functions of t_env
+//	t_env
 t_env	*env_create(char *id, char *value, char *raw);
 t_env	*env_default_env(void);
 void	env_del_one(t_env *env);

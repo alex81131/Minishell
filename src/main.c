@@ -6,14 +6,33 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/06 19:06:30 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/11 15:52:41 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_input(t_sh *sh, char *input)
+int	analyze_line(t_sh *sh, char *input)
 {
+	t_token	*token;
+	int		err;
+
+	token = lexer(sh, input);
+	free(input);
+	if (!token)
+		return (0);
+	err = parser(&token);
+	if (!err)
+	{
+		tok_free(token);
+		if (err == 2)
+			return (0);
+		return (1);
+	}
+	if (ms_setup_exe(sh, &token))
+		return (1);
+	exe(sh);
+	ms_free_token(sh, token);
 	return (0);
 }
 
@@ -52,7 +71,7 @@ static void	main_loop(t_sh *sh)
 		else if (*input)
 		{
 			add_history(input);
-			if (!handle_line(sh, input))
+			if (!analyze_line(sh, input))
 			{
 				ft_printf_fd(STDOUT_FILENO, "Error in handling line\n");
 				sh->exit_code = 2;

@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/06 15:47:28 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/11 15:57:36 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,25 +34,24 @@ CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3 -lreadline
 
 # Source files
 SRC_LEX	=	$(addprefix lexer/, \
-				lexer.c				token.c			lex_utils.c)
+				lexer.c				tokens.c			lex_utils.c)
 SRC_PAR	=	$(addprefix parser/, \
 				parser.c			expansion.c			quote.c \
-				parser_utils.c		expand_helper.c		heredoc.c)
+				parser_utils.c		expand_utils.c		heredoc.c)
 SRC_BLD	=	$(addprefix builder/, \
-				builder.c			expand_utils.c 		filenames.c \
-				args.c)
+				builder.c			builder_utils.c 		filename.c \
+				arg.c)
 SRC_EXEC	=	$(addprefix exec/, \
 				builtin.c			builtin_cd.c		builtin_export.c \
 				exec_cmd.c			signal.c)
 SRC_SIG	=	$(addprefix signal/, \
-				builder.c			builder_helper.c	filenames.c \
-				args.c)
+				signal.c)
 SRC_UTILS	=	$(addprefix utils/, \
 				utils.c				helper.c			env.c \
 				env_helper.c)
 SRC_BT	=	$(addprefix builtins/, \
-				bi_func.c			bi_func_utils.c		bi_func_utils2.c \
-				bi_err_utils.c		bi_check_utils.c)
+				bt_func.c			bt_func_utils.c		bt_func_utils2.c \
+				bt_err_utils.c		bt_check_utils.c)
 SRC_FILES	=	main.c $(SRC_LEX) $(SRC_PAR) $(SRC_BLD) $(SRC_EXEC) $(SRC_SIG) $(SRC_UTILS) $(SRC_BT)
 SRC_PATH	=	src/
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_FILES))

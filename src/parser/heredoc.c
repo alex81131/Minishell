@@ -116,3 +116,4 @@ void	ps_unlink_err(t_token *token)
 // 	execute function "sig_heredoc" when signal "SIGINT" is received.
 // 	SIGINT = signal interrupt, ctrl+c in the terminal
 // 	(signal's effectiveness is at the function-level)
+// Using signal here is to prevent memory leaks when ctrl+c during readline.
