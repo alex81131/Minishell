@@ -6,84 +6,40 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/10 19:05:13 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:58:10 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	handle_files(t_cmd *cmd)
+static void	wait_processes(t_sh *sh)
 {
-	t_filenames	*tmp;
+	int	status;
+	int	i;
 
-	tmp = cmd->redirs;
-	while (tmp)
+	i = 0;
+	while (i < sh->pid_count)
 	{
-		redir_files(cmd, tmp);
-		if (cmd->fd_in == -1 || cmd->fd_out == -1)
-			return (EXIT_FAILURE);
-		tmp = tmp->next;
+		if (waitpid(sh->pids[i], &status, 0))
+		{
+			if (WIFEXITED(status))
+			{
+				//g_signals.signal_code = 0;
+				//sh->exit_code = WEXITSTATUS(status);
+			}
+			else if (WIFSIGNALED(status))
+			{
+				// if (WTERMSIG(status) == SIGQUIT)
+				// 	ft_printf_fd(2, "[%d]: Quit (core dumped)\n", sh->pids[i]);
+				// g_signals.signal_code = SIGNAL_OFFSET + WTERMSIG(status);
+			}
+		}
+		i++;
 	}
-	return (EXIT_SUCCESS);
+	unlink_heredocs(sh);
 }
 
-
-void	redir_files(t_cmd *cmd, t_filenames *file)
-{
-	if (file->type == INFILE || file->type == N_HEREDOC)
-	{
-		if (cmd->fd_in != STDIN_FILENO)
-			close (cmd->fd_in);
-		cmd->fd_in = open(file->name, O_RDONLY);
-		if (cmd->fd_in == -1)
-			ft_printf_fd(STDERR_FILENO, "Minishell: %s: %s\n", file->name, strerror(errno));
-		dup2(cmd->fd_in, STDIN_FILENO);
-		close(cmd->fd_in);
-	}
-	else
-	{
-		if (cmd->fd_out != STDOUT_FILENO)
-			close (cmd->fd_out);
-		if (file->type == OUTFILE)
-			cmd->fd_out = open (file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (file->type == APPEND)
-			cmd->fd_out = open (file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (cmd->fd_out == -1)
-			ft_printf_fd(STDERR_FILENO, "Minishell: %s: %s\n", file->name, strerror(errno));
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		close(cmd->fd_out);
-	}
-}
-
-
-
-void	child_process(t_sh *sh, t_cmd *cmd)
-{
-	int	fd_p[2];
-
-	fd_p[0] = -1;
-	fd_p[1] = -1;
-	if (cmd->next && pipe(fd_p) == -1)
-	{
-		ft_printf_fd("Minishell: %s\n", strerror(errno));
-		exit(2);
-	}
-	//signal(SIGIT, sig_exec);
-	sh->pids[sh->pid_count] = fork();
-	if (sh->pids[sh->pid_count] == -1)
-	{
-		ft_printf_fd("Minishell: %s\n", strerror(errno));
-		exit(3);
-	}
-	else if (!sh->pids[sh->pid_count])
-		post_child_process(sh, cmd, fd_p);
-	else
-		dup2(fd_p[0], STDIN_FILENO);
-	close_fd_p(fd_p);
-}
-
-void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
+static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 {
 	int	exit_code;
 
@@ -113,41 +69,37 @@ void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	//exit(COMMAND_NOT_FOUND);
 }
 
-void wait_processes(t_sh *sh)
+static void	child_process(t_sh *sh, t_cmd *cmd)
 {
-	int	status;
-	int	i;
+	int	fd_p[2];
 
-	i = 0;
-	while (i < sh->pid_count)
+	fd_p[0] = -1;
+	fd_p[1] = -1;
+	if (cmd->next && pipe(fd_p) == -1)
 	{
-		if (waitpid(sh->pids[i], &status, 0))
-		{
-			if (WIFEXITED(status))
-			{
-				//g_signals.signal_code = 0;
-				//sh->exit_code = WEXITSTATUS(status);
-			}
-			else if (WIFSIGNALED(status))
-			{
-				// if (WTERMSIG(status) == SIGQUIT)
-				// 	ft_printf_fd(2, "[%d]: Quit (core dumped)\n", sh->pids[i]);
-				// g_signals.signal_code = SIGNAL_OFFSET + WTERMSIG(status);
-			}
-		}
-		i++;
+		ft_printf_fd("Minishell: %s\n", strerror(errno));
+		exit(2);
 	}
-	unlink_heredocs(sh);
+	//signal(SIGIT, sig_exec);
+	sh->pids[sh->pid_count] = fork();
+	if (sh->pids[sh->pid_count] == -1)
+	{
+		ft_printf_fd("Minishell: %s\n", strerror(errno));
+		exit(3);
+	}
+	else if (!sh->pids[sh->pid_count])
+		post_child_process(sh, cmd, fd_p);
+	else
+		dup2(fd_p[0], STDIN_FILENO);
+	close_fd_p(fd_p);
 }
 
-
-
-int	execution(t_sh *sh)
+static int	execution(t_sh *sh)
 {
 	t_cmd	*tmp;
 
 	tmp = sh->cmd;
-	if (tmp->next == NULL && is_builtin(tmp->name))
+	if (tmp->next == NULL && !is_builtin(tmp->name))
 	{
 		if (handle_files(tmp))
 			return ((sh->exit_code = 1), EXIT_FAILURE);
@@ -181,5 +133,3 @@ int	pre_execution(t_sh *sh)
 
 	return (EXIT_SUCCESS);
 }
-
-
