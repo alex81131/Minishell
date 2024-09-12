@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:10:54 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:47:14 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_setup_exe(t_sh *sh, t_token **token);
+t_signal	g_signal = {0};
+
+static int	ms_setup_cmd(t_sh *sh, t_token **token)
+{
+	sh->cmd = builder(*token);
+	tok_free(*token);
+	*token = NULL;
+	if (!sh->cmd)
+		return (1);
+	sh->cmd_count = bld_lstsize(sh->cmd);
+	sh->pids = (pid_t *)malloc((sh->cmd_count + 1) * sizeof(pid_t));
+	if (!sh->pids)
+		return (1);
+	sh->pid_count = 0;
+	return (0);
+}
 
 int	analyze_line(t_sh *sh, char *input)
 {
@@ -31,7 +46,7 @@ int	analyze_line(t_sh *sh, char *input)
 			return (0);
 		return (1);
 	}
-	if (ms_setup_exe(sh, &token))
+	if (ms_setup_cmd(sh, &token))
 		return (1);
 	pre_execution(sh);
 	ms_free_token(sh, token);
