@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtin_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 18:14:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:01:03 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_pwd(t_args *args)
+int	exec_pwd(t_arg *arg)
 {
 	char	*cwd;
 
@@ -47,20 +47,20 @@ static int	is_n_flag(char *flag)
 	return (1);
 }
 
-int	exec_echo(t_args *args)
+int	exec_echo(t_arg *arg)
 {
 	int	nl;
 
 	nl = 1;
-	while (args && is_n_flag(args->value))
+	while (arg && is_n_flag(arg->value))
 	{
 		nl = 0;
-		args = args->next;
+		arg = arg->next;
 	}
-	while (args)
+	while (arg)
 	{
-		printf("%s", args->value);
-		if (args->next)
+		printf("%s", arg->value);
+		if (arg->next)
 			printf("%s", " ");
 	}
 	if (nl)
@@ -87,20 +87,20 @@ static int	pwd_update(t_env *env, char *old_cwd)
 	return (EXIT_SUCCESS);
 }
 
-int	exec_cd(t_env *env, t_args *args)
+int	exec_cd(t_env *env, t_arg *arg)
 {
 	t_env	*home_env;
 	char	*old_cwd;
 	char	*new_dir;
 	int		size;
 
-	size = arg_listsize(args);
+	size = arg_listsize(arg);
 	if (size > 1)
 		return (ft_printf_fd(2, "%scd: too many arguments", PROMPT), 1);
 	old_cwd = getcwd(NULL, 0);
 	if (!old_cwd)
 		return (ft_printf_fd(STDERR_FILENO, "%s getcwd() error", PROMPT), 1);
-	if ((size == 0 || ft_strcmp(args->value, "--") == 0))
+	if ((size == 0 || ft_strcmp(arg->value, "--") == 0))
 	{
 		home_env = get_env_var(env, "HOME");
 		if (!home_env || !home_env->value)
@@ -110,7 +110,7 @@ int	exec_cd(t_env *env, t_args *args)
 		free(home_env);
 	}
 	else
-		new_dir = args->value;
+		new_dir = arg->value;
 	if (chdir(new_dir) != 0)
 		return (free(old_cwd), ft_printf_fd(STDERR_FILENO, "%s cd", PROMPT), 1);
 	return (pwd_update(env, old_cwd));

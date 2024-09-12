@@ -82,7 +82,7 @@ int	ps_analyze_heredoc(t_token *token)
 	{
 		if (token->type == HEREDOC)
 		{
-			filename = ms_generate_random(token->next->value);
+			filename = ps_generate_random(token->next->value);
 			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (!fd)
 				return (1);

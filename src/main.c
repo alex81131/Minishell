@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 15:52:41 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:10:54 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ms_setup_exe(t_sh *sh, t_token **token);
 
 int	analyze_line(t_sh *sh, char *input)
 {
@@ -31,7 +33,7 @@ int	analyze_line(t_sh *sh, char *input)
 	}
 	if (ms_setup_exe(sh, &token))
 		return (1);
-	exe(sh);
+	pre_execution(sh);
 	ms_free_token(sh, token);
 	return (0);
 }
@@ -51,9 +53,9 @@ t_sh	*init_sh(char	**env)
 	}
 	sh->fd_in = STDIN_FILENO;
 	sh->fd_out = STDOUT_FILENO;
-	sh->exec = NULL;
+	sh->cmd = NULL;
 	sh->pids = NULL;
-	sh->exec_count = 0;
+	sh->cmd_count = 0;
 	sh->pid_count = 0;
 	sh->exit_code = 0;
 	return (sh);
@@ -90,7 +92,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv[argc];
 	sh = init_sh(env);
 	if (!sh)
-		return (NULL);
+		return (0);
 	sig_initiate();
 	main_loop(sh);
 	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");

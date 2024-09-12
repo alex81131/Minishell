@@ -115,7 +115,7 @@ void		builtin_echo(char **cmd);
 void		builtin_cd(t_sh *sh, char **cmd);
 void		builtin_export(t_sh *sh, char **key);
 
-void		ft_exec(size_t i);
+void		ft_cmd(size_t i);
 void		get_env_var(t_sh *sh, char **env, size_t i);
 
 //	SIGNAL

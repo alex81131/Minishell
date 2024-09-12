@@ -38,7 +38,7 @@ t_arg	*arg_last(t_arg *arg)
 	return (arg);
 }
 
-int	arg_add_back(t_arg *head, t_arg *new)
+int	arg_add_back(t_arg **head, t_arg *new)
 {
 	if (!new)
 		return (1);
@@ -72,7 +72,7 @@ void	arg_free(t_arg *arg)
 		if (arg->value)
 			free(arg->value);
 		arg = arg->next;
-		free(arg);
+		free(temp);
 	}
 }
 // arg: chained list of argument, storing their value

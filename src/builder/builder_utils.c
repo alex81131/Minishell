@@ -12,54 +12,54 @@
 
 #include "minishell.h"
 
-t_exe	*bld_ini(void)
+t_cmd	*bld_ini(void)
 {
-	t_exe	*res;
+	t_cmd	*res;
 
-	res = (t_exe *)malloc(sizeof(t_exe));
+	res = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!res)
 		return (NULL);
 	res->arg = NULL;
-	res->cmd = NULL;
+	res->name = NULL;
 	res->fd_in = STDIN_FILENO;
 	res->fd_out = STDOUT_FILENO;
-	res->redir = NULL;
+	res->redirs = NULL;
 	res->next = NULL;
 	return (res);
 }
 
-void	bld_free(t_exe *exe)
+void	bld_free(t_cmd *cmd)
 {
-	t_exe	*temp;
+	t_cmd	*temp;
 
-	while (exe)
+	while (cmd)
 	{
-		temp = exe;
-		if (exe->cmd)
-			free(exe->cmd);
-		if (exe->arg)
-			arg_free(exe->arg);
-		if (exe->redir)
-			fn_free(exe->redir);
-		exe = exe->next;
+		temp = cmd;
+		if (cmd->name)
+			free(cmd->name);
+		if (cmd->arg)
+			arg_free(cmd->arg);
+		if (cmd->redirs)
+			fn_free(cmd->redirs);
+		cmd = cmd->next;
 		free(temp);
 	}
 }
 
-int	bld_lstsize(t_exe *exe)
+int	bld_lstsize(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (exe)
+	while (cmd)
 	{
 		i++;
-		exe = exe->next;
+		cmd = cmd->next;
 	}
 	return (i);
 }
 
-// void	bld_debug(t_exe *exe)
+// void	bld_debug(t_cmd *exe)
 // {
 // 	t_arg		*arg;
 // 	t_filename	*filename;

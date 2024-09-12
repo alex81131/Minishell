@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:26:11 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 16:27:57 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:18:04 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ps_count_var(char *str)
 	return (count);
 }
 
-static char	ps_convert_var(char *str, char *var, t_sh *sh)
+static char	*ps_convert_var(char *str, char *var, t_sh *sh)
 {
 	char	*before_env;
 	char	*env_var;

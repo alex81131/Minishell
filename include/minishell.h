@@ -29,7 +29,8 @@
 # include "exec.h"
 # include "builtins.h"
 # include "builder.h"
-# include "signal.h"
+# include "signals.h"
+# include "env.h"
 
 //	COLORS
 # define BLUE "\033[0;38;5;123m"
@@ -63,25 +64,18 @@
 # define DEF_ENV "SHELL=Minishell"
 
 //	STRUCTURE
+
 typedef struct s_sh
 {
 	int				fd_in;
 	int				fd_out;
 	char			exit_code;
-	int				exe_count;
-	pid_t			*pid;
+	int				cmd_count;
+	pid_t			*pids;
 	int				pid_count;
 	t_cmd			*cmd;
 	t_env			*env;
 }	t_sh;
-
-typedef struct s_env
-{
-	char			*id;
-	char			*value;
-	char			*sum;
-	struct s_env	*next;
-}	t_env;
 
 typedef struct s_signal
 {
@@ -101,13 +95,13 @@ void	*ms_free_double(char **value);
 t_env	*ms_getenv(char *path, t_env *env);
 
 //	t_env
-t_env	*env_create(char *id, char *value, char *raw);
-t_env	*env_default_env(void);
-void	env_del_one(t_env *env);
-void	env_free(t_env *env);
-int		env_add_back(t_env **head, t_env *new);
-char	*env_get_id(char *raw);
-char	*env_get_value(char *raw);
-int		env_lstsize(t_env *env);
+// t_env	*env_create(char *id, char *value, char *raw);
+// t_env	*env_default_env(void);
+// void	env_del_one(t_env *env);
+// void	env_free(t_env *env);
+// int		env_add_back(t_env **head, t_env *new);
+// char	*env_get_id(char *raw);
+// char	*env_get_value(char *raw);
+// int		env_lstsize(t_env *env);
 
 #endif

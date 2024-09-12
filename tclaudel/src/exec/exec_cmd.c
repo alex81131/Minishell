@@ -119,7 +119,7 @@ static int	ft_fork_process(t_sh *sh, char **cmd)
 	return (1);
 }
 
-void	ft_exec(size_t i)
+void	ft_cmd(size_t i)
 {
 	if (sh()->cmd[i][0] && is_builtin(sh()->cmd[i][0]))
 		exec_builtin(sh(), i);

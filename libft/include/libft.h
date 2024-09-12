@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:27:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/05 16:22:23 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:15:01 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ void	free_array(char **array);
 //		error.c
 void	err_exit(const char *err, const char *msg);
 void	perror_exit(const char *msg);
-//		handle_args.c
+//		handle_arg.c
 void	ft_tolower_char(char *c);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 //	<Minishell>
-char	ft_strndup(const char *str, int n);
+char	*ft_strndup(const char *str, int n);
 char	*ft_strjoin_free(char const *s1, char const *s2, int option);
 
 

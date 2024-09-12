@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:14:36 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/05 17:14:39 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:13:59 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	lex_strtok(char *str, t_sh *sh)
+static t_token	*lex_strtok(char *str, t_sh *sh)
 {
 	t_token			*new;
 	t_token_type	type;
@@ -35,7 +35,7 @@ t_token	*lexer(t_sh *sh, char *line)
 	token = NULL;
 	while (line[i])
 	{
-		if (line[i] != WHITESPACE)
+		if (ft_strcmp(WHITESPACE, line + i))
 		{
 			temp = lex_strtok(&line[i], sh);
 			if (!temp)

@@ -32,7 +32,7 @@ static void	exec_child(size_t i, int in_fd)
 	else
 	{
 		redirect(sh()->fd[1], STDOUT_FILENO);
-		ft_exec(i);
+		ft_cmd(i);
 	}
 	close(sh()->fd[1]);
 	exit(EXIT_SUCCESS);

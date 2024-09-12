@@ -26,7 +26,7 @@ int	lonely_command(size_t i, int in_fd)
 			else
 			{
 				redirect(sh()->fd[1], 1);
-				ft_exec(i);
+				ft_cmd(i);
 			}
 			if (i > 0)
 				close(in_fd);
@@ -34,7 +34,7 @@ int	lonely_command(size_t i, int in_fd)
 		}
 	}
 	else
-		ft_exec(i);
+		ft_cmd(i);
 	return (EXIT_SUCCESS);
 }
 
@@ -55,7 +55,7 @@ void	final_redir(size_t i, int in_fd)
 			else
 			{
 				redirect(sh()->fd[1], 1);
-				ft_exec(i);
+				ft_cmd(i);
 			}
 			close(sh()->fd[1]);
 			exit(EXIT_SUCCESS);

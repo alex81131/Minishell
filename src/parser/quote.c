@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 15:02:50 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:18:31 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ps_expand_quotes(t_token *token)
 			ps_expand_variables(str);
 			if (token->value)
 				free(token->value);
-			token->value = ps_combine_token(str);
+			token->value = ps_combine_tokens(str);
 			tok_free(str);
 		}
 		token = token->next;
@@ -119,7 +119,7 @@ int	ps_expand_quotes(t_token *token)
 // 	3. Im
 
 // ps_parse_quotes:
-// 	after ps_get_quote_str, 
+// 	after ps_get_quote_str,
 // 	i += ft_strlen + 1, because the quotes have been ripped off
 // 	i += ft_strlen - 1, because:
 // 	abc

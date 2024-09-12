@@ -73,5 +73,5 @@ void	right_redir(size_t *i)
 	redirect(sh()->fd[1], STDOUT_FILENO);
 	if (sh()->redir[*i + 1] && (sh()->redir[*i + 1] == '<' || sh()->redir[*i] == 'd'))
 		skip_next_left_redir(i);
-	ft_exec(*i);
+	ft_cmd(*i);
 }

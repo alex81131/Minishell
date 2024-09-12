@@ -72,7 +72,7 @@ void	left_redir(size_t *i)
 		right_redir(i);
 	if (sh()->redir[*i])
 		redirect(sh()->fd[1], STDOUT_FILENO);
-	ft_exec(save);
+	ft_cmd(save);
 }
 /*
 When handling multiple in-/output redirections,such as
@@ -90,7 +90,7 @@ When < and << are mixed together, whoever comes last counts.
 	but will only be recorded if it's the last redirection.
 */
 /*
-*i is used for cmd[*i] in 
+*i is used for cmd[*i] in
 	else if (sh()->redir[(*i)++] == 'h')
 	so automatically *i is +1 to correctly point the right command
 */

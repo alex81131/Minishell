@@ -45,7 +45,7 @@ static void	main_loop(char *buff)
 			if (sh()->redir[0])
 				redirection(0, 0);
 			else
-				ft_exec(0);
+				ft_cmd(0);
 			free_command();
 			free_string(&sh()->redir);
 			i++;

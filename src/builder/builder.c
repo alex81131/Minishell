@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	bld_redir(t_exe *exe, t_token *token)
+static int	bld_redir(t_cmd *exe, t_token *token)
 {
 	t_filename	*temp;
 
@@ -23,13 +23,13 @@ static int	bld_redir(t_exe *exe, t_token *token)
 		temp = fn_create(token->next->value, token->type);
 		if (!temp)
 			return (-1);
-		fn_add_back(&exe->redir, temp);
+		fn_add_back(&exe->redirs, temp);
 		return (1);
 	}
 	return (0);
 }
 
-static int	bld_arg(t_exe *exe, t_token *token)
+static int	bld_arg(t_cmd *exe, t_token *token)
 {
 	t_arg	*new;
 
@@ -43,29 +43,29 @@ static int	bld_arg(t_exe *exe, t_token *token)
 	return (0);
 }
 
-t_exe	builder(t_token	*token)
+t_cmd	*builder(t_token	*token)
 {
-	t_exe	*exe;
+	t_cmd	*cmd;
 
-	exe = bld_ini();
-	if (!exe)
+	cmd = bld_ini();
+	if (!cmd)
 		return (NULL);
 	while (token)
 	{
 		if (token->type == PIPE)
 		{
-			exe->next = builder(token->next);
+			cmd->next = builder(token->next);
 			break ;
 		}
 		else if (token->type == COMMAND)
 		{
-			exe->cmd = ft_strdup(token->value);
-			if (!exe->cmd)
+			cmd->name = ft_strdup(token->value);
+			if (!cmd->name)
 				return (NULL);
 		}
-		bld_redir(exe, token);
-		bld_arg(exe, token);
+		bld_redir(cmd, token);
+		bld_arg(cmd, token);
 		token = token->next;
 	}
-	return (exe);
+	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:28:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 15:32:35 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:58:49 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	unlink_heredocs(t_sh *sh)
 {
 	t_cmd		*cmd;
-	t_filenames	*files;
+	t_filename	*files;
 
 	cmd = sh->cmd;
 	while (cmd)
@@ -31,7 +31,7 @@ void	unlink_heredocs(t_sh *sh)
 	}
 }
 
-static void	redir_files(t_cmd *cmd, t_filenames *file)
+static void	redir_files(t_cmd *cmd, t_filename *file)
 {
 	if (file->type == INFILE || file->type == N_HEREDOC)
 	{
@@ -60,7 +60,7 @@ static void	redir_files(t_cmd *cmd, t_filenames *file)
 
 int	handle_files(t_cmd *cmd)
 {
-	t_filenames	*tmp;
+	t_filename	*tmp;
 
 	tmp = cmd->redirs;
 	while (tmp)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:00:38 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/05 16:08:05 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:15:22 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	ft_strndup(const char *str, int n)
+char	*ft_strndup(const char *str, int n)
 {
 	char	*res;
 	int		i;

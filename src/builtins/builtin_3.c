@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 19:15:15 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:01:03 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,33 @@ int	print_env(t_env *env)
 	return (EXIT_SUCCESS);
 }
 
-int	exec_export(t_env *env, t_args *args)
+int	exec_export(t_env *env, t_arg *arg)
 {
 	int		i;
 	char	*eq_sign;
 
-	if (!args)
+	if (!arg)
 		if (print_env(env))
 			return (EXIT_FAILURE);
-	while (args)
+	while (arg)
 	{
-		eq_sign = ft_strchr(args->value, '=');
+		eq_sign = ft_strchr(arg->value, '=');
 		if (eq_sign)
 		{
 			*eq_sign = '\0';
-			set_env_var(&env, args->value[i], eq_sign + 1);
+			set_env_var(&env, arg->value[i], eq_sign + 1);
 			*eq_sign = '=';
 		}
-		args = args->next;
+		arg = arg->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	exec_env(t_env *env, t_args *args)
+int	exec_env(t_env *env, t_arg *arg)
 {
-	if (args)
+	if (arg)
 	{
-		printf("env: '%s': No such file or directory\n", args->value);
+		printf("env: '%s': No such file or directory\n", arg->value);
 		return ;
 	}
 	print_env(env);

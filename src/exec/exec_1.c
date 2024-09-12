@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 15:58:10 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:38:03 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	if (handle_files(cmd))
 	{
 		close_fd_io(sh);
-		close_all_fdp(fd_p);
+		close_fd_p(fd_p);
 		free_all_sh(sh);
 		exit(EXIT_FAILURE);
 	}
 	close_fd_io(sh);
-	close_all_fdp(fd_p);
-	if (is_builtin(sh->cmd))
+	close_fd_p(fd_p);
+	if (is_builtin(sh->cmd->name))
 	{
-		exit_code = exec_builtin(sh, cmd->name, cmd->args);
+		exit_code = exec_builtin(sh, cmd->name, cmd->arg);
 		free_all_sh(sh);
 		exit(exit_code);
 	}
-	exit_code = exec_cmd(sh, cmd->name, cmd->args);
+	exit_code = exec_cmd(sh, cmd->name, cmd->arg);
 	free_all_sh(sh);
 	//if (exit_code == -2)
 	//	exit(IS_A_DIRECTORY);
@@ -77,14 +77,14 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 	fd_p[1] = -1;
 	if (cmd->next && pipe(fd_p) == -1)
 	{
-		ft_printf_fd("Minishell: %s\n", strerror(errno));
+		ft_printf_fd(2, "Minishell: %s\n", strerror(errno));
 		exit(2);
 	}
 	//signal(SIGIT, sig_exec);
 	sh->pids[sh->pid_count] = fork();
 	if (sh->pids[sh->pid_count] == -1)
 	{
-		ft_printf_fd("Minishell: %s\n", strerror(errno));
+		ft_printf_fd(2, "Minishell: %s\n", strerror(errno));
 		exit(3);
 	}
 	else if (!sh->pids[sh->pid_count])
@@ -106,7 +106,7 @@ static int	execution(t_sh *sh)
 		if (is_builtin(tmp->name) == 2)
 			ft_printf_fd(2, "exit\n");
 		unlink_heredocs(sh);
-		sh->exit_code = exec_builtin(sh, tmp->name, tmp->args);
+		sh->exit_code = exec_builtin(sh, tmp->name, tmp->arg);
 		return (EXIT_SUCCESS);
 	}
 	while (tmp)

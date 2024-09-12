@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-t_filename	*fn_create(char *path, t_token_type type)
+t_filename	*fn_create(char *name, t_token_type type)
 {
 	t_filename	*filename;
-	char		*new_path;
+	char		*new_name;
 
 	filename = (t_filename *)malloc(sizeof(t_filename));
 	if (!filename)
 		return (NULL);
-	new_path = ft_strdup(path);
-	if (!new_path)
+	new_name = ft_strdup(name);
+	if (!new_name)
 	{
 		free(filename);
 		return (NULL);
 	}
-	filename->path = new_path;
+	filename->name = new_name;
 	filename->type = type;
 	filename->next = NULL;
 	return (filename);
@@ -70,8 +70,8 @@ void	fn_free(t_filename *filename)
 	while (filename)
 	{
 		temp = filename;
-		if (filename->path)
-			free(filename->path);
+		if (filename->name)
+			free(filename->name);
 		filename = filename->next;
 		free(temp);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 19:10:50 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 19:32:31 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/12 16:20:22 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ps_get_env_var(char *var, t_sh *sh)
 		return (ft_itoa(sh->exit_code));
 	}
 	else if (name && !ft_strcmp(name, "$"))
-		return (free(name) && ft_strdup("program_pid"));
+		return (free(name), ft_strdup("program_pid"));
 	env_var = ps_fetch_var(sh->env, name);
 	if (name)
 		free(name);
@@ -81,7 +81,7 @@ char	*ps_get_after_env(char *var)
 	int		len;
 	char	*res;
 
-	len = ps_get_env_name(var);
+	len = ps_name_len(var);
 	res = ft_strdup(var + len);
 	return (res);
 }

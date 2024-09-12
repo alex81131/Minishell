@@ -13,16 +13,16 @@
 #ifndef BUILDER_H
 # define BUILDER_H
 
-//	t_exe
-t_exec		*builder(t_token *token);
-t_exec		*bld_ini(void);
+//	t_cmd
+t_cmd		*builder(t_token *token);
+t_cmd		*bld_ini(void);
 
-void		bld_free(t_exe *exe);
-int			bld_lstsize(t_exec *exe);
-void		bld_debug(t_exec *exe);
+void		bld_free(t_cmd *exe);
+int			bld_lstsize(t_cmd *exe);
+void		bld_debug(t_cmd *exe);
 
 //	t_filename
-t_filename	*fn_create(char *path, t_token_type type);
+t_filename	*fn_create(char *name, t_token_type type);
 t_filename	*fn_last(t_filename *filename);
 int			fn_add_back(t_filename **head, t_filename *new);
 int			fn_lstsize(t_filename *filename);

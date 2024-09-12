@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/10 15:12:48 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:01:03 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,29 +81,29 @@ static char	**cnv_env_to_arr(t_env *env)
 	return (env_arr);
 }
 
-static char	get_cmd(char *cmd, t_args *args)
+static char	get_cmd(char *cmd, t_arg *arg)
 {
 	int		i;
 	int		arg_size;
 	char	**final_cmd;
 
-	arg_size = ft_lstsize(args);
+	arg_size = ft_lstsize(arg);
 	cmd = (char **)malloc(sizeof (arg_size + 2) * (char *));
 	if (!cmd)
 		return (NULL);
 	i = 0;
 	final_cmd[i++] = ft_strdup(cmd);
-	if (args)
+	if (arg)
 	{
-		final_cmd[i] = ft_strdup(args->value);
-		args = args->next;
+		final_cmd[i] = ft_strdup(arg->value);
+		arg = arg->next;
 		i++;
 	}
 	final_cmd[i] = NULL;
 	return (final_cmd);
 }
 
-int	exec_cmd(t_sh *sh, char *cmd, t_args *args)
+int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 {
 	char	*path;
 	char	**cmd;
@@ -118,7 +118,7 @@ int	exec_cmd(t_sh *sh, char *cmd, t_args *args)
 	env = cnv_env_to_arr(sh->env);
 	if (!env)
 		return (free(path), -1);
-	cmd = get_cmd(cmd, args);
+	cmd = get_cmd(cmd, arg);
 	if (!cmd)
 		return (free(path), free_arr(env), -1);
 	if (execve(path, cmd, env) == -1)
