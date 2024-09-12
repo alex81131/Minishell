@@ -29,7 +29,7 @@
 # include "exec.h"
 # include "builtins.h"
 # include "builder.h"
-# include "signals.h"
+# include "signal.h"
 
 //	COLORS
 # define BLUE "\033[0;38;5;123m"
