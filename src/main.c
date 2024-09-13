@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 15:16:06 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 15:53:39 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	analyze_line(t_sh *sh, char *input)
 	if (!token)
 		return (0);
 	err = parser(&token);
-	if (!err)
+	if (err)
 	{
 		tok_free(token);
 		if (err == 2)
