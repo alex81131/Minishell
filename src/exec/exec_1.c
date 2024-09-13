@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 15:41:29 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:29:15 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 	fd_p[1] = -1;
 	if (cmd->next && pipe(fd_p) == -1)
 	{
-		ft_printf_fd(2, "Minishell: %s\n", strerror(errno));
+		ft_printf_fd(2, "%s %s\n", PROMPT, strerror(errno));
 		exit(2);
 	}
 	signal(SIGINT, sig_exec);
 	sh->pids[sh->pid_count] = fork();
 	if (sh->pids[sh->pid_count] == -1)
 	{
-		ft_printf_fd(2, "Minishell: %s\n", strerror(errno));
+		ft_printf_fd(2, "%s %s\n", PROMPT, strerror(errno));
 		exit(3);
 	}
 	else if (!sh->pids[sh->pid_count])

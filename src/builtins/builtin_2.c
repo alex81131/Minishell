@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 13:00:24 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:31:20 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	exec_echo(t_arg *arg)
 		printf("%s", arg->value);
 		if (arg->next)
 			printf("%s", " ");
+		arg = arg->next;
 	}
 	if (nl)
 		printf("%s", "\n");
