@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 11:43:16 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:47:39 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ms_setup_cmd(t_sh *sh, t_token **token)
 	return (0);
 }
 
-int	analyze_line(t_sh *sh, char *input)
+static int	analyze_line(t_sh *sh, char *input)
 {
 	t_token	*token;
 	int		err;

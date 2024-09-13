@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:00:38 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:15:22 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:51:09 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strndup(const char *str, int n)
 	i = 0;
 	if (!str || n < 0)
 		return (NULL);
-	if (ft_strlen(str) <= n)
+	if ((int)ft_strlen(str) <= n)
 		len = ft_strlen(str);
 	else
 		len = n;
@@ -29,7 +29,10 @@ char	*ft_strndup(const char *str, int n)
 	if (!res)
 		return (NULL);
 	while (str[i] && i < n)
-		res[i] = str[i++];
+	{
+		res[i] = str[i];
+		i++;
+	}
 	res[i] = '\0';
 	return (res);
 }
