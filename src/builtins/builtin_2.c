@@ -6,13 +6,13 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:01:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:00:24 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_pwd(t_arg *arg)
+int	exec_pwd(void)
 {
 	char	*cwd;
 
@@ -80,8 +80,8 @@ static int	pwd_update(t_env *env, char *old_cwd)
 			PROMPT);
 		return (EXIT_FAILURE);
 	}
-	set_env_var(env, "OLDPWD", old_cwd);
-	set_env_var(env, "PWD", cwd);
+	set_env_var(&env, "OLDPWD", old_cwd);
+	set_env_var(&env, "PWD", cwd);
 	free(cwd);
 	free(old_cwd);
 	return (EXIT_SUCCESS);
@@ -94,7 +94,7 @@ int	exec_cd(t_env *env, t_arg *arg)
 	char	*new_dir;
 	int		size;
 
-	size = arg_listsize(arg);
+	size = arg_lstsize(arg);
 	if (size > 1)
 		return (ft_printf_fd(2, "%scd: too many arguments", PROMPT), 1);
 	old_cwd = getcwd(NULL, 0);

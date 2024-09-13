@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:27:43 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:57:59 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:03:19 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,19 @@ void	env_free(t_env *head)
 	}
 }
 
-void	print_env(t_env *env)
+int	print_env(t_env *env)
 {
 	t_env	*tmp;
 
+	if (!env)
+		return (EXIT_FAILURE);
 	tmp = env;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->id, tmp->value);
+		printf("%s\n", tmp->sum);
 		tmp = tmp->next;
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	env_lstsize(t_env *env)

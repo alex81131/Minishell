@@ -6,30 +6,14 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:01:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:25:07 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_env(t_env *env)
-{
-	t_env	*tmp;
-
-	if (!env)
-		return (EXIT_FAILURE);
-	tmp = env;
-	while (tmp)
-	{
-		printf("%s\n", tmp->sum);
-		tmp = tmp->next;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	exec_export(t_env *env, t_arg *arg)
 {
-	int		i;
 	char	*eq_sign;
 
 	if (!arg)
@@ -41,7 +25,8 @@ int	exec_export(t_env *env, t_arg *arg)
 		if (eq_sign)
 		{
 			*eq_sign = '\0';
-			set_env_var(&env, arg->value[i], eq_sign + 1);
+			if (set_env_var(&env, arg->value, eq_sign + 1))
+				return (EXIT_FAILURE);
 			*eq_sign = '=';
 		}
 		arg = arg->next;
@@ -54,18 +39,20 @@ int	exec_env(t_env *env, t_arg *arg)
 	if (arg)
 	{
 		printf("env: '%s': No such file or directory\n", arg->value);
-		return ;
+		return (EXIT_FAILURE);
 	}
-	print_env(env);
+	if (print_env(env))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-int	env_remove(char	*arg, t_env **env)
+static void	env_remove(char	*arg, t_env **env)
 {
 	t_env	*target;
 	t_env	*pre_target;
 
 	if (!arg || !env || !*env)
-		return (0);
+		return ;
 	target = *env;
 	while (target && ft_strcmp(arg, target->id) != 0)
 	{
@@ -73,25 +60,24 @@ int	env_remove(char	*arg, t_env **env)
 		target = target->next;
 	}
 	if (!target)
-		return (0);
+		return ;
 	if (target == *env)
 		*env = target->next;
 	else
 		pre_target->next = target->next;
 	node_free(target);
-	return (1);
+	return ;
 }
 
-int	exec_unset(t_cmd *cmd, t_env **env)
+int	exec_unset(t_env **env, t_arg *arg)
 {
-	int	i;
-
-	i = 1;
-	while (cmd[i])
+	if (!env || !*env)
+		return (EXIT_FAILURE);
+	while (arg)
 	{
-		if (ft_strcmp("_", cmd[i]) != 0 && env_remove(cmd[i], env))
+		if (ft_strcmp("_", arg->value) != 0 && env_remove(arg->value, env))
 			return (1);
-		i++;
+		arg = arg->next;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

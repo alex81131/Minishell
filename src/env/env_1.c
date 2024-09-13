@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:07:34 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:45:44 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_env	*ps_fetch_var(t_env *env, char *var)
 	return (NULL);
 }
 
-void	set_env_var(t_env **env, char *id, char *value)
+int	set_env_var(t_env **env, char *id, char *value)
 {
 	t_env	*var;
 	t_env	*new;
@@ -53,7 +53,7 @@ void	set_env_var(t_env **env, char *id, char *value)
 
 	new_value = ft_strdup(value);
 	if (!new_value)
-		return ;//NULL
+		return (EXIT_FAILURE);
 
 	var = get_env_var(*env, id);
 	if (var)
@@ -65,12 +65,13 @@ void	set_env_var(t_env **env, char *id, char *value)
 	{
 		new = (t_env *)malloc(sizeof(t_env));
 		if (!new)
-			return ;//(NULL);
+			return (EXIT_FAILURE);
 		new->id = ft_strdup(id);
 		new->value = new_value;
 		new->next = NULL;
 		env_var_add(env, new);
 	}
+	return (EXIT_SUCCESS);
 }
 
 t_env	*env_create(char *env_entry)

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 11:22:57 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:05:02 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	**get_cmd(char *cmd, t_arg *arg)
 	int		arg_size;
 	char	**final_cmd;
 
-	arg_size = ft_argsize(arg);
+	arg_size = arg_lstsize(arg);
 	final_cmd = (char **)malloc(sizeof(char *) * (arg_size + 2));
 	if (!final_cmd)
 		return (NULL);
