@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:16:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 14:45:08 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:15:23 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ int	exec_exit(t_sh *sh, t_arg *arg)
 		if (ft_isnumeric(arg->value))
 		{
 			if (arg->next)
-				return (ft_putendl_fd("minishell> exit: too many arguments",
-						STDERR_FILENO), 1);
+				return (ft_printf_fd(2, "%s exit: too many arguments",
+						PROMPT), 1);
 			else
 				exit_status = ft_atoi(arg->value) % 255;
 		}
 		else
 		{
-			ft_printf_fd(STDERR_FILENO, "%s exit: %s: numeric argument required", PROMPT, arg->value);
+			ft_printf_fd(2, "%s exit: %s: numeric argument required",
+				PROMPT, arg->value);
 			exit_status = 2;
 		}
 	}
