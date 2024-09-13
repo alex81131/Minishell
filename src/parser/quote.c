@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 16:26:05 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:33:16 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*ps_combine_tokens(t_token *token)
 	{
 		if (token->value)
 		{
-			value = ft_ps_strjoin(value, token->value, 1);
+			value = ps_strjoin(value, token->value);
 			if (!value)
 				break ;
 		}

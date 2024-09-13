@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:13:16 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 17:11:51 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 16:29:53 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int		parser(t_token **token);
 int		ps_check_all_null(t_token *token);
+char	*ps_strjoin(char *s1, char *s2);
 //	Quotes
 int		ps_expand_quotes(t_token *token);
 //	Expansion
