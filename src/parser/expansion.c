@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:26:11 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 16:32:58 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 17:43:22 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ps_handle_var(t_token *token)
 		var = ft_strchr(token->value, '$');
 		if (!var || n == 0)
 			break ;
-		if (ft_strcmp(var, "$"))
+		if (!ft_strcmp(var, "$"))
 			break ;
 		temp = token->value;
 		res = ps_convert_var(token->value, var, token->sh);

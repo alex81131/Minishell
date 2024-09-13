@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 17:29:15 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:54:23 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	execution(t_sh *sh)
 	t_cmd	*tmp;
 
 	tmp = sh->cmd;
-	if (tmp->next == NULL && !is_builtin(tmp->name))
+	if (tmp->next == NULL && is_builtin(tmp->name) != 1)
 	{
 		if (handle_files(tmp))
 			return ((sh->exit_code = 1), EXIT_FAILURE);
