@@ -6,13 +6,34 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 15:07:15 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 15:10:10 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_signal	g_signal = {0};
+
+static void	print_welcome(void)
+{
+	ft_printf(YELLOW"\n################################################");
+	ft_printf("################################\n\n");
+	ft_printf(LIGHT_PINK"\n\t\t __  __ ___ _   _ ___ ____  _");
+	ft_printf("   _ _____ _     _   \n");
+	ft_printf(YELLOW"\t\t|  \\/  |_ _| \\ | |_ _/ ___|| | | | ");
+	ft_printf("____| |   | |  \n");
+	ft_printf(BLUE"\t\t| |\\/| || ||  \\| || |\\___ \\| |_| |  _");
+	ft_printf("| | |   | |  \n");
+	ft_printf(GREEN"\t\t| |  | || || |\\  || | ___) |  _  | |___|");
+	ft_printf(" |___| |___ \n");
+	ft_printf(""LIGHT_RED"\t\t|_|  |_|___|_| \\_|___|____/|_| |_|__");
+	ft_printf("___|_____|_____|\n");
+	ft_printf(YELLOW"\n\n\n########################################");
+	ft_printf("###############");
+	ft_printf("#########################\n\n"RESET);
+	ft_printf("\tCreated by\t: kyeh & tkaragoz\n");
+	ft_printf("\tGithub\t\t: https://github.com/alex81131/Minishell\n\n\n");
+}
 
 static int	ms_setup_cmd(t_sh *sh, t_token **token)
 {
@@ -82,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_sh	*sh;
 
+	print_welcome();
 	(void)argv[argc];
 	sh = init_sh(env);
 	if (!sh)
