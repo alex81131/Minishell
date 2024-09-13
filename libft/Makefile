@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:27:51 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/13 16:26:05 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/13 17:17:45 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ GNL = \
 FDF = \
 		fdf.c
 MINISHELL = \
-		ft_strndup.c ft_ps_strjoin.c
+		ft_strndup.c ft_strjoin_free.c
 
 SRC_FILES = \
 		$(LIBFT) $(FT_PRINTF) $(GNL) $(FDF) $(MINISHELL)

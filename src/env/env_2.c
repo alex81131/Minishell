@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:27:43 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 13:03:19 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:19:22 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	node_free(t_env *node)
 {
 	free(node->id);
 	free(node->value);
+	free(node->sum);
 	free(node);
 }
 
