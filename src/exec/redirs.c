@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:28:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:41:26 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 15:45:40 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	redir_files(t_cmd *cmd, t_filename *file)
 			close (cmd->fd_in);
 		cmd->fd_in = open(file->name, O_RDONLY);
 		if (cmd->fd_in == -1)
-			ft_printf_fd(STDERR_FILENO, "Minishell: %s: %s\n", file->name, strerror(errno));
+			ft_printf_fd(2, "Minishell: %s: %s\n", file->name, strerror(errno));
 		dup2(cmd->fd_in, STDIN_FILENO);
 		close(cmd->fd_in);
 	}
@@ -52,7 +52,8 @@ static void	redir_files(t_cmd *cmd, t_filename *file)
 		else if (file->type == APPEND)
 			cmd->fd_out = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (cmd->fd_out == -1)
-			ft_printf_fd(STDERR_FILENO, "Minishell: %s: %s\n", file->name, strerror(errno));
+			ft_printf_fd(2, "Minishell: %s: %s\n",
+				file->name, strerror(errno));
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);
 	}
