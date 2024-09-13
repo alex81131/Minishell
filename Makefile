@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/12 16:35:53 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/13 11:56:43 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ $(OBJ_PATH):
 	@mkdir -p obj/display 2> /dev/null
 	@mkdir -p obj/redirection 2> /dev/null
 	@mkdir -p obj/utils 2> /dev/null
+	@mkdir -p obj/signal 2> /dev/null
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HEADER)/minishell.h Makefile
 	@mkdir -p $(dir $@)

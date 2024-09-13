@@ -86,13 +86,12 @@ typedef struct s_signal
 extern t_signal	g_signal;
 
 //	main + utils
-t_sh	*ms_ini_sh(char **env);
+t_sh	*init_sh(char **env);
 void	ms_free_token(t_sh *sh, t_token *token);
-void	ms_free_all(t_sh *sh);
-int		ms_check_line(char *line);
+void	sh_free_all(t_sh *sh);
 t_env	*ms_env_dup(char **env);
-void	*ms_free_double(char **value);
-t_env	*ms_getenv(char *path, t_env *env);
+// void	*ms_free_double(char **value);
+// t_env	*ms_getenv(char *path, t_env *env);
 
 //	t_env
 // t_env	*env_create(char *id, char *value, char *raw);

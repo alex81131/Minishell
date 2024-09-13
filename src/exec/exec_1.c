@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:38:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:45:22 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	{
 		close_fd_io(sh);
 		close_fd_p(fd_p);
-		free_all_sh(sh);
+		sh_free_all(sh);
 		exit(EXIT_FAILURE);
 	}
 	close_fd_io(sh);
@@ -59,11 +59,11 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	if (is_builtin(sh->cmd->name))
 	{
 		exit_code = exec_builtin(sh, cmd->name, cmd->arg);
-		free_all_sh(sh);
+		sh_free_all(sh);
 		exit(exit_code);
 	}
 	exit_code = exec_cmd(sh, cmd->name, cmd->arg);
-	free_all_sh(sh);
+	sh_free_all(sh);
 	//if (exit_code == -2)
 	//	exit(IS_A_DIRECTORY);
 	//exit(COMMAND_NOT_FOUND);

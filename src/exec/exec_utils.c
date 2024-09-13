@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:30:25 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 15:43:31 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:44:37 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	close_fd_io(t_sh *sh)
 		close(sh->fd_out);
 }
 
-void	free_all_sh(t_sh *sh)
+int	ft_argsize(t_arg *arg)
 {
-	if (sh)
+	int	i;
+
+	i = 0;
+	while (arg)
 	{
-		if (sh->cmd)
-			free_cmd(sh->cmd);
-		if (sh->pids)
-			free_pids(sh->pids);
-		if (sh->env)
-			env_free(sh->env);
+		i++;
+		arg = arg->next;
 	}
+	return (i);
 }

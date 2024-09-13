@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:47:14 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 11:43:16 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,6 @@ int	analyze_line(t_sh *sh, char *input)
 	return (0);
 }
 
-t_sh	*init_sh(char	**env)
-{
-	t_sh	*sh;
-
-	sh = (t_sh *)malloc(sizeof(t_sh) * 1);
-	if (!sh)
-		return (NULL);
-	sh->env = create_env_list(env);
-	if (!sh->env)
-	{
-		free(sh);
-		return (NULL);
-	}
-	sh->fd_in = STDIN_FILENO;
-	sh->fd_out = STDOUT_FILENO;
-	sh->cmd = NULL;
-	sh->pids = NULL;
-	sh->cmd_count = 0;
-	sh->pid_count = 0;
-	sh->exit_code = 0;
-	return (sh);
-}
-
 static void	main_loop(t_sh *sh)
 {
 	char	*input;
@@ -98,6 +75,7 @@ static void	main_loop(t_sh *sh)
 		if (input)
 			free(input);
 	}
+	sh_free_all(sh);
 }
 
 int	main(int argc, char **argv, char **env)

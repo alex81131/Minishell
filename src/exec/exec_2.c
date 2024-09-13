@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:48:54 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:22:57 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_path(char *cmd, t_env *env)
 	if (!paths)
 		return (ft_strdup(cmd));
 	final_path = get_final_path(paths, cmd);
-	free_arr(paths);
+	free_array(paths);
 	return (final_path);
 
 }
@@ -81,15 +81,15 @@ static char	**cnv_env_to_arr(t_env *env)
 	return (env_arr);
 }
 
-static char	get_cmd(char *cmd, t_arg *arg)
+static char	**get_cmd(char *cmd, t_arg *arg)
 {
 	int		i;
 	int		arg_size;
 	char	**final_cmd;
 
-	arg_size = ft_lstsize(arg);
-	cmd = (char **)malloc(sizeof (arg_size + 2) * (char *));
-	if (!cmd)
+	arg_size = ft_argsize(arg);
+	final_cmd = (char **)malloc(sizeof(char *) * (arg_size + 2));
+	if (!final_cmd)
 		return (NULL);
 	i = 0;
 	final_cmd[i++] = ft_strdup(cmd);
@@ -106,25 +106,26 @@ static char	get_cmd(char *cmd, t_arg *arg)
 int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 {
 	char	*path;
-	char	**cmd;
+	char	**final_cmd;
 	char	**env;
 
 	if (!cmd)
 		return (0);
 	path = get_path(cmd, sh->env);
 	if (!path)
-		return (ft_printf_fd("Command path is not found: %s\n",
+		return (ft_printf_fd(STDERR_FILENO, "Command path is not found: %s\n",
 				strerror(errno)), -1);
 	env = cnv_env_to_arr(sh->env);
 	if (!env)
 		return (free(path), -1);
-	cmd = get_cmd(cmd, arg);
-	if (!cmd)
-		return (free(path), free_arr(env), -1);
-	if (execve(path, cmd, env) == -1)
+	final_cmd = get_cmd(cmd, arg);
+	if (!final_cmd)
+		return (free(path), free_array(env), -1);
+	if (execve(path, final_cmd, env) == -1)
 	{
-		ft_printf_fd("Command is not found: %s\n", strerror(errno));
-		return (free(path), free_arr(env), free_cmd(cmd), -2);
+		ft_printf_fd(STDERR_FILENO, "Command is not found: %s\n",
+			strerror(errno));
+		return (free(path), free_array(env), free_array(final_cmd), -2);
 	}
-	return (free(path), free(env), free_arr(cmd), 0);
+	return (free(path), free_array(env), free_array(final_cmd), 0);
 }

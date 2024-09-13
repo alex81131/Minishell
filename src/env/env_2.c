@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:27:43 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/06 17:48:00 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:57:59 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,17 @@ int	env_lstsize(t_env *env)
 		cnt++;
 	}
 	return (cnt);
+}
+
+t_env	*get_env_var(t_env *env, char *var)
+{
+	if (!env || !var)
+		return (NULL);
+	while (env)
+	{
+		if (!ft_strcmp(env->id, var))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:41:11 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 16:35:20 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:59:08 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	exec_builtin(t_sh *sh, char *name, t_arg *arg)
 {
+	sh = sh;
+	name = name;
+	arg = arg;
 	// if (ft_strcmp(name, "echo") == 0)
 	// 	exec_echo(arg);
 	// else if (ft_strcmp(name, "cd") == 0)
