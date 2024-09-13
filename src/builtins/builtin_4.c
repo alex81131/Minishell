@@ -6,41 +6,57 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:16:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/11 18:16:22 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:45:08 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_error(char *str)
+static int	ft_isnumeric(char *str)
 {
-	ft_putstr_fd("minishell> exit: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	long	number;
+	int		i;
+
+	i = 0;
+	if (str[i] && str[i + 1] && (str[i] == '-' || str[i] == '+' ))
+		i++;
+	while (str[i])
+	{
+		if (str[i] > '9' || str[i] < '0')
+			return (0);
+		i++;
+	}
+	if (i > 11)
+		return (0);
+	number = ft_atoi(str);
+	if (number > 2147483647 || number < -2147483648)
+		return (0);
+	return (1);
 }
 
-int	exec_exit(t_cmd *cmd, t_env *env)
+int	exec_exit(t_sh *sh, t_arg *arg)
 {
 	int	exit_status;
 
 	exit_status = 0;
 	printf("exit\n");
-	if (cmd[1])
+	if (arg)
 	{
-		if (ft_isnumeric(cmd[1]))
+		if (ft_isnumeric(arg->value))
 		{
-			if (cmd[2])
+			if (arg->next)
 				return (ft_putendl_fd("minishell> exit: too many arguments",
 						STDERR_FILENO), 1);
 			else
-				exit_status = ft_atoi(cmd[1]) % 255;
+				exit_status = ft_atoi(arg->value) % 255;
 		}
 		else
 		{
-			exit_error(cmd[1]);
+			ft_printf_fd(STDERR_FILENO, "%s exit: %s: numeric argument required", PROMPT, arg->value);
 			exit_status = 2;
 		}
 	}
-	env_free(env);
+	close_fd_io(sh);
+	sh_free_all(sh);
 	exit(exit_status);
 }

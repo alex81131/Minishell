@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 14:25:07 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:28:57 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ static void	env_remove(char	*arg, t_env **env)
 int	exec_unset(t_env **env, t_arg *arg)
 {
 	if (!env || !*env)
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	while (arg)
 	{
-		if (ft_strcmp("_", arg->value) != 0 && env_remove(arg->value, env))
-			return (1);
+		if (ft_strcmp("_", arg->value) != 0)
+			env_remove(arg->value, env);
 		arg = arg->next;
 	}
 	return (EXIT_SUCCESS);

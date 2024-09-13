@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:41:11 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 14:06:26 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:32:18 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	exec_builtin(t_sh *sh, char *name, t_arg *arg)
 		exec_pwd();
 	else if (ft_strcmp(name, "export") == 0)
 		exec_export(sh->env, arg);
-	// else if (ft_strcmp(name, "unset") == 0) //bunu atladim
-	// 	exec_unset(&(sh->env), arg);
+	else if (ft_strcmp(name, "unset") == 0)
+		exec_unset(&(sh->env), arg);
 	else if (ft_strcmp(name, "env") == 0)
 		exec_env(sh->env, arg);
-	// else if (ft_strcmp(name, "exit") == 0)
-	// 	exec_exit(sh, arg);
+	else if (ft_strcmp(name, "exit") == 0)
+		exec_exit(sh, arg);
 	return (0);
 }
 
