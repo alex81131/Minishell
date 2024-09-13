@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 11:45:22 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:41:29 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	int	exit_code;
 
 	exit_code = 0;
-	//signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (cmd->next && cmd->fd_out == STDOUT_FILENO)
 		dup2(fd_p[1], STDOUT_FILENO);
 	if (handle_files(cmd))
@@ -64,9 +64,9 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	}
 	exit_code = exec_cmd(sh, cmd->name, cmd->arg);
 	sh_free_all(sh);
-	//if (exit_code == -2)
-	//	exit(IS_A_DIRECTORY);
-	//exit(COMMAND_NOT_FOUND);
+	if (exit_code == -2)
+		exit(IS_A_DIRECTORY);
+	exit(COMMAND_NOT_FOUND);
 }
 
 static void	child_process(t_sh *sh, t_cmd *cmd)
@@ -80,7 +80,7 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 		ft_printf_fd(2, "Minishell: %s\n", strerror(errno));
 		exit(2);
 	}
-	//signal(SIGIT, sig_exec);
+	signal(SIGINT, sig_exec);
 	sh->pids[sh->pid_count] = fork();
 	if (sh->pids[sh->pid_count] == -1)
 	{

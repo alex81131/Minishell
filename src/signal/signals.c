@@ -48,7 +48,7 @@ void	sig_heredoc(int status)
 	g_signal.signal_code = SIGNAL_OFFSET + SIGINT;
 }
 
-void	sig_exe(int status)
+void	sig_exec(int status)
 {
 	(void)status;
 	g_signal.signal_code = SIGNAL_OFFSET + SIGINT;
