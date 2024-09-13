@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:14:36 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 15:40:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:59:55 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_token	*lexer(t_sh *sh, char *line)
 	token = NULL;
 	while (line[i])
 	{
-		printf("%d\n", i);
 		if (!ft_strchr(WHITESPACE, line[i]))
 		{
 			temp = lex_strtok(&line[i], sh);
