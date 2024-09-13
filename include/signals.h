@@ -14,9 +14,7 @@
 # define SIGNAL_H
 
 void	sig_initiate(void);
-
 void	sig_heredoc(int status);
-
 void	sig_exec(int status);
 
 #endif
