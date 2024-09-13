@@ -66,6 +66,7 @@ t_cmd	*builder(t_token	*token)
 		bld_redir(cmd, token);
 		bld_arg(cmd, token);
 		token = token->next;
+        printf("Works until builder.\n");
 	}
 	return (cmd);
 }

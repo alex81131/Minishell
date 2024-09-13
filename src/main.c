@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 15:10:10 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/13 15:16:06 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	main_loop(t_sh *sh)
 				ft_printf_fd(STDOUT_FILENO, "Error in handling line\n");
 				sh->exit_code = 2;
 			}
-			//line = NULL;
+			// input = NULL;
 		}
 		if (input)
 			free(input);

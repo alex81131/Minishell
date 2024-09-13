@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:14:36 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:13:59 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:22:25 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*lexer(t_sh *sh, char *line)
 	token = NULL;
 	while (line[i])
 	{
-		if (ft_strcmp(WHITESPACE, line + i))
+		if (!ft_strchr(WHITESPACE, line[i]))
 		{
 			temp = lex_strtok(&line[i], sh);
 			if (!temp)
@@ -49,6 +49,7 @@ t_token	*lexer(t_sh *sh, char *line)
 		else
 			i++;
 	}
+	printf("Works until lexer.\n");
 	return (token);
 }
 // cmd1 < input | cmd2 'arg2' "arg3" >> append

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:11:55 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:16:17 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:22:48 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	lex_strlen(char *str)
 			i += lex_quote_len(&(str[i]), '\'');
 		else if (str[i] == '\"')
 			i += lex_quote_len(&(str[i]), '\"');
-		else if (get_meta_char_type(str[i]) || ft_strcmp(str + i, WHITESPACE))
+		else if (get_meta_char_type(str[i]) || !ft_strchr(WHITESPACE, str[i]))
 			break ;
 		i++;
 	}
