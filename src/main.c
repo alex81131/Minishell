@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 14:47:39 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:07:15 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	analyze_line(t_sh *sh, char *input)
 	if (ms_setup_cmd(sh, &token))
 		return (1);
 	pre_execution(sh);
-	ms_free_token(sh, token);
+	sh_free_token(sh, token);
 	return (0);
 }
 

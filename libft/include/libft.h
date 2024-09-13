@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:27:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:15:01 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:06:10 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	ft_tolower_char(char *c);
 
 //	<Minishell>
 char	*ft_strndup(const char *str, int n);
-char	*ft_strjoin_free(char const *s1, char const *s2, int option);
+char	*ft_strjoin_free(char *s1, char *s2, int option);
 
 
 #endif

@@ -87,7 +87,7 @@ extern t_signal	g_signal;
 
 //	main + utils
 t_sh	*init_sh(char **env);
-void	ms_free_token(t_sh *sh, t_token *token);
+void	sh_free_token(t_sh *sh, t_token *token);
 void	sh_free_all(t_sh *sh);
 t_env	*ms_env_dup(char **env);
 // void	*ms_free_double(char **value);

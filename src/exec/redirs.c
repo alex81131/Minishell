@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:28:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/12 15:58:49 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:41:26 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	redir_files(t_cmd *cmd, t_filename *file)
 		if (file->type == OUTFILE)
 			cmd->fd_out = open (file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (file->type == APPEND)
-			cmd->fd_out = open (file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			cmd->fd_out = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (cmd->fd_out == -1)
 			ft_printf_fd(STDERR_FILENO, "Minishell: %s: %s\n", file->name, strerror(errno));
 		dup2(cmd->fd_out, STDOUT_FILENO);
