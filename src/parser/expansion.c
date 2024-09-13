@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:26:11 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:18:04 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:26:05 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static char	*ps_convert_var(char *str, char *var, t_sh *sh)
 	after_env = ps_get_after_env(var + 1);
 	if (!after_env)
 		return (free(before_env), free(env_var), NULL);
-	res = ft_strjoin_free(before_env, env_var, 1);
+	res = ft_ps_strjoin(before_env, env_var, 1);
 	if (!res)
 		return (free(after_env), NULL);
-	res = ft_strjoin_free(res, after_env, 1);
+	res = ft_ps_strjoin(res, after_env, 1);
 	if (env_var)
 		free(env_var);
 	return (free(after_env), res);

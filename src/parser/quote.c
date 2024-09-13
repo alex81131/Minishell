@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/12 16:18:31 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:26:05 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*ps_combine_tokens(t_token *token)
 	{
 		if (token->value)
 		{
-			value = ft_strjoin_free(value, token->value, 1);
+			value = ft_ps_strjoin(value, token->value, 1);
 			if (!value)
 				break ;
 		}

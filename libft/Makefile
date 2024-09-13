@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:27:51 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/05 16:23:01 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/13 16:26:05 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = \
 		\
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
-		ft_lstmap.c 
+		ft_lstmap.c
 FT_PRINTF = \
 		ft_putchar.c ft_putstr.c ft_putnbr.c \
 		ft_printf.c ft_printf_number_hex.c\
@@ -44,7 +44,7 @@ GNL = \
 FDF = \
 		fdf.c
 MINISHELL = \
-		ft_strndup.c ft_strjoin_free.c
+		ft_strndup.c ft_ps_strjoin.c
 
 SRC_FILES = \
 		$(LIBFT) $(FT_PRINTF) $(GNL) $(FDF) $(MINISHELL)
