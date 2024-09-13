@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:14:36 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 15:59:55 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:36:21 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_token	*lexer(t_sh *sh, char *line)
 		else
 			i++;
 	}
-	printf("Works until lexer.\n");
 	return (token);
 }
 // cmd1 < input | cmd2 'arg2' "arg3" >> append
