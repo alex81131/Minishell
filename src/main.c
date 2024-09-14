@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 17:34:55 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:23:38 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	main_loop(t_sh *sh)
 			add_history(input);
 			if (analyze_line(sh, input))
 			{
-				ft_printf_fd(STDOUT_FILENO, "Error in handling line\n");
+				ft_printf_fd(STDOUT_FILENO, "Parsing error.\n");
 				sh->exit_code = 2;
 			}
 			input = NULL;

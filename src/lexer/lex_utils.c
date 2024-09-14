@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:11:55 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 15:59:51 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:22:29 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ static int	get_meta_char_type(char c)
 static int	lex_strlen(char *str)
 {
 	int	i;
+	int	len;
 
 	i = 0;
-	while (str[i])
+	len = ft_strlen(str);
+	while (i < len)
 	{
 		if (str[i] == '\'')
 			i += lex_quote_len(&(str[i]), '\'');
