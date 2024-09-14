@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 16:33:16 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/14 11:42:48 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static t_token	*ps_get_quote_str(char *str, char c, t_sh *sh)
 	type = DOUBLEQUOTE;
 	if (c == '\'')
 		type = SINGLEQUOTE;
-	if (len)
+	if (len > 0)
 		res = tok_create(str + 1, len, type, sh);
 	else
-		res = tok_create('\0', 1, STRING, sh);
+		res = tok_create("\0", 1, STRING, sh);
 	return (res);
 }
 
