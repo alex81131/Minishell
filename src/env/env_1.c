@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 17:12:40 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:45:14 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,24 @@ int	set_env_var(t_env **env, char *id, char *value)
 	t_env	*var;
 	t_env	*new;
 	char	*new_value;
+	char	*tmp;
 
 	new_value = ft_strdup(value);
 	if (!new_value)
 		return (EXIT_FAILURE);
-
+	tmp = ft_strjoin(id, "=");
+	if (!tmp)
+		return (0);
+	tmp = ps_strjoin(tmp, value);
+	if (!tmp)
+		return (0);
 	var = get_env_var(*env, id);
 	if (var)
 	{
 		free(var->value);
 		var->value = new_value;
+		free(var->sum);
+		var->sum = tmp;
 	}
 	else
 	{
@@ -67,7 +75,10 @@ int	set_env_var(t_env **env, char *id, char *value)
 		if (!new)
 			return (EXIT_FAILURE);
 		new->id = ft_strdup(id);
+		if (!new->id)
+			return (0);
 		new->value = new_value;
+		new->sum = tmp;
 		new->next = NULL;
 		env_var_add(env, new);
 	}
@@ -91,7 +102,7 @@ t_env	*env_create(char *env_entry)
 	new_env->sum = ft_strdup(env_entry);
 	new_env->id = ft_strndup(env_entry, eq_sign - env_entry);
 	new_env->value = ft_strdup(eq_sign + 1);
-	if (!new_env->sum || !new_env || !new_env)
+	if (!new_env->sum || !new_env->id || !new_env->value)//freelemek
 		return (NULL);
 	new_env->next = NULL;
 	return (new_env);
