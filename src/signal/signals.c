@@ -20,9 +20,9 @@ static int	sig_event(void)
 static void	sig_interrupt(int status)
 {
 	(void)status;
-	if (g_signal.signal_code != 1)
+	if (g_signals.signal_code != 1)
 	{
-		g_signal.signal_code = SIGNAL_OFFSET + SIGINT;
+		g_signals.signal_code = SIGNAL_OFFSET + SIGINT;
 		write(STDIN_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -44,14 +44,14 @@ void	sig_heredoc(int status)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	rl_done = 1;
-	g_signal.end_heredoc = 1;
-	g_signal.signal_code = SIGNAL_OFFSET + SIGINT;
+	g_signals.end_heredoc = 1;
+	g_signals.signal_code = SIGNAL_OFFSET + SIGINT;
 }
 
 void	sig_exec(int status)
 {
 	(void)status;
-	g_signal.signal_code = SIGNAL_OFFSET + SIGINT;
+	g_signals.signal_code = SIGNAL_OFFSET + SIGINT;
 	write(STDERR_FILENO, "\n", 1);
 }
 // sig_initiate:

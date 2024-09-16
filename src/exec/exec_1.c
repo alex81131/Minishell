@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 18:31:15 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:31:26 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void	wait_processes(t_sh *sh)
 		{
 			if (WIFEXITED(status))
 			{
-				//g_signals.signal_code = 0;
-				//sh->exit_code = WEXITSTATUS(status);
+				g_signals.signal_code = 0;
+				sh->exit_code = WEXITSTATUS(status);
 			}
 			else if (WIFSIGNALED(status))
 			{
-				// if (WTERMSIG(status) == SIGQUIT)
-				// 	ft_printf_fd(2, "[%d]: Quit (core dumped)\n", sh->pids[i]);
-				// g_signals.signal_code = SIGNAL_OFFSET + WTERMSIG(status);
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_printf_fd(2, "[%d]: Quit (core dumped)\n", sh->pids[i]);
+				g_signals.signal_code = SIGNAL_OFFSET + WTERMSIG(status);
 			}
 		}
 		i++;
@@ -46,10 +46,7 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	exit_code = 0;
 	signal(SIGQUIT, SIG_DFL);
 	if (cmd->next && cmd->fd_out == STDOUT_FILENO)
-	{
-		printf("HEY1\n");
 		dup2(fd_p[1], STDOUT_FILENO);
-	}
 	if (handle_files(cmd))
 	{
 		close_fd_io(sh);
@@ -59,7 +56,7 @@ static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
 	}
 	close_fd_io(sh);
 	close_fd_p(fd_p);
-	if (!is_builtin(sh->cmd->name))
+	if (!is_builtin(cmd->name))
 	{
 		exit_code = exec_builtin(sh, cmd->name, cmd->arg);
 		sh_free_all(sh);

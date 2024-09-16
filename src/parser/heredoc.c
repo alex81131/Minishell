@@ -38,9 +38,9 @@ static char	*ps_generate_random(char *str)
 
 static int	ps_heredoc_return(void)
 {
-	if (g_signal.end_heredoc == 1)
+	if (g_signals.end_heredoc == 1)
 	{
-		g_signal.end_heredoc = 0;
+		g_signals.end_heredoc = 0;
 		return (1);
 	}
 	return (0);
@@ -60,7 +60,7 @@ static int	ps_ini_heredoc(int fd, char *eof)
 				"Minishell: here_doc: called end-of-line (ctrl-d)\n");
 			break ;
 		}
-		if (!ft_strcmp(line, eof) || g_signal.end_heredoc == 1)
+		if (!ft_strcmp(line, eof) || g_signals.end_heredoc == 1)
 		{
 			free(line);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/15 16:45:14 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:47:18 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,13 @@ t_env	*env_create(char *env_entry)
 		return (NULL);
 	}
 	new_env->sum = ft_strdup(env_entry);
+	if (!new_env->sum)
+		return (NULL);
 	new_env->id = ft_strndup(env_entry, eq_sign - env_entry);
+	if (!new_env->id)
+		return (NULL);
 	new_env->value = ft_strdup(eq_sign + 1);
-	if (!new_env->sum || !new_env->id || !new_env->value)//freelemek
+	if (!new_env->value)
 		return (NULL);
 	new_env->next = NULL;
 	return (new_env);

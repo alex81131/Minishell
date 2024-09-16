@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:49:48 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/14 11:23:38 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/16 15:53:26 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_signal	g_signal = {0};
+t_signal	g_signals = {0};
 
 static void	print_welcome(void)
 {
@@ -80,6 +80,7 @@ static void	main_loop(t_sh *sh)
 
 	while (1)
 	{
+		sig_initiate();
 		input = readline(PROMPT);
 		if (!input)
 			break ;
@@ -108,8 +109,7 @@ int	main(int argc, char **argv, char **env)
 	sh = init_sh(env);
 	if (!sh)
 		return (0);
-	sig_initiate();
 	main_loop(sh);
-	ft_printf_fd(STDOUT_FILENO, "%s\n", "exit");
+	ft_printf_fd(STDERR_FILENO, "%s\n", "exit");
 	return (EXIT_SUCCESS);
 }

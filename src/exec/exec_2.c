@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 12:05:02 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:00:16 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ static char	*get_path(char *cmd, t_env *env)
 	if (cmd && !cmd[0])
 		return (NULL);
 	i = -1;
-	while (!env || (cmd[++i]) == '/')
-		return (ft_strdup(cmd));
+	while (cmd[++i])
+		if (!env || cmd[i] == '/')
+			return (ft_strdup(cmd));
 	path_value = get_env_var(env, "PATH")->value;
 	if (!path_value)
 		return (ft_strdup(cmd));
@@ -73,7 +74,7 @@ static char	**cnv_env_to_arr(t_env *env)
 		return (NULL);
 	while (env)
 	{
-		env_arr[i] = env->sum;
+		env_arr[i] = ft_strdup(env->sum);
 		env = env->next;
 		i++;
 	}

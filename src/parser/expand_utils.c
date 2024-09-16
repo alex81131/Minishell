@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 19:10:50 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/14 12:16:10 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/16 15:37:05 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ char	*ps_get_env_var(char *var, t_sh *sh)
 	if (name && !ft_strcmp(name, "?"))
 	{
 		free(name);
-		if (g_signal.signal_code)
+		if (g_signals.signal_code)
 		{
-			code = g_signal.signal_code;
-			g_signal.signal_code = 0;
+			code = g_signals.signal_code;
+			g_signals.signal_code = 0;
 			return (ft_itoa(code));
 		}
 		return (ft_itoa(sh->exit_code));

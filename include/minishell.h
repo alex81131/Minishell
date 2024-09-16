@@ -83,7 +83,7 @@ typedef struct s_signal
 	int				signal_code;
 }	t_signal;
 
-extern t_signal	g_signal;
+extern t_signal	g_signals;
 
 //	main + utils
 t_sh	*init_sh(char **env);
