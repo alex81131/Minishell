@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 19:50:43 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:56:58 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,26 @@ void	env_var_add(t_env **head_env, t_env *new)
 	}
 }
 
+int set_env_var_2(t_env **env, char *id, char *new_value, char *tmp)
+{
+	t_env	*new;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (EXIT_FAILURE);
+	new->id = ft_strdup(id);
+	if (!new->id)
+		return (free(new), EXIT_FAILURE);
+	new->value = new_value;
+	new->sum = tmp;
+	new->next = NULL;
+	env_var_add(env, new);
+	return (EXIT_SUCCESS);
+}
+
 int	set_env_var(t_env **env, char *id, char *value)
 {
 	t_env	*var;
-	t_env	*new;
 	char	*new_value;
 	char	*tmp;
 
@@ -52,18 +68,8 @@ int	set_env_var(t_env **env, char *id, char *value)
 		var->sum = tmp;
 	}
 	else
-	{
-		new = (t_env *)malloc(sizeof(t_env));
-		if (!new)
-			return (free(new_value), EXIT_FAILURE);
-		new->id = ft_strdup(id);
-		if (!new->id)
-			return (free(new_value), free(new), EXIT_FAILURE);
-		new->value = new_value;
-		new->sum = tmp;
-		new->next = NULL;
-		env_var_add(env, new);
-	}
+		if (set_env_var_2(env, id, new_value, tmp))
+			return (free(new_value), free(tmp), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
