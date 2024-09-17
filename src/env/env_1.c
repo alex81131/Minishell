@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 19:56:58 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:58:27 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	env_var_add(t_env **head_env, t_env *new)
 	}
 }
 
-int set_env_var_2(t_env **env, char *id, char *new_value, char *tmp)
+int	set_env_var_2(t_env **env, char *id, char *new_value, char *tmp)
 {
 	t_env	*new;
 
