@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/13 17:17:40 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/17 18:27:21 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ NAME	= minishell
 
 # Compiler and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3 -lreadline
+CFLAGS	= -Wall -Wextra -Werror -g3 # -fsanitize=address
 
 # Source files
 SRC_LEX	=	$(addprefix lexer/, \
@@ -70,7 +70,7 @@ LIBFT	=	libft/libft.a
 #######################################################
 
 $(NAME): $(OBJ)
-	@gcc $(CFLAGS) $^ $(LIBFT) -o  $@
+	@gcc $(CFLAGS) $^ $(LIBFT) -lreadline -o  $@
 	@printf "	\033[2K\r$(DARK_BLUE)minishell\t: $(LIGHT_GREEN)Updated\n\033[0m"
 
 all: $(OBJ_PATH) $(LIBFT) $(NAME) $(HEADER)

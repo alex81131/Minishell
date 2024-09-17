@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 14:52:02 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:45:46 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static char	*get_path(char *cmd, t_env *env)
 	final_path = get_final_path(paths, cmd);
 	free_array(paths);
 	return (final_path);
-
 }
 
 static char	**cnv_env_to_arr(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 14:42:19 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:50:02 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@ static void	wait_processes(t_sh *sh)
 	unlink_heredocs(sh);
 }
 
-static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p)
+static void	post_child_process(t_sh *sh, t_cmd *cmd, int *fd_p, int exit_code)
 {
-	int	exit_code;
-
-	exit_code = 0;
 	signal(SIGQUIT, SIG_DFL);
 	if (cmd->next && cmd->fd_out == STDOUT_FILENO)
 		dup2(fd_p[1], STDOUT_FILENO);
@@ -88,7 +85,7 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 		exit(3);
 	}
 	else if (!sh->pids[sh->pid_count])
-		post_child_process(sh, cmd, fd_p);
+		post_child_process(sh, cmd, fd_p, 0);
 	else
 		dup2(fd_p[0], STDIN_FILENO);
 	close_fd_p(fd_p);
@@ -123,13 +120,10 @@ int	pre_execution(t_sh *sh)
 {
 	sh->fd_in = dup(STDIN_FILENO);
 	sh->fd_out = dup(STDOUT_FILENO);
-
 	execution(sh);
-
 	dup2(sh->fd_in, STDIN_FILENO);
 	close(sh->fd_in);
 	dup2(sh->fd_out, STDOUT_FILENO);
 	close(sh->fd_out);
-
 	return (EXIT_SUCCESS);
 }

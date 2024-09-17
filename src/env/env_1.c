@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/16 18:36:47 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:39:37 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	env_var_add(t_env **head_env, t_env *new)
 {
 	t_env	*tmp;
 
-	if (!head_env || !new)
-		return ;//exit
 	if (!*head_env)
 		*head_env = new;
 	else
@@ -27,22 +25,6 @@ void	env_var_add(t_env **head_env, t_env *new)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-}
-
-t_env	*ps_fetch_var(t_env *env, char *var)
-{
-	t_env	*tmp;
-
-	if (!env)
-		return (NULL);
-	tmp = env;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->id, var) == 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
 }
 
 int	set_env_var(t_env **env, char *id, char *value)
@@ -57,10 +39,10 @@ int	set_env_var(t_env **env, char *id, char *value)
 		return (EXIT_FAILURE);
 	tmp = ft_strjoin(id, "=");
 	if (!tmp)
-		return (0);
+		return (free(new_value), EXIT_FAILURE);
 	tmp = ps_strjoin(tmp, value);
 	if (!tmp)
-		return (0);
+		return (free(new_value), EXIT_FAILURE);
 	var = get_env_var(*env, id);
 	if (var)
 	{
@@ -73,10 +55,10 @@ int	set_env_var(t_env **env, char *id, char *value)
 	{
 		new = (t_env *)malloc(sizeof(t_env));
 		if (!new)
-			return (EXIT_FAILURE);
+			return (free(new_value), EXIT_FAILURE);
 		new->id = ft_strdup(id);
 		if (!new->id)
-			return (0);
+			return (free(new_value), free(new), EXIT_FAILURE);
 		new->value = new_value;
 		new->sum = tmp;
 		new->next = NULL;

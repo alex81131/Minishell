@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:25:30 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 16:29:10 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/17 19:47:38 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
+
+t_env	*ps_fetch_var(t_env *env, char *var)
+{
+	t_env	*tmp;
+
+	if (!env)
+		return (NULL);
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->id, var) == 0)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 
 int	ps_check_all_null(t_token *token)
 {

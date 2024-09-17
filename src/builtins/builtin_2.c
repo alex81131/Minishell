@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 16:58:59 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:45:30 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ static int	pwd_update(t_env *env, char *old_cwd)
 			PROMPT);
 		return (EXIT_FAILURE);
 	}
-	set_env_var(&env, "OLDPWD", old_cwd);
-	set_env_var(&env, "PWD", cwd);
-	free(cwd);
-	free(old_cwd);
-	return (EXIT_SUCCESS);
+	if (set_env_var(&env, "OLDPWD", old_cwd))
+		return (free(cwd), free(old_cwd), EXIT_FAILURE);
+	if (set_env_var(&env, "PWD", cwd))
+		return (free(cwd), free(old_cwd), EXIT_FAILURE);
+	return (free(cwd), free(old_cwd), EXIT_SUCCESS);
 }
 
 int	exec_cd(t_env *env, t_arg *arg)
@@ -114,5 +114,5 @@ int	exec_cd(t_env *env, t_arg *arg)
 		new_dir = arg->value;
 	if (chdir(new_dir) != 0)
 		return (free(old_cwd), ft_printf_fd(2, "%s cd\n", PROMPT), 1);
-	return (pwd_update(env, old_cwd));
+	return (pwd_update(env, old_cwd), EXIT_SUCCESS);
 }
