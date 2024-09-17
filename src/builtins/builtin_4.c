@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:16:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 17:55:21 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:02:48 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	exec_exit(t_sh *sh, t_arg *arg)
 		if (ft_isnumeric(arg->value))
 		{
 			if (arg->next)
-				return (ft_printf_fd(2, "%s exit: too many arguments",
+				return (ft_printf_fd(2, "%s exit: too many arguments\n",
 						PROMPT), 1);
 			else
 				exit_status = ft_atoi(arg->value) % 255;
 		}
 		else
 		{
-			ft_printf_fd(2, "%s exit: %s: numeric argument required",
+			ft_printf_fd(2, "%s exit: %s: numeric argument required\n",
 				PROMPT, arg->value);
 			exit_status = 2;
 		}

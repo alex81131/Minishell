@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/16 17:00:16 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:52:02 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*get_final_path(char **paths, char *cmd)
 
 static char	*get_path(char *cmd, t_env *env)
 {
-	char	*path_value;
+	t_env	*path_env;
 	char	**paths;
 	char	*final_path;
 	int		i;
@@ -49,10 +49,10 @@ static char	*get_path(char *cmd, t_env *env)
 	while (cmd[++i])
 		if (!env || cmd[i] == '/')
 			return (ft_strdup(cmd));
-	path_value = get_env_var(env, "PATH")->value;
-	if (!path_value)
+	path_env = get_env_var(env, "PATH");
+	if (!path_env)
 		return (ft_strdup(cmd));
-	paths = ft_split(path_value, ':');
+	paths = ft_split(path_env->value, ':');
 	if (!paths)
 		return (ft_strdup(cmd));
 	final_path = get_final_path(paths, cmd);
@@ -94,7 +94,7 @@ static char	**get_cmd(char *cmd, t_arg *arg)
 		return (NULL);
 	i = 0;
 	final_cmd[i++] = ft_strdup(cmd);
-	if (arg)
+	while (arg)
 	{
 		final_cmd[i] = ft_strdup(arg->value);
 		arg = arg->next;

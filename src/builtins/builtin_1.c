@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:41:11 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 14:32:18 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:15:17 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_builtin(t_sh *sh, char *name, t_arg *arg)
 	else if (ft_strcmp(name, "pwd") == 0)
 		exec_pwd();
 	else if (ft_strcmp(name, "export") == 0)
-		exec_export(sh->env, arg);
+		exec_export(&(sh->env), arg);
 	else if (ft_strcmp(name, "unset") == 0)
 		exec_unset(&(sh->env), arg);
 	else if (ft_strcmp(name, "env") == 0)
@@ -34,19 +34,19 @@ int	exec_builtin(t_sh *sh, char *name, t_arg *arg)
 int	is_builtin(char *name)
 {
 	if (ft_strcmp(name, "echo") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "cd") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "pwd") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "export") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "unset") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "env") == 0)
-		return (EXIT_SUCCESS);
+		return (1);
 	else if (ft_strcmp(name, "exit") == 0)
 		return (2);
 	else
-		return (EXIT_FAILURE);
+		return (0);
 }

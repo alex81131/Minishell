@@ -6,18 +6,18 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/15 14:14:24 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:37:31 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_export(t_env *env, t_arg *arg)
+int	exec_export(t_env **env, t_arg *arg)
 {
 	char	*eq_sign;
 
 	if (!arg)
-		if (print_env(env))
+		if (print_env(*env))
 			return (EXIT_FAILURE);
 	while (arg)
 	{
@@ -25,7 +25,7 @@ int	exec_export(t_env *env, t_arg *arg)
 		if (eq_sign)
 		{
 			*eq_sign = '\0';
-			if (set_env_var(&env, arg->value, eq_sign + 1))
+			if (set_env_var(env, arg->value, eq_sign + 1))
 				return (EXIT_FAILURE);
 			*eq_sign = '=';
 		}

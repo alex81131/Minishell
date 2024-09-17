@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 17:31:20 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:58:59 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	exec_pwd(void)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		ft_printf_fd(STDERR_FILENO, "%s getcwd() error", PROMPT);
+		ft_printf_fd(STDERR_FILENO, "%s getcwd() error\n", PROMPT);
 		return (EXIT_FAILURE);
 	}
 	printf("%s %s\n", PROMPT, cwd);
@@ -77,7 +77,7 @@ static int	pwd_update(t_env *env, char *old_cwd)
 	if (!cwd)
 	{
 		free(old_cwd);
-		ft_printf_fd(STDERR_FILENO, "%s cd: error retrieving current directory",
+		ft_printf_fd(2, "%s cd: error retrieving current directory\n",
 			PROMPT);
 		return (EXIT_FAILURE);
 	}
@@ -97,22 +97,22 @@ int	exec_cd(t_env *env, t_arg *arg)
 
 	size = arg_lstsize(arg);
 	if (size > 1)
-		return (ft_printf_fd(2, "%scd: too many arguments", PROMPT), 1);
+		return (ft_printf_fd(2, "%scd: too many arguments\n", PROMPT), 1);
 	old_cwd = getcwd(NULL, 0);
 	if (!old_cwd)
-		return (ft_printf_fd(STDERR_FILENO, "%s getcwd() error", PROMPT), 1);
+		return (ft_printf_fd(2, "%s getcwd() error %s\n", PROMPT,
+				strerror(errno)), chdir("/"), 1);
 	if ((size == 0 || ft_strcmp(arg->value, "--") == 0))
 	{
 		home_env = get_env_var(env, "HOME");
 		if (!home_env || !home_env->value)
-			return (free(old_cwd), ft_printf_fd(STDERR_FILENO,
+			return (free(old_cwd), ft_printf_fd(2,
 					"%s cd: HOME not set\n", PROMPT), 1);
 		new_dir = home_env->value;
-		free(home_env);
 	}
 	else
 		new_dir = arg->value;
 	if (chdir(new_dir) != 0)
-		return (free(old_cwd), ft_printf_fd(STDERR_FILENO, "%s cd", PROMPT), 1);
+		return (free(old_cwd), ft_printf_fd(2, "%s cd\n", PROMPT), 1);
 	return (pwd_update(env, old_cwd));
 }

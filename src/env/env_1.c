@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:15:31 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/16 13:47:18 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:36:47 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_env	*create_env_list(char **env)
 
 	env_list = NULL;
 	if (!env || !*env)
-		return (env_create("_=/usr/bin/env"));
+		return (env_create("Minishell=Minishell"));
 	i = 0;
 	while (env[i])
 	{

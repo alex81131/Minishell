@@ -1,0 +1,23 @@
+en.subject.pdf
+include
+libft
+Makefile
+minishell
+obj
+out
+README.md
+src
+tclaudel
+t.txt
+total 1928
+-rw-r--r--  1 tkaragoz 2024_paris 1568461 Sep  5 17:23 en.subject.pdf
+drwxr-xr-x  2 tkaragoz 2024_paris     135 Sep 13 18:36 include
+drwxr-xr-x  4 tkaragoz 2024_paris      80 Sep 15 13:35 libft
+-rw-r--r--  1 tkaragoz 2024_paris    4787 Sep 13 17:17 Makefile
+-rwxr-xr-x  1 tkaragoz 2024_paris  383792 Sep 17 16:59 minishell
+drwxr-xr-x 10 tkaragoz 2024_paris     128 Sep 16 19:11 obj
+-rw-r--r--  1 tkaragoz 2024_paris      85 Sep 17 17:11 out
+-rw-r--r--  1 tkaragoz 2024_paris     164 Sep 12 15:35 README.md
+drwxr-xr-x 10 tkaragoz 2024_paris     128 Sep 15 13:35 src
+drwxr-xr-x  4 tkaragoz 2024_paris      64 Sep  5 17:23 tclaudel
+-rw-r--r--  1 tkaragoz 2024_paris       8 Sep 17 13:48 t.txt
