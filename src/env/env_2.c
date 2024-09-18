@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:27:43 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/16 15:10:03 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:49:49 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	print_env(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		printf("%s\n", tmp->sum);
+		if (*tmp->value)
+			printf("%s\n", tmp->sum);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
