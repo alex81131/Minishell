@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/18 13:33:55 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/18 13:51:05 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,18 +80,11 @@ exec:
 	@$(MAKE) all
 	@./minishell
 
-$(LIBFT): #libft/include/libft.h
+$(LIBFT):
 	@$(MAKE) -C libft/
 
 $(OBJ_PATH):
-	@mkdir -p obj/ 2> /dev/null
-	@mkdir -p obj/parsing 2> /dev/null
-	@mkdir -p obj/exec 2> /dev/null
-	@mkdir -p obj/var 2> /dev/null
-	@mkdir -p obj/display 2> /dev/null
-	@mkdir -p obj/redirection 2> /dev/null
-	@mkdir -p obj/utils 2> /dev/null
-	@mkdir -p obj/signal 2> /dev/null
+	@mkdir -p $(OBJ_PATH) 2> /dev/null
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HEADER)/minishell.h Makefile
 	@mkdir -p $(dir $@)
@@ -115,7 +108,8 @@ clean:
 	@sleep 0.1
 	@printf "\33[2K\r$(LIGHT_RED)Deleting minishell srcs/...	\033[37m"
 	@sleep 0.1
-	@${RM} ${OBJ_PATH} cube3D.dSYM
+	@make -C libft/ clean
+	@${RM} ${OBJ_PATH}
 	@printf "\33[2K\r$(LIGHT_RED)Deleted successfully!\n\033[0m"
 
 fclean: clean

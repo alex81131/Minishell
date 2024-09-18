@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:27:51 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/18 13:26:44 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/18 13:51:30 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 
 
 NAME	= libft.a
-RM		= rm -f
+RM		= rm -rf
 HEADER	= include
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HEADER) Makefile
@@ -70,7 +70,7 @@ ${NAME}: $(OBJ)
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ_PATH)
 
 fclean: clean
 	$(RM) $(NAME)
