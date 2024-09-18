@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/18 13:51:05 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/18 17:57:10 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ SRC_EXEC	=	$(addprefix exec/, \
 SRC_SIG	=	$(addprefix signal/, \
 				signals.c)
 SRC_ENV	=	$(addprefix env/, \
-				env_1.c				env_2.c)
+				env_1.c				env_2.c			env_3.c)
 SRC_UTILS	=	$(addprefix utils/, \
 				utils.c)
 SRC_BT	=	$(addprefix builtins/, \

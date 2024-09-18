@@ -6,14 +6,31 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/16 18:37:31 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:39:25 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	check_id(char *id)
+{
+	int	i;
+
+	if (!*id || (!ft_isalpha(*id) && *id != '_'))
+		return (EXIT_FAILURE);
+	i = 1;
+	while (id[i])
+	{
+		if (!ft_isalnum(id[i]) && id[i] != '_')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	exec_export(t_env **env, t_arg *arg)
 {
+	char	*id;
 	char	*eq_sign;
 
 	if (!arg)
@@ -21,13 +38,22 @@ int	exec_export(t_env **env, t_arg *arg)
 			return (EXIT_FAILURE);
 	while (arg)
 	{
-		eq_sign = ft_strchr(arg->value, '=');
-		if (eq_sign)
+		id = env_get_id(arg->value);
+		if (!id || check_id(id))
+			return (ft_printf_fd(2, "%s: export: %s: not a valid identifier\n",
+					PROMPT, id), free(id), 1);
+		else
 		{
-			*eq_sign = '\0';
-			if (set_env_var(env, arg->value, eq_sign + 1))
-				return (EXIT_FAILURE);
-			*eq_sign = '=';
+			eq_sign = ft_strchr(arg->value, '=');
+			if (eq_sign)
+			{
+				*eq_sign = '\0';
+				if (set_env_var(env, arg->value, eq_sign + 1))
+					return (free(id), EXIT_FAILURE);
+				*eq_sign = '=';
+			}
+			else if (set_env_var(env, arg->value, ""))
+				return (free(id), EXIT_FAILURE);
 		}
 		arg = arg->next;
 	}
