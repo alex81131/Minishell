@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:28:32 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 17:12:17 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/18 16:00:32 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	parser(t_token **token)
 	else if (ps_remove_null(token))
 		err = 1;
 	else if (ps_check_all_null(*token))
-		err = 1;
+		err = 2;
 	else if (ps_analyze_redir(*token))
 		err = 1;
 	else if (ps_analyze_cmd(*token))
