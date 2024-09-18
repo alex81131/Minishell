@@ -6,13 +6,13 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:27:51 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/17 18:26:29 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/18 13:26:44 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g3 -fPIC #-fsanitize=address
 LIBC	= ar rcs
 
 # Source files

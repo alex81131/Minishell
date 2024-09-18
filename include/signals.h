@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 19:02:27 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/06 19:02:27 by kyeh             ###   ########.fr       */
+/*   Created: 2024/09/18 13:30:40 by tkaragoz          #+#    #+#             */
+/*   Updated: 2024/09/18 13:30:40 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
 void	sig_initiate(void);
 void	sig_heredoc(int status);

@@ -6,7 +6,7 @@
 #    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/17 18:27:21 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/18 13:33:55 by tkaragoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,19 +69,18 @@ RM		=	rm -rf
 LIBFT	=	libft/libft.a
 #######################################################
 
-$(NAME): $(OBJ)
-	@gcc $(CFLAGS) $^ $(LIBFT) -lreadline -o  $@
+$(NAME): $(OBJ) $(LIBFT)
+	@gcc $(CFLAGS) $^ -lreadline -o  $@
 	@printf "	\033[2K\r$(DARK_BLUE)minishell\t: $(LIGHT_GREEN)Updated\n\033[0m"
 
 all: $(OBJ_PATH) $(LIBFT) $(NAME) $(HEADER)
-	@:
 
 e:	exec
 exec:
 	@$(MAKE) all
 	@./minishell
 
-$(LIBFT): libft/include/libft.h
+$(LIBFT): #libft/include/libft.h
 	@$(MAKE) -C libft/
 
 $(OBJ_PATH):
@@ -121,30 +120,31 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	@make -C libft/ fclean
 
 re:
 	@$(MAKE) fclean
 	@make -C libft/ re
 	@$(MAKE) all
 
-lib:
-	@$(MAKE) -C libft
-cleanlib:
-	@$(MAKE) clean
-	@$(MAKE) -C libft/ clean
-fcleanlib:
-	@$(MAKE) fclean
-	@$(MAKE) -C libft/ fclean
-relib:
-	@$(MAKE) fclean
-	@$(MAKE) -C libft/ re
-	@$(MAKE) all
+# lib:
+# 	@$(MAKE) -C libft
+# cleanlib:
+# 	@$(MAKE) clean
+# 	@$(MAKE) -C libft/ clean
+# fcleanlib:
+# 	@$(MAKE) fclean
+# 	@$(MAKE) -C libft/ fclean
+# relib:
+# 	@$(MAKE) fclean
+# 	@$(MAKE) -C libft/ re
+# 	@$(MAKE) all
 
-test: all
-	@sh tester/test.sh 0.01
-	@printf "\33[2K\r$(GREEN)Test done\n\n\033[0m"
+# test: all
+# 	@sh tester/test.sh 0.01
+# 	@printf "\33[2K\r$(GREEN)Test done\n\n\033[0m"
 
-.PHONY: all e exec libft/include/libft.h clean fclean re lib cleanlib fcleanlib relib test
+.PHONY: all e exec clean fclean re #lib cleanlib fcleanlib relib test
 #	@mkdir -p $(dir $@) is used in Makefile rules to ensure that the directory where the object file will be placed exists before attempting to create the object file.
 #		-p flag creates any missing parent directories in the specified path:
 #			mkdir -p path/to/directory

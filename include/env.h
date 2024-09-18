@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:06:07 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/13 13:46:37 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:30:13 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ void	env_free(t_env *head);
 int		print_env(t_env *env);
 int		env_lstsize(t_env *env);
 t_env	*ps_fetch_var(t_env *env, char *var);
-
 
 #endif

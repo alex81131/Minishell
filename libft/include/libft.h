@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 12:27:34 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/13 16:26:35 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:30:04 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,5 @@ void	ft_tolower_char(char *c);
 //	<Minishell>
 char	*ft_strndup(const char *str, int n);
 char	*ft_strjoin_free(char *s1, char *s2, int option);
-
 
 #endif
