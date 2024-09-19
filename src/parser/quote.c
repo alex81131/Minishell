@@ -6,7 +6,7 @@
 /*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:21:43 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/14 11:42:48 by kyeh             ###   ########.fr       */
+/*   Updated: 2024/09/19 18:42:54 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,22 @@ static t_token	*ps_parse_quotes(char *str, t_sh *sh)
 static char	*ps_combine_tokens(t_token *token)
 {
 	char	*value;
+	char	*temp;
 
-	value = NULL;
+	value = ft_strdup("");
+	if (!value)
+		return (NULL);
 	while (token)
 	{
 		if (token->value)
 		{
-			value = ps_strjoin(value, token->value);
-			if (!value)
+			temp = ps_strjoin(value, token->value);
+			if (!temp)
+			{
+				free(value);
 				break ;
+			}
+			value = temp;
 		}
 		token = token->next;
 	}
