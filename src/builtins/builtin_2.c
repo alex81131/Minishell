@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/18 14:58:04 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:53:02 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int	exec_cd(t_env *env, t_arg *arg)
 	else
 		new_dir = arg->value;
 	if (chdir(new_dir) != 0)
-		return (free(old_cwd), ft_printf_fd(2, "%s cd\n", PROMPT), 1);
+		return (free(old_cwd), ft_printf_fd(2, "%s cd: %s: %s\n", PROMPT, new_dir, strerror(errno)), 1);
 	return (pwd_update(env, old_cwd), EXIT_SUCCESS);
 }
