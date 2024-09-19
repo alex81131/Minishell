@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:42:05 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 11:53:02 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:57:40 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,14 @@ int	exec_cd(t_env *env, t_arg *arg)
 	t_env	*home_env;
 	char	*old_cwd;
 	char	*new_dir;
-	int		size;
 
-	size = arg_lstsize(arg);
-	if (size > 1)
+	if (arg_lstsize(arg) > 1)
 		return (ft_printf_fd(2, "%scd: too many arguments\n", PROMPT), 1);
 	old_cwd = getcwd(NULL, 0);
 	if (!old_cwd)
 		return (ft_printf_fd(2, "%s getcwd() error %s\n", PROMPT,
 				strerror(errno)), chdir("/"), 1);
-	if ((size == 0 || ft_strcmp(arg->value, "--") == 0))
+	if ((arg_lstsize(arg) == 0 || ft_strcmp(arg->value, "--") == 0))
 	{
 		home_env = get_env_var(env, "HOME");
 		if (!home_env || !home_env->value)
@@ -113,6 +111,7 @@ int	exec_cd(t_env *env, t_arg *arg)
 	else
 		new_dir = arg->value;
 	if (chdir(new_dir) != 0)
-		return (free(old_cwd), ft_printf_fd(2, "%s cd: %s: %s\n", PROMPT, new_dir, strerror(errno)), 1);
+		return (free(old_cwd), ft_printf_fd(2, "%s cd: %s: %s\n", PROMPT,
+				new_dir, strerror(errno)), 1);
 	return (pwd_update(env, old_cwd), EXIT_SUCCESS);
 }
