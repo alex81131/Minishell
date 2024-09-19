@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:06:07 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/18 17:38:43 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:12:06 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		print_env(t_env *env);
 int		env_lstsize(t_env *env);
 t_env	*ps_fetch_var(t_env *env, char *var);
 char	*env_get_id(char *sum);
+int		set_variable(t_env **env, char *arg_value);
 
 #endif

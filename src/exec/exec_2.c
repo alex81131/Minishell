@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 13:24:47 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:20:55 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ static char	**get_cmd(char *cmd, t_arg *arg)
 
 int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 {
-	char	*path;
-	char	**final_cmd;
-	char	**env;
+	char		*path;
+	char		**final_cmd;
+	char		**env;
+	struct stat	path_stat;
 
 	if (!cmd)
 		return (0);
@@ -115,6 +116,8 @@ int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 	if (!path)
 		return (ft_printf_fd(STDERR_FILENO, "Command path is not found: %s\n",
 				strerror(errno)), -1);
+	if (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
+		return (ft_printf_fd(2, "%s: Is a directory\n", cmd), free(path), -1);
 	env = cnv_env_to_arr(sh->env);
 	if (!env)
 		return (free(path), -1);
@@ -123,8 +126,7 @@ int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 		return (free(path), free_array(env), -1);
 	if (execve(path, final_cmd, env) == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "Command is not found: %s\n",
-			strerror(errno));
+		ft_printf_fd(2, "Command is not found: %s\n", strerror(errno));
 		return (free(path), free_array(env), free_array(final_cmd), -2);
 	}
 	return (free(path), free_array(env), free_array(final_cmd), 0);

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 13:25:37 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:57:37 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	wait_processes(t_sh *sh)
 			}
 			else if (WIFSIGNALED(status))
 			{
-				if (WTERMSIG(status) == SIGQUIT)
+				if (WTERMSIG(status) == SIGQUIT
+					&& g_signals.signal_code != SIGNAL_OFFSET + SIGQUIT)
 					ft_printf_fd(2, "[%d]: Quit (core dumped)\n", sh->pids[i]);
 				g_signals.signal_code = SIGNAL_OFFSET + WTERMSIG(status);
 			}
