@@ -6,11 +6,26 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:16:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/17 15:02:48 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:35:55 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	print_export(t_env *env)
+{
+	t_env	*tmp;
+
+	if (!env)
+		return (EXIT_FAILURE);
+	tmp = env;
+	while (tmp)
+	{
+		printf("%s\n", tmp->sum);
+		tmp = tmp->next;
+	}
+	return (EXIT_SUCCESS);
+}
 
 static int	ft_isnumeric(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 18:45:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 15:20:55 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:57:02 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	exec_cmd(t_sh *sh, char *cmd, t_arg *arg)
 
 	if (!cmd)
 		return (0);
+	if (!*cmd)
+		exit (EXIT_SUCCESS);
 	path = get_path(cmd, sh->env);
 	if (!path)
 		return (ft_printf_fd(STDERR_FILENO, "Command path is not found: %s\n",

@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:14:13 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 17:11:34 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:02:27 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,28 @@ int	check_id(char *id)
 int	exec_export(t_env **env, t_arg *arg)
 {
 	char	*id;
+	int		if_err;
 
+	if_err = EXIT_SUCCESS;
 	if (!arg)
-		if (print_env(*env))
+		if (print_export(*env))
 			return (EXIT_FAILURE);
 	while (arg)
 	{
 		id = env_get_id(arg->value);
 		if (!id || check_id(id))
-			return (ft_printf_fd(2, "%s: export: %s: not a valid identifier\n",
-					PROMPT, id), free(id), 1);
+		{
+			ft_printf_fd(2, "%s: export: %s: not a valid identifier\n",
+				PROMPT, id);
+			if_err = EXIT_FAILURE;
+		}
 		else
 			if (set_variable(env, arg->value))
 				return (free(id), EXIT_FAILURE);
 		free(id);
 		arg = arg->next;
 	}
-	return (EXIT_SUCCESS);
+	return (if_err);
 }
 
 int	exec_env(t_env *env, t_arg *arg)
