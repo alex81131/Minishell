@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:17 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/19 16:57:37 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:13:34 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 
 	fd_p[0] = -1;
 	fd_p[1] = -1;
-	if (cmd->next && pipe(fd_p) == -1)
+	if (pipe(fd_p) == -1)
 	{
 		ft_printf_fd(2, "%s %s\n", PROMPT, strerror(errno));
 		exit(2);
@@ -87,8 +87,7 @@ static void	child_process(t_sh *sh, t_cmd *cmd)
 	}
 	else if (!sh->pids[sh->pid_count])
 		post_child_process(sh, cmd, fd_p, 0);
-	else
-		dup2(fd_p[0], STDIN_FILENO);
+	dup2(fd_p[0], STDIN_FILENO);
 	close_fd_p(fd_p);
 }
 
