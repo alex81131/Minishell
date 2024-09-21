@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+         #
+#    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/18 17:57:10 by tkaragoz         ###   ########.fr        #
+#    Updated: 2024/09/21 19:45:01 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ clean:
 	@printf "\33[2K\r$(LIGHT_RED)Deleted successfully!\n\033[0m"
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	@make -C libft/ fclean
 
 re:
