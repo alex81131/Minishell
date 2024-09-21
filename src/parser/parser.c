@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:28:32 by kyeh              #+#    #+#             */
-/*   Updated: 2024/09/19 14:37:29 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:26:07 by kyeh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ static int	ps_analyze_redir(t_token *token)
 				return (1);
 			token->next->type = FILENAME;
 		}
-		else if (token->type == PIPE && !token->next)
+		else if ((token->type == PIPE && !token->next) \
+				|| (token->type == PIPE && token->next->type == PIPE))
 			return (1);
 		token = token->next;
 	}
