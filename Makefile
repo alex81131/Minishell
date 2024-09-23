@@ -6,7 +6,7 @@
 #    By: kyeh <kyeh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:58:30 by kyeh              #+#    #+#              #
-#    Updated: 2024/09/21 19:45:01 by kyeh             ###   ########.fr        #
+#    Updated: 2024/09/23 18:00:57 by kyeh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,20 +39,20 @@ SRC_PAR	=	$(addprefix parser/, \
 				parser.c			expansion.c			quote.c \
 				parser_utils.c		expand_utils.c		heredoc.c)
 SRC_BLD	=	$(addprefix builder/, \
-				builder.c			builder_utils.c 		filename.c \
+				builder.c			builder_utils.c 	filename.c \
 				arg.c)
 SRC_EXEC	=	$(addprefix exec/, \
-				exec_1.c			exec_2.c		exec_utils.c \
+				exec.c				exec_cmd.c			exec_utils.c \
 				redirs.c)
 SRC_SIG	=	$(addprefix signal/, \
 				signals.c)
 SRC_ENV	=	$(addprefix env/, \
-				env_1.c				env_2.c			env_3.c)
+				env.c				env_utils.c			env_utils2.c)
 SRC_UTILS	=	$(addprefix utils/, \
 				utils.c)
 SRC_BT	=	$(addprefix builtins/, \
-				builtin_1.c			builtin_2.c		builtin_3.c \
-				builtin_4.c)
+				builtin.c			bt_pwd_echo_cd.c		bt_export_env_unset.c \
+				bt_export_exit.c)
 SRC_FILES	=	main.c $(SRC_LEX) $(SRC_PAR) $(SRC_BLD) $(SRC_EXEC) $(SRC_SIG) $(SRC_ENV) $(SRC_UTILS) $(SRC_BT)
 SRC_PATH	=	src/
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_FILES))
