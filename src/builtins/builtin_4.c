@@ -6,7 +6,7 @@
 /*   By: tkaragoz <tkaragoz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:16:16 by tkaragoz          #+#    #+#             */
-/*   Updated: 2024/09/20 13:35:55 by tkaragoz         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:19:54 by tkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exec_exit(t_sh *sh, t_arg *arg)
 {
 	int	exit_status;
 
-	exit_status = 0;
+	exit_status = sh->exit_code;
 	if (arg)
 	{
 		if (ft_isnumeric(arg->value))
