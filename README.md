@@ -1,7 +1,7 @@
 # Minishell
 A "simple" shell that took us 2 months to build.
 
-# Resources
+## Resources
 [`Guide from Charlotte`](https://github.com/Roychrltt/Guide_Minishell) <br>
 [`Help from Tsung-Hao`](https://github.com/nyzss/minishell) <br>^- Fixed: invalid variable, flawed pipe handling(cat|cat|ls), and simpler error message handling) <br>
 [`Help from Jean`](https://github.com/Haliris/minishell) <br>
